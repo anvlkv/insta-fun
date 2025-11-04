@@ -29,6 +29,8 @@ pub struct SnapshotConfig {
     pub svg_height_per_channel: Option<usize>,
     /// Processing mode for snapshotting an audio node.
     pub processing_mode: Processing,
+    /// Whether to include inputs in snapshot
+    pub with_inputs: bool,
 }
 
 /// Processing mode for snapshotting an audio node.
@@ -51,6 +53,7 @@ impl Default for SnapshotConfig {
             svg_width: None,
             svg_height_per_channel: Some(DEFAULT_HEIGHT),
             processing_mode: Processing::default(),
+            with_inputs: false,
         }
     }
 }
@@ -170,7 +173,14 @@ pub fn snapshot_audio_node_with_input<N>(node: N, input_source: InputSource) -> 
 where
     N: AudioUnit,
 {
-    snapshot_audio_node_with_input_and_options(node, input_source, SnapshotConfig::default())
+    snapshot_audio_node_with_input_and_options(
+        node,
+        input_source,
+        SnapshotConfig {
+            with_inputs: true,
+            ..SnapshotConfig::default()
+        },
+    )
 }
 
 /// Create an SVG snapshot of audio node inputs and outputs, with options
@@ -311,7 +321,13 @@ fn generate_svg(
     config: &SnapshotConfig,
 ) -> String {
     let height_per_channel = config.svg_height_per_channel.unwrap_or(DEFAULT_HEIGHT);
-    let num_channels = output_data.len() + input_data.len();
+    let num_channels = output_data.len() + {
+        if config.with_inputs {
+            input_data.len()
+        } else {
+            0
+        }
+    };
     let num_samples = output_data.first().map(|c| c.len()).unwrap_or(0);
     if num_samples == 0 || num_channels == 0 {
         return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\"><text>Empty</text></svg>".to_string();
@@ -367,15 +383,15 @@ fn generate_svg(
                 let normalized = (sample.clamp(min_val, max_val) - min_val) / range * 2.0 - 1.0;
                 let y = y_center as f32 - normalized * y_scale;
                 if i == 0 {
-                    write!(&mut path_data, "{:.6},{:.6} ", x, y).unwrap();
+                    write!(&mut path_data, "{:.3},{:.3} ", x, y).unwrap();
                 } else {
-                    write!(&mut path_data, "L {:.6},{:.6} ", x, y).unwrap();
+                    write!(&mut path_data, "L {:.3},{:.3} ", x, y).unwrap();
                 }
             }
 
             writeln!(
                 &mut svg,
-                r#"  <path d="{path_data}" fill="none" stroke="{color}" stroke-width="{stroke_width}"/>"#,
+                r#"  <path d="{path_data}" fill="none" stroke="{color}" stroke-width="{stroke_width:.3}"/>"#,
             )
             .unwrap();
 
@@ -393,7 +409,9 @@ fn generate_svg(
         }
     };
 
-    write_data(input_data, true);
+    if config.with_inputs {
+        write_data(input_data, true);
+    }
     write_data(output_data, false);
 
     svg.push_str("</svg>");
@@ -519,8 +537,11 @@ mod tests {
     }
 
     #[test]
-    fn test_multi_channel_vec_by_channel() {
-        let config = SnapshotConfig::with_samples(150);
+    fn test_multi_channel_vec_by_channel_with_inputs() {
+        let config = SnapshotConfig {
+            with_inputs: true,
+            ..SnapshotConfig::with_samples(150)
+        };
         // Create stereo input data
         let left_channel: Vec<f32> = (0..150)
             .map(|i| (i as f32 / 75.0 * std::f32::consts::PI).sin())
@@ -537,7 +558,10 @@ mod tests {
             config,
         );
 
-        insta::assert_binary_snapshot!("multi_channel_vec_by_channel.svg", svg.into_bytes())
+        insta::assert_binary_snapshot!(
+            "multi_channel_vec_by_channel_with_inputs.svg",
+            svg.into_bytes()
+        )
     }
 
     #[test]
