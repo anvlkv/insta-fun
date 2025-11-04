@@ -13,7 +13,7 @@ use insta_fun::*;
 use fundsp::prelude::*;
 
 // Simple snapshot
-let node = sine_hz(440.0);
+let node = sine_hz::<f32>(440.0);
 snapshot_audio_node("sine_440", node);
 
 // With input signal
@@ -22,7 +22,7 @@ snapshot_audio_node_with_input("lowpass", filter, InputSource::impulse());
 
 // Custom configuration
 let config = SnapshotConfig::with_samples(100);
-snapshot_audio_node_with_options("short_sine", sine_hz(440.0), config);
+snapshot_audio_node_with_options("short_sine", sine_hz::<f32>(440.0), config);
 ```
 
 ## Features

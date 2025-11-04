@@ -63,9 +63,28 @@ impl SnapshotConfig {
     }
 }
 
+/// Input provided to the audio node
 pub enum InputSource {
+    /// No input
     None,
-    Array(Vec<Vec<f32>>),
+    /// Input provided by a channel vec
+    ///
+    /// - First vec contains all **channels**
+    /// - Second vec contains **samples** per channel
+    VecByChannel(Vec<Vec<f32>>),
+    /// Input provided by a tick vec
+    ///
+    /// - First vec contains all **ticks**
+    /// - Second vec contains **samples** for all **channels** per tick
+    VecByTick(Vec<Vec<f32>>),
+    /// Input **repeated** on every tick
+    ///
+    /// - Vector contains **samples** for all **channels** for **one** tick
+    Flat(Vec<f32>),
+    /// Input provided by a generator function
+    ///
+    /// - First argument is the sample index
+    /// - Second argument is the channel index
     Generator(Box<dyn Fn(usize, usize) -> f32>),
 }
 
@@ -184,9 +203,51 @@ pub fn snapshot_audionode_with_input_and_options<N>(
 
     let input_data = match input_source {
         InputSource::None => vec![vec![0.0; config.num_samples]; num_inputs],
-        InputSource::Array(data) => {
-            assert_eq!(data.len(), num_inputs, "input array size mismatch");
+        InputSource::VecByChannel(data) => {
+            assert_eq!(
+                data.len(),
+                num_inputs,
+                "Input vec size mismatch. Expected {} channels, got {}",
+                num_inputs,
+                data.len()
+            );
+            assert!(
+                data.iter().all(|v| v.len() == config.num_samples),
+                "Input vec size mismatch. Expected {} samples per channel, got {}",
+                config.num_samples,
+                data.iter().map(|v| v.len()).max().unwrap_or(0)
+            );
             data
+        }
+        InputSource::VecByTick(data) => {
+            assert!(
+                data.iter().all(|v| v.len() == num_inputs),
+                "Input vec size mismatch. Expected {} channels, got {}",
+                num_inputs,
+                data.iter().map(|v| v.len()).max().unwrap_or(0)
+            );
+            assert_eq!(
+                data.len(),
+                config.num_samples,
+                "Input vec size mismatch. Expected {} samples, got {}",
+                config.num_samples,
+                data.len()
+            );
+            (0..num_inputs)
+                .map(|ch| (0..config.num_samples).map(|i| data[i][ch]).collect())
+                .collect()
+        }
+        InputSource::Flat(data) => {
+            assert_eq!(
+                data.len(),
+                num_inputs,
+                "Input vec size mismatch. Expected {} channels, got {}",
+                num_inputs,
+                data.len()
+            );
+            (0..num_inputs)
+                .map(|ch| (0..config.num_samples).map(|_| data[ch]).collect())
+                .collect()
         }
         InputSource::Generator(generator_fn) => (0..num_inputs)
             .map(|ch| {
@@ -361,7 +422,7 @@ mod tests {
         snapshot_audionode_with_input_and_options(
             "filter_sine",
             lowpass_hz(500.0, 0.7),
-            InputSource::Array(vec![input]),
+            InputSource::VecByChannel(vec![input]),
             config,
         );
     }
@@ -409,5 +470,66 @@ mod tests {
         let node = sine_hz::<f32>(440.0);
 
         snapshot_audio_node_with_options("process_64", node, config);
+    }
+
+    #[test]
+    fn test_vec_by_tick() {
+        let config = SnapshotConfig::with_samples(100);
+        // Create input data organized by ticks (100 ticks, 1 channel each)
+        let input_data: Vec<Vec<f32>> = (0..100).map(|i| vec![(i as f32 / 50.0).cos()]).collect();
+
+        snapshot_audionode_with_input_and_options(
+            "vec_by_tick",
+            lowpass_hz(800.0, 0.5),
+            InputSource::VecByTick(input_data),
+            config,
+        );
+    }
+
+    #[test]
+    fn test_flat_input() {
+        let config = SnapshotConfig::with_samples(200);
+        // Flat input repeated for every tick
+        let flat_input = vec![0.5];
+
+        snapshot_audionode_with_input_and_options(
+            "flat_input",
+            highpass_hz(200.0, 0.7),
+            InputSource::Flat(flat_input),
+            config,
+        );
+    }
+
+    #[test]
+    fn test_sine_input_source() {
+        let config = SnapshotConfig::with_samples(200);
+
+        snapshot_audionode_with_input_and_options(
+            "sine_input_source",
+            bandpass_hz(1000.0, 500.0),
+            InputSource::sine(100.0, 44100.0),
+            config,
+        );
+    }
+
+    #[test]
+    fn test_multi_channel_vec_by_channel() {
+        let config = SnapshotConfig::with_samples(150);
+        // Create stereo input data
+        let left_channel: Vec<f32> = (0..150)
+            .map(|i| (i as f32 / 75.0 * std::f32::consts::PI).sin())
+            .collect();
+        let right_channel: Vec<f32> = (0..150)
+            .map(|i| (i as f32 / 75.0 * std::f32::consts::PI).cos())
+            .collect();
+
+        let node = resonator_hz(440.0, 100.0) | resonator_hz(440.0, 100.0);
+
+        snapshot_audionode_with_input_and_options(
+            "multi_channel_vec",
+            node,
+            InputSource::VecByChannel(vec![left_channel, right_channel]),
+            config,
+        );
     }
 }
