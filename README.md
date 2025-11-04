@@ -26,7 +26,7 @@ let svg = snapshot_audio_node_with_options( sine_hz::<f32>(440.0), config);
 
 // With a macro
 let node = sine_hz::<f32>(440.0);
-assert_audio_node_snapshot!(node);
+assert_audio_node_snapshot!("docs", node);
 ```
 
 ## Features

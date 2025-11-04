@@ -305,7 +305,7 @@ where
     generate_svg(&input_data, &output_data, &config)
 }
 
-pub fn generate_svg(
+fn generate_svg(
     input_data: &[Vec<f32>],
     output_data: &[Vec<f32>],
     config: &SnapshotConfig,
@@ -410,7 +410,7 @@ mod tests {
         let node = sine_hz::<f32>(440.0);
         let svg = snapshot_audio_node_with_input_and_options(node, InputSource::None, config);
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("sine.svg", svg.into_bytes())
     }
 
     #[test]
@@ -424,7 +424,7 @@ mod tests {
             config,
         );
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("custom_input.svg", svg.into_bytes())
     }
 
     #[test]
@@ -434,7 +434,7 @@ mod tests {
 
         let svg = snapshot_audio_node_with_input_and_options(node, InputSource::None, config);
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("stereo.svg", svg.into_bytes())
     }
 
     #[test]
@@ -444,7 +444,7 @@ mod tests {
 
         let svg = snapshot_audio_node_with_input_and_options(node, InputSource::impulse(), config);
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("lowpass_impulse.svg", svg.into_bytes())
     }
 
     #[test]
@@ -458,7 +458,7 @@ mod tests {
 
         let svg = snapshot_audio_node_with_input_and_options(net, InputSource::None, config);
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("net.svg", svg.into_bytes())
     }
 
     #[test]
@@ -472,7 +472,7 @@ mod tests {
 
         let svg = snapshot_audio_node_with_options(node, config);
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("process_64.svg", svg.into_bytes())
     }
 
     #[test]
@@ -487,7 +487,7 @@ mod tests {
             config,
         );
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("vec_by_tick.svg", svg.into_bytes())
     }
 
     #[test]
@@ -502,7 +502,7 @@ mod tests {
             config,
         );
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("flat_input.svg", svg.into_bytes())
     }
 
     #[test]
@@ -515,7 +515,7 @@ mod tests {
             config,
         );
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("sine_input_source.svg", svg.into_bytes())
     }
 
     #[test]
@@ -537,13 +537,13 @@ mod tests {
             config,
         );
 
-        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+        insta::assert_binary_snapshot!("multi_channel_vec_by_channel.svg", svg.into_bytes())
     }
 
     #[test]
     fn test_macros() {
         let node = sine_hz::<f32>(440.0);
 
-        assert_audio_node_snapshot!(node);
+        assert_audio_node_snapshot!("macros", node);
     }
 }

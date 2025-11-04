@@ -9,22 +9,19 @@
 /// use fundsp::prelude::*;
 /// use insta_fun::{assert_audio_node_snapshot, SnapshotConfig, InputSource};
 ///
-/// // Simple usage with just a node
-/// let node = sine_hz::<f32>(440.0);
-/// assert_audio_node_snapshot!(node);
 ///
 /// // With a custom name
 /// let node = saw_hz(220.0);
-/// assert_audio_node_snapshot!("sawtooth", node);
+/// assert_audio_node_snapshot!("doc_sawtooth", node);
 ///
 /// // With input source
 /// let node = lowpass_hz(1000.0, 1.0);
-/// assert_audio_node_snapshot!("lowpass", node, InputSource::impulse());
+/// assert_audio_node_snapshot!("doc_lowpass", node, InputSource::impulse());
 ///
 /// // With input source and custom config
 /// let config = SnapshotConfig::with_samples(512);
 /// let node = highpass_hz(2000.0, 0.7);
-/// assert_audio_node_snapshot!("highpass", node, InputSource::sine(100.0, 44100.0), config);
+/// assert_audio_node_snapshot!("doc_highpass", node, InputSource::sine(100.0, 44100.0), config);
 /// ```
 #[macro_export]
 macro_rules! assert_audio_node_snapshot {
