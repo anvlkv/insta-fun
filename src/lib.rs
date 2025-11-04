@@ -3,7 +3,7 @@
 use std::fmt::Write;
 
 use fundsp::prelude::*;
-use insta::assert_snapshot;
+use insta::assert_binary_snapshot;
 
 const DEFAULT_HEIGHT: usize = 100;
 
@@ -65,25 +65,37 @@ impl SnapshotConfig {
 
 pub enum InputSource {
     None,
-    Array(Vec<Vec<f64>>),
-    Generator(Box<dyn Fn(usize, usize) -> f64>),
+    Array(Vec<Vec<f32>>),
+    Generator(Box<dyn Fn(usize, usize) -> f32>),
 }
 
 impl InputSource {
     pub fn impulse() -> Self {
         Self::Generator(Box::new(|i, _| if i == 0 { 1.0 } else { 0.0 }))
     }
-    pub fn sine(freq: f64, sr: f64) -> Self {
+    pub fn sine(freq: f32, sr: f32) -> Self {
         Self::Generator(Box::new(move |i, _| {
-            let phase = 2.0 * std::f64::consts::PI * freq * i as f64 / sr;
+            let phase = 2.0 * std::f32::consts::PI * freq * i as f32 / sr;
             phase.sin()
         }))
     }
 }
 
-const CHANNEL_COLORS: &[&str] = &[
+const OUTPUT_CHANNEL_COLORS: &[&str] = &[
     "#4285F4", "#EA4335", "#FBBC04", "#34A853", "#FF6D00", "#AB47BC", "#00ACC1", "#7CB342",
+    "#9C27B0", "#3F51B5", "#009688", "#8BC34A", "#FFEB3B", "#FF9800", "#795548", "#607D8B",
+    "#E91E63", "#673AB7", "#2196F3", "#00BCD4", "#4CAF50", "#CDDC39", "#FFC107", "#FF5722",
+    "#9E9E9E", "#03A9F4", "#8D6E63", "#78909C", "#880E4F", "#4A148C", "#0D47A1", "#004D40",
 ];
+
+const INPUT_CHANNEL_COLORS: &[&str] = &[
+    "#B39DDB", "#FFAB91", "#FFF59D", "#A5D6A7", "#FFCC80", "#CE93D8", "#80DEEA", "#C5E1A5",
+    "#BA68C8", "#9FA8DA", "#80CBC4", "#DCE775", "#FFF176", "#FFB74D", "#BCAAA4", "#B0BEC5",
+    "#F48FB1", "#B39DDB", "#90CAF9", "#80DEEA", "#A5D6A7", "#E6EE9C", "#FFD54F", "#FF8A65",
+    "#BDBDBD", "#81D4FA", "#A1887F", "#90A4AE", "#C2185B", "#7B1FA2", "#1976D2", "#00796B",
+];
+
+const PADDING: isize = 10;
 
 /// Create an SVG snapshot of audio node outputs
 /// ## Example
@@ -212,8 +224,8 @@ pub fn snapshot_audionode_with_input_and_options<N>(
                 let mut input_buff = BufferVec::new(num_inputs);
                 for i in chunk {
                     for (ch, input_data) in input_data.iter().enumerate() {
-                        let value: f64 = input_data[*i];
-                        input_buff.set_f32(ch, *i, value as f32);
+                        let value: f32 = input_data[*i];
+                        input_buff.set_f32(ch, *i, value);
                     }
                 }
                 let input_ref = input_buff.buffer_ref();
@@ -229,72 +241,102 @@ pub fn snapshot_audionode_with_input_and_options<N>(
         }
     }
 
-    let svg = generate_svg(&output_data, &config);
+    let svg = generate_svg(&input_data, &output_data, &config);
 
-    assert_snapshot!(format!("{name}.svg"), svg);
+    assert_binary_snapshot!(&format!("{name}.svg"), svg.as_bytes().to_vec());
 }
 
-fn generate_svg(output_data: &[Vec<f32>], config: &SnapshotConfig) -> String {
+fn generate_svg(
+    input_data: &[Vec<f32>],
+    output_data: &[Vec<f32>],
+    config: &SnapshotConfig,
+) -> String {
     let height_per_channel = config.svg_height_per_channel.unwrap_or(DEFAULT_HEIGHT);
-    let num_channels = output_data.len();
+    let num_channels = output_data.len() + input_data.len();
     let num_samples = output_data.first().map(|c| c.len()).unwrap_or(0);
     if num_samples == 0 || num_channels == 0 {
-        return "<svg xmlns=\"http://www.w3.org/2000/svg\"><text>Empty</text></svg>".to_string();
+        return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\"><text>Empty</text></svg>".to_string();
     }
 
     let svg_width = config.svg_width.unwrap_or(config.num_samples);
     let total_height = height_per_channel * num_channels;
-    let mut svg = String::new();
-    writeln!(
-        &mut svg,
-        r#"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {} {}" preserveAspectRatio="xMinYMin">"#,
-        svg_width, total_height
-    ).unwrap();
-
     let y_scale = (height_per_channel as f32 / 2.0) * 0.9;
     let x_scale = config
         .svg_width
         .map(|width| width as f32 / config.num_samples as f32);
+    let stroke_width = if let Some(scale) = x_scale {
+        (2.0 / scale).clamp(0.5, 5.0)
+    } else {
+        2.0
+    };
 
-    for (ch, data) in output_data.iter().enumerate() {
-        let color = CHANNEL_COLORS[ch % CHANNEL_COLORS.len()];
-        let y_offset = ch * height_per_channel;
-        let y_center = y_offset + height_per_channel / 2;
+    let mut svg = String::new();
+    let mut y_offset = 0;
 
-        let min_val = data.iter().cloned().fold(f32::INFINITY, f32::min);
-        let max_val = data.iter().cloned().fold(f32::NEG_INFINITY, f32::max);
-        let range = (max_val - min_val).max(f32::EPSILON);
+    writeln!(
+        &mut svg,
+        r#"<svg xmlns="http://www.w3.org/2000/svg" viewBox="{start_x} {start_y} {width} {height}" preserveAspectRatio="none">
+        <rect x="{start_x}" y="{start_y}" width="{background_width}" height="{background_height}" fill="black" />"#,
+        start_x = -PADDING,
+        start_y = -PADDING,
+        width = svg_width as isize + PADDING,
+        height = total_height as isize + PADDING,
+        background_width = svg_width as isize + PADDING * 2,
+        background_height = total_height as isize + PADDING * 2
+    ).unwrap();
 
-        let mut path_data = String::from("M ");
-        for (i, &sample) in data.iter().enumerate() {
-            let x = if let Some(scale) = x_scale {
-                scale * i as f32
+    let mut write_data = |all_channels_data: &[Vec<f32>], is_input: bool| {
+        for (ch, data) in all_channels_data.iter().enumerate() {
+            let color = if is_input {
+                INPUT_CHANNEL_COLORS[ch % INPUT_CHANNEL_COLORS.len()]
             } else {
-                i as f32
+                OUTPUT_CHANNEL_COLORS[ch % OUTPUT_CHANNEL_COLORS.len()]
             };
-            let normalized = (sample.clamp(min_val, max_val) - min_val) / range * 2.0 - 1.0;
-            let y = y_center as f32 - normalized * y_scale;
-            if i == 0 {
-                write!(&mut path_data, "{:.6},{:.6} ", x, y).unwrap();
-            } else {
-                write!(&mut path_data, "L {:.6},{:.6} ", x, y).unwrap();
+            let y_center = y_offset + height_per_channel / 2;
+
+            let min_val = data.iter().cloned().fold(f32::INFINITY, f32::min);
+            let max_val = data.iter().cloned().fold(f32::NEG_INFINITY, f32::max);
+            let range = (max_val - min_val).max(f32::EPSILON);
+
+            let mut path_data = String::from("M ");
+            for (i, &sample) in data.iter().enumerate() {
+                let x = if let Some(scale) = x_scale {
+                    scale * i as f32
+                } else {
+                    i as f32
+                };
+                let normalized = (sample.clamp(min_val, max_val) - min_val) / range * 2.0 - 1.0;
+                let y = y_center as f32 - normalized * y_scale;
+                if i == 0 {
+                    write!(&mut path_data, "{:.6},{:.6} ", x, y).unwrap();
+                } else {
+                    write!(&mut path_data, "L {:.6},{:.6} ", x, y).unwrap();
+                }
             }
+
+            writeln!(
+                &mut svg,
+                r#"  <path d="{path_data}" fill="none" stroke="{color}" stroke-width="{stroke_width}"/>"#,
+            )
+            .unwrap();
+
+            writeln!(
+                &mut svg,
+                r#"  <text x="5" y="{y}" font-family="monospace" font-size="12" fill="{color}">{label} Ch#{ch}</text>"#,
+                y = y_offset + 15,
+                color = color,
+                label = if is_input {"Input"} else {"Output"},
+                ch=ch
+            )
+            .unwrap();
+
+            y_offset += height_per_channel
         }
-        writeln!(
-            &mut svg,
-            r#"  <path d="{}" fill="none" stroke="{}" stroke-width="0.5"/>"#,
-            path_data, color
-        )
-        .unwrap();
-        writeln!(
-            &mut svg,
-            r#"  <text x="5" y="{}" font-family="monospace" font-size="12" fill="{}">Ch{}</text>"#,
-            y_offset + 15,
-            color,
-            ch
-        )
-        .unwrap();
-    }
+    };
+
+    write_data(input_data, true);
+    write_data(output_data, false);
+
     svg.push_str("</svg>");
     svg
 }
@@ -314,7 +356,7 @@ mod tests {
     #[test]
     fn test_custom_input() {
         let config = SnapshotConfig::with_samples(100);
-        let input = (0..100).map(|i| (i as f64 / 50.0).sin()).collect();
+        let input = (0..100).map(|i| (i as f32 / 50.0).sin()).collect();
 
         snapshot_audionode_with_input_and_options(
             "filter_sine",

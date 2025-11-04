@@ -5,4 +5,4 @@ edition = "2024"
 
 [dependencies]
 fundsp = { version = "*", default-features = false }
-insta = "*"
+insta = "1.43"
