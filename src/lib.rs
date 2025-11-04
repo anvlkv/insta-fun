@@ -3,7 +3,8 @@
 use std::fmt::Write;
 
 use fundsp::prelude::*;
-use insta::assert_binary_snapshot;
+
+mod macros;
 
 const DEFAULT_HEIGHT: usize = 100;
 
@@ -92,9 +93,9 @@ impl InputSource {
     pub fn impulse() -> Self {
         Self::Generator(Box::new(|i, _| if i == 0 { 1.0 } else { 0.0 }))
     }
-    pub fn sine(freq: f32, sr: f32) -> Self {
+    pub fn sine(freq: f32, sample_rate: f32) -> Self {
         Self::Generator(Box::new(move |i, _| {
-            let phase = 2.0 * std::f32::consts::PI * freq * i as f32 / sr;
+            let phase = 2.0 * std::f32::consts::PI * freq * i as f32 / sample_rate;
             phase.sin()
         }))
     }
@@ -124,18 +125,14 @@ const PADDING: isize = 10;
 /// use fundsp::hacker::prelude::*;
 ///
 /// let node = sine_hz::<f32>(440.0);
-/// snapshot_audio_node("sine_hz_4", node);
+/// let svg = snapshot_audio_node(node);
+/// println!("{svg}");
 /// ```
-pub fn snapshot_audio_node<N>(name: &str, node: N)
+pub fn snapshot_audio_node<N>(node: N) -> String
 where
     N: AudioUnit,
 {
-    snapshot_audionode_with_input_and_options(
-        name,
-        node,
-        InputSource::None,
-        SnapshotConfig::default(),
-    )
+    snapshot_audio_node_with_input_and_options(node, InputSource::None, SnapshotConfig::default())
 }
 
 /// Create an SVG snapshot of audio node outputs, with options
@@ -147,13 +144,14 @@ where
 /// use fundsp::hacker::prelude::*;
 ///
 /// let node = sine_hz::<f32>(440.0);
-/// snapshot_audio_node_with_options("sine_hz_3", node, SnapshotConfig::default());
+/// let svg = snapshot_audio_node_with_options(node, SnapshotConfig::default());
+/// println!("{svg}");
 /// ```
-pub fn snapshot_audio_node_with_options<N>(name: &str, node: N, options: SnapshotConfig)
+pub fn snapshot_audio_node_with_options<N>(node: N, options: SnapshotConfig) -> String
 where
     N: AudioUnit,
 {
-    snapshot_audionode_with_input_and_options(name, node, InputSource::None, options)
+    snapshot_audio_node_with_input_and_options(node, InputSource::None, options)
 }
 
 /// Create an SVG snapshot of audio node inputs and outputs
@@ -165,13 +163,14 @@ where
 /// use fundsp::hacker::prelude::*;
 ///
 /// let node = sine_hz::<f32>(440.0);
-/// snapshot_audio_node_with_input("sine_hz_2", node, InputSource::None);
+/// let svg = snapshot_audio_node_with_input(node, InputSource::None);
+/// println!("{svg}");
 /// ```
-pub fn snapshot_audio_node_with_input<N>(name: &str, node: N, input_source: InputSource)
+pub fn snapshot_audio_node_with_input<N>(node: N, input_source: InputSource) -> String
 where
     N: AudioUnit,
 {
-    snapshot_audionode_with_input_and_options(name, node, input_source, SnapshotConfig::default())
+    snapshot_audio_node_with_input_and_options(node, input_source, SnapshotConfig::default())
 }
 
 /// Create an SVG snapshot of audio node inputs and outputs, with options
@@ -184,14 +183,15 @@ where
 ///
 /// let config = SnapshotConfig::default();
 /// let node = sine_hz::<f32>(440.0);
-/// snapshot_audionode_with_input_and_options("sine_hz_1", node, InputSource::None, config);
+/// let svg = snapshot_audio_node_with_input_and_options(node, InputSource::None, config);
+/// println!("{svg}");
 /// ```
-pub fn snapshot_audionode_with_input_and_options<N>(
-    name: &str,
+pub fn snapshot_audio_node_with_input_and_options<N>(
     mut node: N,
     input_source: InputSource,
     config: SnapshotConfig,
-) where
+) -> String
+where
     N: AudioUnit,
 {
     let num_inputs = N::inputs(&node);
@@ -302,12 +302,10 @@ pub fn snapshot_audionode_with_input_and_options<N>(
         }
     }
 
-    let svg = generate_svg(&input_data, &output_data, &config);
-
-    assert_binary_snapshot!(&format!("{name}.svg"), svg.as_bytes().to_vec());
+    generate_svg(&input_data, &output_data, &config)
 }
 
-fn generate_svg(
+pub fn generate_svg(
     input_data: &[Vec<f32>],
     output_data: &[Vec<f32>],
     config: &SnapshotConfig,
@@ -402,7 +400,6 @@ fn generate_svg(
     svg
 }
 
-// Example tests
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -411,7 +408,9 @@ mod tests {
     fn test_sine() {
         let config = SnapshotConfig::default();
         let node = sine_hz::<f32>(440.0);
-        snapshot_audionode_with_input_and_options("sine_hz", node, InputSource::None, config);
+        let svg = snapshot_audio_node_with_input_and_options(node, InputSource::None, config);
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -419,12 +418,13 @@ mod tests {
         let config = SnapshotConfig::with_samples(100);
         let input = (0..100).map(|i| (i as f32 / 50.0).sin()).collect();
 
-        snapshot_audionode_with_input_and_options(
-            "filter_sine",
+        let svg = snapshot_audio_node_with_input_and_options(
             lowpass_hz(500.0, 0.7),
             InputSource::VecByChannel(vec![input]),
             config,
         );
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -432,7 +432,9 @@ mod tests {
         let config = SnapshotConfig::default();
         let node = sine_hz::<f32>(440.0) | sine_hz::<f32>(880.0);
 
-        snapshot_audionode_with_input_and_options("stereo", node, InputSource::None, config);
+        let svg = snapshot_audio_node_with_input_and_options(node, InputSource::None, config);
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -440,12 +442,9 @@ mod tests {
         let config = SnapshotConfig::with_samples(300);
         let node = lowpass_hz(1000.0, 1.0);
 
-        snapshot_audionode_with_input_and_options(
-            "lowpass_impulse",
-            node,
-            InputSource::impulse(),
-            config,
-        );
+        let svg = snapshot_audio_node_with_input_and_options(node, InputSource::impulse(), config);
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -457,7 +456,9 @@ mod tests {
         net.pipe_input(node_id);
         net.pipe_output(node_id);
 
-        snapshot_audionode_with_input_and_options("net", net, InputSource::None, config);
+        let svg = snapshot_audio_node_with_input_and_options(net, InputSource::None, config);
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -469,7 +470,9 @@ mod tests {
 
         let node = sine_hz::<f32>(440.0);
 
-        snapshot_audio_node_with_options("process_64", node, config);
+        let svg = snapshot_audio_node_with_options(node, config);
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -478,12 +481,13 @@ mod tests {
         // Create input data organized by ticks (100 ticks, 1 channel each)
         let input_data: Vec<Vec<f32>> = (0..100).map(|i| vec![(i as f32 / 50.0).cos()]).collect();
 
-        snapshot_audionode_with_input_and_options(
-            "vec_by_tick",
+        let svg = snapshot_audio_node_with_input_and_options(
             lowpass_hz(800.0, 0.5),
             InputSource::VecByTick(input_data),
             config,
         );
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -492,24 +496,26 @@ mod tests {
         // Flat input repeated for every tick
         let flat_input = vec![0.5];
 
-        snapshot_audionode_with_input_and_options(
-            "flat_input",
+        let svg = snapshot_audio_node_with_input_and_options(
             highpass_hz(200.0, 0.7),
             InputSource::Flat(flat_input),
             config,
         );
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
     fn test_sine_input_source() {
         let config = SnapshotConfig::with_samples(200);
 
-        snapshot_audionode_with_input_and_options(
-            "sine_input_source",
+        let svg = snapshot_audio_node_with_input_and_options(
             bandpass_hz(1000.0, 500.0),
             InputSource::sine(100.0, 44100.0),
             config,
         );
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
     }
 
     #[test]
@@ -525,11 +531,19 @@ mod tests {
 
         let node = resonator_hz(440.0, 100.0) | resonator_hz(440.0, 100.0);
 
-        snapshot_audionode_with_input_and_options(
-            "multi_channel_vec",
+        let svg = snapshot_audio_node_with_input_and_options(
             node,
             InputSource::VecByChannel(vec![left_channel, right_channel]),
             config,
         );
+
+        insta::assert_binary_snapshot!(".svg", svg.into_bytes())
+    }
+
+    #[test]
+    fn test_macros() {
+        let node = sine_hz::<f32>(440.0);
+
+        assert_audio_node_snapshot!(node);
     }
 }
