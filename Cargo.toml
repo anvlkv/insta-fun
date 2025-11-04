@@ -2,6 +2,10 @@
 name = "insta-fun"
 version = "0.1.0"
 edition = "2024"
+description = "Snapshot testing of fundsp nodes. Visualize output in svg and test with insta"
+repository = "https://github.com/anvlkv/insta-fun"
+license-file = "LICENSE"
+keywords = ["fundsp", "insta", "snapshot", "svg", "testing", "visualization"]
 
 [dependencies]
 fundsp = { version = "*", default-features = false }
