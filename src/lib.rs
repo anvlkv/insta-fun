@@ -7,7 +7,7 @@ use insta::assert_binary_snapshot;
 
 const DEFAULT_HEIGHT: usize = 100;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 /// Configuration for snapshotting an audio node.
 pub struct SnapshotConfig {
     /// Number of samples to generate.
@@ -31,7 +31,7 @@ pub struct SnapshotConfig {
 }
 
 /// Processing mode for snapshotting an audio node.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Copy, Default)]
 pub enum Processing {
     #[default]
     /// Process one sample at a time.
