@@ -8,5 +8,5 @@ license-file = "LICENSE"
 keywords = ["fundsp", "insta", "snapshot", "testing", "visualization"]
 
 [dependencies]
-fundsp = { version = "*", default-features = false }
+fundsp = { version = "0.20", default-features = false }
 insta = "1.43"
