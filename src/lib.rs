@@ -13,11 +13,11 @@ const DEFAULT_HEIGHT: usize = 100;
 pub struct SnapshotConfig {
     /// Number of samples to generate.
     ///
-    /// `Default` is 44100 - 1s
+    /// Default is 1024
     pub num_samples: usize,
     /// Sample rate of the audio node.
     ///
-    /// `Default` is 44100.0
+    /// Default is 44100.0 [fundsp::DEFAULT_SR]
     pub sample_rate: f64,
     /// Optional width of the SVG `viewBox`
     ///
@@ -28,8 +28,12 @@ pub struct SnapshotConfig {
     /// `None` fallbacks to default - 100
     pub svg_height_per_channel: Option<usize>,
     /// Processing mode for snapshotting an audio node.
+    ///
+    /// Default is `Tick`
     pub processing_mode: Processing,
     /// Whether to include inputs in snapshot
+    ///
+    /// Default is `false`
     pub with_inputs: bool,
 }
 
@@ -41,15 +45,15 @@ pub enum Processing {
     Tick,
     /// Process a batch of samples at a time.
     ///
-    /// max batch size is 64
+    /// max batch size is 64 [fundsp::MAX_BUFFER_SIZE]
     Batch(u8),
 }
 
 impl Default for SnapshotConfig {
     fn default() -> Self {
         Self {
-            num_samples: 44100,
-            sample_rate: 44100.0,
+            num_samples: 1024,
+            sample_rate: DEFAULT_SR,
             svg_width: None,
             svg_height_per_channel: Some(DEFAULT_HEIGHT),
             processing_mode: Processing::default(),
@@ -286,17 +290,17 @@ where
         }
         Processing::Batch(batch_size) => {
             assert!(
-                batch_size <= 64,
-                "Batch size must be less than or equal to 64"
+                batch_size <= MAX_BUFFER_SIZE as u8,
+                "Batch size must be less than or equal to [{MAX_BUFFER_SIZE}]"
             );
 
             let samples_index = (0..config.num_samples).collect::<Vec<_>>();
             for chunk in samples_index.chunks(batch_size as usize) {
                 let mut input_buff = BufferVec::new(num_inputs);
-                for i in chunk {
-                    for (ch, input_data) in input_data.iter().enumerate() {
-                        let value: f32 = input_data[*i];
-                        input_buff.set_f32(ch, *i, value);
+                for (frame_index, input_index) in chunk.iter().enumerate() {
+                    for (ch, input) in input_data.iter().enumerate() {
+                        let value: f32 = input[*input_index];
+                        input_buff.set_f32(ch, frame_index, value);
                     }
                 }
                 let input_ref = input_buff.buffer_ref();
