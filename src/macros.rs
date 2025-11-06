@@ -1,54 +1,55 @@
-/// Macro for audio node snapshot testing
+/// Macro for audio unit snapshot testing
 ///
-/// This macro processes an audio node with the given configuration,
+/// This macro processes an audio unit with the given configuration,
 /// generates an SVG visualization, and asserts it against a stored snapshot.
 ///
 /// ## Examples
 ///
 /// ```
 /// use fundsp::prelude::*;
-/// use insta_fun::{assert_audio_node_snapshot, SnapshotConfig, InputSource};
+/// use insta_fun::prelude::*;
 ///
 ///
 /// // With a custom name
-/// let node = saw_hz(220.0);
-/// assert_audio_node_snapshot!("doc_sawtooth", node);
+/// let unit = saw_hz(220.0);
+/// assert_audio_unit_snapshot!("doc_sawtooth", unit);
 ///
 /// // With input source
-/// let node = lowpass_hz(1000.0, 1.0);
-/// assert_audio_node_snapshot!("doc_lowpass", node, InputSource::impulse());
+/// let unit = lowpass_hz(1000.0, 1.0);
+/// assert_audio_unit_snapshot!("doc_lowpass", unit, InputSource::impulse());
 ///
 /// // With input source and custom config
-/// let config = SnapshotConfig::with_samples(512);
-/// let node = highpass_hz(2000.0, 0.7);
-/// assert_audio_node_snapshot!("doc_highpass", node, InputSource::sine(100.0, 44100.0), config);
+/// let config = SnapshotConfigBuilder::default().num_samples(512).build().unwrap();
+/// let unit = highpass_hz(2000.0, 0.7);
+/// assert_audio_unit_snapshot!("doc_highpass", unit, InputSource::sine(100.0, 44100.0), config);
 /// ```
 #[macro_export]
-macro_rules! assert_audio_node_snapshot {
-    // With just the node
-    ($node:expr) => {{
-        let svg = $crate::snapshot_audio_node($node);
+macro_rules! assert_audio_unit_snapshot {
+    // With just the unit
+    ($unit:expr) => {{
+        let svg = $crate::snapshot::snapshot_audio_unit($unit);
 
         ::insta::assert_binary_snapshot!(".svg", svg.as_bytes().to_vec());
     }};
 
-    // With name and node
-    ($name:expr, $node:expr) => {{
-        let svg = $crate::snapshot_audio_node($node);
+    // With name and unit
+    ($name:expr, $unit:expr) => {{
+        let svg = $crate::snapshot::snapshot_audio_unit($unit);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};
 
     // With input source
-    ($name:expr, $node:expr, $input:expr) => {{
-        let svg = $crate::snapshot_audio_node_with_input($node, $input);
+    ($name:expr, $unit:expr, $input:expr) => {{
+        let svg = $crate::snapshot::snapshot_audio_unit_with_input($unit, $input);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};
 
     // With input source and config
-    ($name:expr, $node:expr, $input:expr, $config:expr) => {{
-        let svg = $crate::snapshot_audio_node_with_input_and_options($node, $input, $config);
+    ($name:expr, $unit:expr, $input:expr, $config:expr) => {{
+        let svg =
+            $crate::snapshot::snapshot_audio_unit_with_input_and_options($unit, $input, $config);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};

@@ -1,37 +1,42 @@
 # insta-fun
 
-SVG snapshot testing for FunDSP audio nodes.
+SVG snapshot testing for FunDSP audio units.
 
-Generate visual snapshots of audio processing nodes to catch regressions and verify signal behavior.
+Generate visual snapshots of audio processing units to catch regressions and verify signal behavior.
+
+![Example](example.png)
 
 > **Note:** Snapshot assertion uses `insta::assert_binary_snapshot` which is currently experimental.
 
 ## Usage
 
 ```rust
-use insta_fun::*;
+use insta_fun::prelude::*;
 use fundsp::prelude::*;
 
-// Simple snapshot
-let node = sine_hz::<f32>(440.0);
-let svg = snapshot_audio_node(node);
+#[test]
+fn example_test() {
+    // Simple snapshot
+    let unit = sine_hz::<f32>(440.0);
+    let svg = snapshot_audio_unit(unit);
 
-// With input signal
-let filter = lowpass_hz(1000.0, 1.0);
-let svg = snapshot_audio_node_with_input(filter, InputSource::impulse());
+    // With input signal
+    let filter = lowpass_hz(1000.0, 1.0);
+    let svg = snapshot_audio_unit_with_input(filter, InputSource::impulse());
 
-// Custom configuration
-let config = SnapshotConfig::with_samples(100);
-let svg = snapshot_audio_node_with_options( sine_hz::<f32>(440.0), config);
+    // Custom configuration
+    let config = SnapshotConfigBuilder::default().num_samples(100).build().unwrap();
+    let svg = snapshot_audio_unit_with_options(sine_hz::<f32>(440.0), config);
 
-// With a macro
-let node = sine_hz::<f32>(440.0);
-assert_audio_node_snapshot!("docs", node);
+    // With a macro
+    let unit = sine_hz::<f32>(440.0);
+    assert_audio_unit_snapshot!(unit);
+}
 ```
 
 ## Features
 
-- Visualizes audio node inputs and outputs as SVG waveforms
+- Visualizes audio unit inputs and outputs as SVG waveforms
 - Supports multi-channel audio with color-coded traces
 - Configurable sample count, SVG dimensions, and processing modes
 - Built-in input generators (impulse, sine, custom)

@@ -1,5 +1,5 @@
 ---
-source: src/lib.rs
+source: src/tests.rs
 expression: svg.into_bytes()
 extension: svg
 snapshot_kind: binary

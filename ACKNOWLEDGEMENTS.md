@@ -4,33 +4,12 @@ I hereby express my sincere gratitude and appreciation for the code contribution
 
 ## Thank you 🙏
 
-- **[CAD97](https://github.com/CAD97)** for their conributions to: `insta`
-- **[CommanderStorm](https://github.com/CommanderStorm)** for their conributions to: `insta`
-- **[CosmicHorrorDev](https://github.com/CosmicHorrorDev)** for their conributions to: `insta`
-- **[Emilgardis](https://github.com/Emilgardis)** for their conributions to: `fundsp`
-- **[IsaacMarovitz](https://github.com/IsaacMarovitz)** for their conributions to: `fundsp`
-- **[MichaelMcDonnell](https://github.com/MichaelMcDonnell)** for their conributions to: `insta`
-- **[Ralith](https://github.com/Ralith)** for their conributions to: `fundsp`
-- **[SamiPerttu](https://github.com/SamiPerttu)** for their conributions to: `fundsp`
-- **[Serdnad](https://github.com/Serdnad)** for their conributions to: `fundsp`
-- **[bachp](https://github.com/bachp)** for their conributions to: `insta`
-- **[dathinaios](https://github.com/dathinaios)** for their conributions to: `fundsp`
-- **[gjf2a](https://github.com/gjf2a)** for their conributions to: `fundsp`
-- **[harudagondi](https://github.com/harudagondi)** for their conributions to: `fundsp`
-- **[kjeremy](https://github.com/kjeremy)** for their conributions to: `insta`
-- **[lasernoises](https://github.com/lasernoises)** for their conributions to: `insta`
-- **[marcospb19](https://github.com/marcospb19)** for their conributions to: `insta`
-- **[martinvonz](https://github.com/martinvonz)** for their conributions to: `insta`
-- **[matklad](https://github.com/matklad)** for their conributions to: `insta`
-- **[max-sixty](https://github.com/max-sixty)** for their conributions to: `insta`
-- **[mitsuhiko](https://github.com/mitsuhiko)** for their conributions to: `insta`
-- **[nyurik](https://github.com/nyurik)** for their conributions to: `insta`
-- **[rhizoome](https://github.com/rhizoome)** for their conributions to: `fundsp`
-- **[tamird](https://github.com/tamird)** for their conributions to: `insta`
-- **[tomara-x](https://github.com/tomara-x)** for their conributions to: `fundsp`
-- **[yuja](https://github.com/yuja)** for their conributions to: `insta`
+- Contributors of `fundsp`:  **[@Emilgardis](https://github.com/Emilgardis)**,  **[@IsaacMarovitz](https://github.com/IsaacMarovitz)**,  **[@Ralith](https://github.com/Ralith)**,  **[@SamiPerttu](https://github.com/SamiPerttu)**,  **[@Serdnad](https://github.com/Serdnad)**,  **[@dathinaios](https://github.com/dathinaios)**,  **[@gjf2a](https://github.com/gjf2a)**,  **[@harudagondi](https://github.com/harudagondi)**,  **[@rhizoome](https://github.com/rhizoome)**,  **[@tomara-x](https://github.com/tomara-x)**
+- Contributors of `insta`:  **[@CAD97](https://github.com/CAD97)**,  **[@CommanderStorm](https://github.com/CommanderStorm)**,  **[@CosmicHorrorDev](https://github.com/CosmicHorrorDev)**,  **[@MichaelMcDonnell](https://github.com/MichaelMcDonnell)**,  **[@bachp](https://github.com/bachp)**,  **[@kjeremy](https://github.com/kjeremy)**,  **[@lasernoises](https://github.com/lasernoises)**,  **[@marcospb19](https://github.com/marcospb19)**,  **[@martinvonz](https://github.com/martinvonz)**,  **[@matklad](https://github.com/matklad)**,  **[@max-sixty](https://github.com/max-sixty)**,  **[@mitsuhiko](https://github.com/mitsuhiko)**,  **[@nyurik](https://github.com/nyurik)**,  **[@tamird](https://github.com/tamird)**,  **[@yuja](https://github.com/yuja)**
+- Contributors of `plotters`:  **[@0xflotus](https://github.com/0xflotus)**,  **[@10ne1](https://github.com/10ne1)**,  **[@38](https://github.com/38)**,  **[@AaronErhardt](https://github.com/AaronErhardt)**,  **[@Be-ing](https://github.com/Be-ing)**,  **[@Berrysoft](https://github.com/Berrysoft)**,  **[@FarmingtonS9](https://github.com/FarmingtonS9)**,  **[@Feng23](https://github.com/Feng23)**,  **[@GyulyVGC](https://github.com/GyulyVGC)**,  **[@KmolYuan](https://github.com/KmolYuan)**,  **[@Monadic-Cat](https://github.com/Monadic-Cat)**,  **[@TatriX](https://github.com/TatriX)**,  **[@Veykril](https://github.com/Veykril)**,  **[@adriandelgado](https://github.com/adriandelgado)**,  **[@alistair23](https://github.com/alistair23)**,  **[@chrisduerr](https://github.com/chrisduerr)**,  **[@dalance](https://github.com/dalance)**,  **[@darakian](https://github.com/darakian)**,  **[@el-hult](https://github.com/el-hult)**,  **[@elpiel](https://github.com/elpiel)**,  **[@elwerene](https://github.com/elwerene)**,  **[@eval-exec](https://github.com/eval-exec)**,  **[@facorread](https://github.com/facorread)**,  **[@hhamana](https://github.com/hhamana)**,  **[@ijackson](https://github.com/ijackson)**,  **[@jchacks](https://github.com/jchacks)**,  **[@jonaspleyer](https://github.com/jonaspleyer)**,  **[@kristopherbullinger](https://github.com/kristopherbullinger)**,  **[@legokichi](https://github.com/legokichi)**,  **[@lisanhu](https://github.com/lisanhu)**,  **[@martinfrances107](https://github.com/martinfrances107)**,  **[@matprec](https://github.com/matprec)**,  **[@novedevo](https://github.com/novedevo)**,  **[@nph4rd](https://github.com/nph4rd)**,  **[@nuald](https://github.com/nuald)**,  **[@oswald2](https://github.com/oswald2)**,  **[@pbdeuchler](https://github.com/pbdeuchler)**,  **[@ralfbiedert](https://github.com/ralfbiedert)**,  **[@robertosw](https://github.com/robertosw)**,  **[@serzhiio](https://github.com/serzhiio)**,  **[@shinmili](https://github.com/shinmili)**,  **[@siefkenj](https://github.com/siefkenj)**,  **[@sloshwoven](https://github.com/sloshwoven)**,  **[@wmjae](https://github.com/wmjae)**,  **[@wolfjagger](https://github.com/wolfjagger)**,  **[@xemwebe](https://github.com/xemwebe)**,  **[@zancas](https://github.com/zancas)**
+- Contributors of `rust-derive-builder`:  **[@TedDriggs](https://github.com/TedDriggs)**,  **[@andy128k](https://github.com/andy128k)**,  **[@badboy](https://github.com/badboy)**,  **[@chanced](https://github.com/chanced)**,  **[@colin-kiegel](https://github.com/colin-kiegel)**,  **[@ijackson](https://github.com/ijackson)**,  **[@killercup](https://github.com/killercup)**,  **[@red1bluelost](https://github.com/red1bluelost)**,  **[@tharvik](https://github.com/tharvik)**
 
-And 53 other cool humans for their contributions, who haven't made it to this list yet.
+And 123 other cool humans for their contributions, who haven't made it to this list yet.
 
 ---
 

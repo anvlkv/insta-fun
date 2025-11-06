@@ -1,14 +1,19 @@
 [package]
 name = "insta-fun"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2024"
-description = "Snapshot testing of fundsp nodes. Visualize output in svg and compare using insta"
+description = "Snapshot testing of fundsp units. Visualize output in svg and compare using insta"
 repository = "https://github.com/anvlkv/insta-fun"
 license = "Unlicense"
-keywords = ["fundsp", "insta", "snapshot", "testing", "visualization"]
+keywords = ["fundsp", "insta", "plotters", "testing", "visualization"]
 
 [dependencies]
+derive_builder = "0.20.2"
 fundsp = { version = "0.20", default-features = false }
+plotters = { version = "0.3.7", default-features = false, features = [
+  "line_series",
+  "svg_backend"
+] }
 
 [dev-dependencies]
 insta = "1.43"
