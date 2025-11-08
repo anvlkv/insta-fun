@@ -165,7 +165,49 @@ fn test_multi_channel_vec_by_channel_with_inputs() {
 }
 
 #[test]
-fn test_macros() {
+fn test_macro_variant_unit_only() {
+    // Variant 1: Just the unit
     let unit = sine_hz::<f32>(440.0);
-    assert_audio_unit_snapshot!("macros", unit);
+    assert_audio_unit_snapshot!(unit);
+}
+
+#[test]
+fn test_macro_variant_name_and_unit() {
+    // Variant 2: With name and unit
+    let unit = saw_hz(220.0);
+    assert_audio_unit_snapshot!("macro_with_name", unit);
+}
+
+#[test]
+fn test_macro_variant_name_unit_input() {
+    // Variant 3: With name, unit, and input source
+    let unit = lowpass_hz(1000.0, 1.0);
+    assert_audio_unit_snapshot!("macro_with_input", unit, InputSource::impulse());
+}
+
+#[test]
+fn test_macro_variant_name_unit_input_config() {
+    // Variant 4: With name, unit, input source, and config
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(512)
+        .build()
+        .unwrap();
+    let unit = highpass_hz(2000.0, 0.7);
+    assert_audio_unit_snapshot!(
+        "macro_with_config",
+        unit,
+        InputSource::sine(100.0, 44100.0),
+        config
+    );
+}
+
+#[test]
+fn test_macro_variant_unit_and_config() {
+    // Variant 5: With unit and config
+    let unit = lowpass_hz(1000.0, 1.0);
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(256)
+        .build()
+        .unwrap();
+    assert_audio_unit_snapshot!(unit, config);
 }

@@ -66,15 +66,28 @@ macro_rules! assert_audio_unit_snapshot {
 
     // With input source
     ($name:literal, $unit:expr, $input:expr) => {{
-        let svg = $crate::snapshot::snapshot_audio_unit_with_input($unit, $input);
+        let config = $crate::config::SnapshotConfigBuilder::default()
+            .chart_title($name)
+            .build()
+            .unwrap();
+        let svg =
+            $crate::snapshot::snapshot_audio_unit_with_input_and_options($unit, $input, config);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};
 
     // With input source and config
     ($name:literal, $unit:expr, $input:expr, $config:expr) => {{
+        let config = if $config.chart_title.is_some() {
+            $config
+        } else {
+            $crate::config::SnapshotConfig {
+                chart_title: Some($name.to_string()),
+                ..$config
+            }
+        };
         let svg =
-            $crate::snapshot::snapshot_audio_unit_with_input_and_options($unit, $input, $config);
+            $crate::snapshot::snapshot_audio_unit_with_input_and_options($unit, $input, config);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};
