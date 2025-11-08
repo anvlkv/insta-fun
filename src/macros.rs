@@ -9,19 +9,40 @@
 /// use fundsp::prelude::*;
 /// use insta_fun::prelude::*;
 ///
-///
 /// // With a custom name
 /// let unit = saw_hz(220.0);
 /// assert_audio_unit_snapshot!("doc_sawtooth", unit);
 ///
+/// ```
+///
+/// ```
+/// use fundsp::prelude::*;
+/// use insta_fun::prelude::*;
+///
 /// // With input source
 /// let unit = lowpass_hz(1000.0, 1.0);
 /// assert_audio_unit_snapshot!("doc_lowpass", unit, InputSource::impulse());
+/// ```
+///
+/// ```
+/// use fundsp::prelude::*;
+/// use insta_fun::prelude::*;
 ///
 /// // With input source and custom config
 /// let config = SnapshotConfigBuilder::default().num_samples(512).build().unwrap();
 /// let unit = highpass_hz(2000.0, 0.7);
 /// assert_audio_unit_snapshot!("doc_highpass", unit, InputSource::sine(100.0, 44100.0), config);
+/// ```
+///
+/// ```
+/// use fundsp::prelude::*;
+/// use insta_fun::prelude::*;
+///
+/// // With unit and config
+/// let unit = lowpass_hz(1000.0, 1.0);
+/// let config = SnapshotConfigBuilder::default().num_samples(512).build().unwrap();
+/// assert_audio_unit_snapshot!(unit, config);
+///
 /// ```
 #[macro_export]
 macro_rules! assert_audio_unit_snapshot {
@@ -33,24 +54,31 @@ macro_rules! assert_audio_unit_snapshot {
     }};
 
     // With name and unit
-    ($name:expr, $unit:expr) => {{
+    ($name:literal, $unit:expr) => {{
         let svg = $crate::snapshot::snapshot_audio_unit($unit);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};
 
     // With input source
-    ($name:expr, $unit:expr, $input:expr) => {{
+    ($name:literal, $unit:expr, $input:expr) => {{
         let svg = $crate::snapshot::snapshot_audio_unit_with_input($unit, $input);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};
 
     // With input source and config
-    ($name:expr, $unit:expr, $input:expr, $config:expr) => {{
+    ($name:literal, $unit:expr, $input:expr, $config:expr) => {{
         let svg =
             $crate::snapshot::snapshot_audio_unit_with_input_and_options($unit, $input, $config);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
+    }};
+
+    // With unit and config
+    ($unit:expr, $config:expr) => {{
+        let svg = $crate::snapshot::snapshot_audio_unit_with_options($unit, $config);
+
+        ::insta::assert_binary_snapshot!(".svg", svg.as_bytes().to_vec());
     }};
 }
