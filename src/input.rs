@@ -1,3 +1,5 @@
+use fundsp::hacker::AudioUnit;
+
 /// Input provided to the audio unit
 pub enum InputSource {
     /// No input
@@ -21,6 +23,13 @@ pub enum InputSource {
     /// - First argument is the sample index
     /// - Second argument is the channel index
     Generator(Box<dyn Fn(usize, usize) -> f32>),
+    /// Input provided by an audio unit
+    ///
+    /// Number of outputs of the audio unit must match
+    /// the number of inputs to the test target
+    ///
+    /// * if you need to set sample rate on input unit do that upfront
+    Unit(Box<dyn AudioUnit>),
 }
 
 impl InputSource {
@@ -32,5 +41,71 @@ impl InputSource {
             let phase = 2.0 * std::f32::consts::PI * freq * i as f32 / sample_rate;
             phase.sin()
         }))
+    }
+
+    pub fn into_data(self, num_inputs: usize, num_samples: usize) -> Vec<Vec<f32>> {
+        match self {
+            InputSource::None => vec![vec![0.0; num_samples]; num_inputs],
+            InputSource::VecByChannel(data) => {
+                assert_eq!(
+                    data.len(),
+                    num_inputs,
+                    "Input vec size mismatch. Expected {} channels, got {}",
+                    num_inputs,
+                    data.len()
+                );
+                assert!(
+                    data.iter().all(|v| v.len() == num_samples),
+                    "Input vec size mismatch. Expected {} samples per channel, got {}",
+                    num_samples,
+                    data.iter().map(|v| v.len()).max().unwrap_or(0)
+                );
+                data.to_vec()
+            }
+            InputSource::VecByTick(data) => {
+                assert!(
+                    data.iter().all(|v| v.len() == num_inputs),
+                    "Input vec size mismatch. Expected {} channels, got {}",
+                    num_inputs,
+                    data.iter().map(|v| v.len()).max().unwrap_or(0)
+                );
+                assert_eq!(
+                    data.len(),
+                    num_samples,
+                    "Input vec size mismatch. Expected {} samples, got {}",
+                    num_samples,
+                    data.len()
+                );
+                (0..num_inputs)
+                    .map(|ch| (0..num_samples).map(|i| data[i][ch]).collect())
+                    .collect()
+            }
+            InputSource::Flat(data) => {
+                assert_eq!(
+                    data.len(),
+                    num_inputs,
+                    "Input vec size mismatch. Expected {} channels, got {}",
+                    num_inputs,
+                    data.len()
+                );
+                (0..num_inputs)
+                    .map(|ch| (0..num_samples).map(|_| data[ch]).collect())
+                    .collect()
+            }
+            InputSource::Generator(generator_fn) => (0..num_inputs)
+                .map(|ch| (0..num_samples).map(|i| generator_fn(i, ch)).collect())
+                .collect(),
+            InputSource::Unit(mut unit) => {
+                let mut data = vec![vec![0.0; num_samples]; num_inputs];
+                for i in 0..num_samples {
+                    let mut outputs = vec![0.0; num_inputs];
+                    unit.tick(&[], &mut outputs);
+                    for slc in data.iter_mut() {
+                        slc[i] = outputs[i];
+                    }
+                }
+                data
+            }
+        }
     }
 }

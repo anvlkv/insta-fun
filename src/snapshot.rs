@@ -95,62 +95,7 @@ where
     unit.reset();
     unit.allocate();
 
-    let input_data = match input_source {
-        InputSource::None => vec![vec![0.0; config.num_samples]; num_inputs],
-        InputSource::VecByChannel(data) => {
-            assert_eq!(
-                data.len(),
-                num_inputs,
-                "Input vec size mismatch. Expected {} channels, got {}",
-                num_inputs,
-                data.len()
-            );
-            assert!(
-                data.iter().all(|v| v.len() == config.num_samples),
-                "Input vec size mismatch. Expected {} samples per channel, got {}",
-                config.num_samples,
-                data.iter().map(|v| v.len()).max().unwrap_or(0)
-            );
-            data
-        }
-        InputSource::VecByTick(data) => {
-            assert!(
-                data.iter().all(|v| v.len() == num_inputs),
-                "Input vec size mismatch. Expected {} channels, got {}",
-                num_inputs,
-                data.iter().map(|v| v.len()).max().unwrap_or(0)
-            );
-            assert_eq!(
-                data.len(),
-                config.num_samples,
-                "Input vec size mismatch. Expected {} samples, got {}",
-                config.num_samples,
-                data.len()
-            );
-            (0..num_inputs)
-                .map(|ch| (0..config.num_samples).map(|i| data[i][ch]).collect())
-                .collect()
-        }
-        InputSource::Flat(data) => {
-            assert_eq!(
-                data.len(),
-                num_inputs,
-                "Input vec size mismatch. Expected {} channels, got {}",
-                num_inputs,
-                data.len()
-            );
-            (0..num_inputs)
-                .map(|ch| (0..config.num_samples).map(|_| data[ch]).collect())
-                .collect()
-        }
-        InputSource::Generator(generator_fn) => (0..num_inputs)
-            .map(|ch| {
-                (0..config.num_samples)
-                    .map(|i| generator_fn(i, ch))
-                    .collect()
-            })
-            .collect(),
-    };
+    let input_data = input_source.into_data(num_inputs, config.num_samples);
 
     let mut output_data: Vec<Vec<f32>> = vec![vec![]; num_outputs];
 
@@ -159,7 +104,7 @@ where
             (0..config.num_samples).for_each(|i| {
                 let mut input_frame = vec![0.0; num_inputs];
                 for ch in 0..num_inputs {
-                    input_frame[ch] = input_data[ch][i] as f32;
+                    input_frame[ch] = input_data[ch][i];
                 }
                 let mut output_frame = vec![0.0; num_outputs];
                 unit.tick(&input_frame, &mut output_frame);

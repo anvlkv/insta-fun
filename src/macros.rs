@@ -55,7 +55,11 @@ macro_rules! assert_audio_unit_snapshot {
 
     // With name and unit
     ($name:literal, $unit:expr) => {{
-        let svg = $crate::snapshot::snapshot_audio_unit($unit);
+        let config = $crate::config::SnapshotConfigBuilder::default()
+            .chart_title($name)
+            .build()
+            .unwrap();
+        let svg = $crate::snapshot::snapshot_audio_unit_with_options($unit, config);
 
         ::insta::assert_binary_snapshot!(&format!("{}.svg", $name), svg.as_bytes().to_vec());
     }};

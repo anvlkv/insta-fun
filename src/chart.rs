@@ -249,7 +249,7 @@ mod tests {
     #[test]
     fn test_chart_with_title() {
         let config = SnapshotConfigBuilder::default()
-            .chart_title(Some("Test Waveform 440Hz".to_string()))
+            .chart_title("Test Waveform 440Hz")
             .build()
             .unwrap();
         let unit = sine_hz::<f32>(440.0);
@@ -280,8 +280,8 @@ mod tests {
     fn test_chart_with_custom_colors() {
         let config = SnapshotConfigBuilder::default()
             .with_inputs(true)
-            .output_colors(Some(vec!["#FF0000".to_string(), "#00FF00".to_string()]))
-            .input_colors(Some(vec!["#0000FF".to_string(), "#FFFF00".to_string()]))
+            .output_colors(vec!["#FF0000".to_string(), "#00FF00".to_string()])
+            .input_colors(vec!["#0000FF".to_string(), "#FFFF00".to_string()])
             .build()
             .unwrap();
         let unit = lowpass_hz(1000.0, 0.7);
@@ -296,7 +296,7 @@ mod tests {
     #[test]
     fn test_chart_with_custom_background() {
         let config = SnapshotConfigBuilder::default()
-            .background_color("#1E1E1E".to_string())
+            .background_color("#1E1E1E")
             .build()
             .unwrap();
         let unit = sine_hz::<f32>(440.0);
@@ -316,7 +316,7 @@ mod tests {
     #[test]
     fn test_chart_with_custom_dimensions() {
         let config = SnapshotConfigBuilder::default()
-            .svg_width(Some(800))
+            .svg_width(800)
             .svg_height_per_channel(150)
             .build()
             .unwrap();
@@ -327,15 +327,15 @@ mod tests {
     #[test]
     fn test_chart_with_all_options() {
         let config = SnapshotConfigBuilder::default()
-            .chart_title(Some("Complete Waveform Test".to_string()))
+            .chart_title("Complete Waveform Test")
             .show_grid(true)
             .show_labels(true)
             .with_inputs(true)
-            .output_colors(Some(vec!["#FF6B6B".to_string()]))
-            .input_colors(Some(vec!["#95E77E".to_string()]))
-            .background_color("#2C3E50".to_string())
+            .output_color("#FF6B6B")
+            .input_color("#95E77E")
+            .background_color("#2C3E50")
             .line_width(3.0)
-            .svg_width(Some(1200))
+            .svg_width(1200)
             .svg_height_per_channel(120)
             .build()
             .unwrap();
@@ -363,8 +363,10 @@ mod tests {
     fn test_chart_multi_channel_with_custom_colors() {
         let config = SnapshotConfigBuilder::default()
             .with_inputs(true)
-            .output_colors(Some(vec!["#FF1744".to_string(), "#00E676".to_string()]))
-            .input_colors(Some(vec!["#2979FF".to_string(), "#FFEA00".to_string()]))
+            .output_color("#FF1744")
+            .output_color("#00E676")
+            .input_color("#2979FF")
+            .input_color("#FFEA00")
             .build()
             .unwrap();
         // Create stereo filter unit

@@ -19,7 +19,7 @@ pub struct SnapshotConfig {
     /// Optional width of the SVG `viewBox`
     ///
     /// `None` means proportional to num_samples
-    #[builder(default = "None")]
+    #[builder(default, setter(strip_option))]
     pub svg_width: Option<usize>,
     /// Height of **one** channel in the SVG `viewBox`
     ///
@@ -34,17 +34,17 @@ pub struct SnapshotConfig {
     /// Whether to include inputs in snapshot
     ///
     /// Default is `false`
-    #[builder(default = "false")]
+    #[builder(default)]
     pub with_inputs: bool,
     /// Optional chart title
     ///
     /// Default is `None`
-    #[builder(default = "None")]
+    #[builder(default, setter(into, strip_option))]
     pub chart_title: Option<String>,
     /// Show grid lines on the chart
     ///
     /// Default is `false`
-    #[builder(default = "false")]
+    #[builder(default)]
     pub show_grid: bool,
     /// Show axis labels
     ///
@@ -54,17 +54,17 @@ pub struct SnapshotConfig {
     /// Custom colors for output channels (hex strings)
     ///
     /// Default is `None` (uses default palette)
-    #[builder(default = "None")]
+    #[builder(default, setter(into, strip_option, each(into, name = "output_color")))]
     pub output_colors: Option<Vec<String>>,
     /// Custom colors for input channels (hex strings)
     ///
     /// Default is `None` (uses default palette)
-    #[builder(default = "None")]
+    #[builder(default, setter(into, strip_option, each(into, name = "input_color")))]
     pub input_colors: Option<Vec<String>>,
     /// Chart background color (hex string)
     ///
     /// Default is "#000000" (black)
-    #[builder(default = "\"#000000\".to_string()")]
+    #[builder(default = "\"#000000\".to_string()", setter(into))]
     pub background_color: String,
     /// Waveform line thickness
     ///
