@@ -81,7 +81,11 @@ pub(crate) fn generate_svg(
                 continue;
             }
 
-            let channel_data = *channel_data;
+            let output_idx = if config.with_inputs && !*is_input {
+                idx - input_data.len()
+            } else {
+                idx
+            };
 
             // Get color for this channel
             let color_str = if *is_input {
@@ -92,11 +96,6 @@ pub(crate) fn generate_svg(
                     .map(|s| s.as_str())
                     .unwrap_or_else(|| INPUT_CHANNEL_COLORS[idx % INPUT_CHANNEL_COLORS.len()])
             } else {
-                let output_idx = if config.with_inputs {
-                    idx - input_data.len()
-                } else {
-                    idx
-                };
                 config
                     .output_colors
                     .as_ref()
@@ -108,87 +107,32 @@ pub(crate) fn generate_svg(
             };
             let color = parse_hex_color(color_str);
 
-            // Calculate data range
-            let min_val = channel_data.iter().cloned().fold(f32::INFINITY, f32::min);
-            let max_val = channel_data
-                .iter()
-                .cloned()
-                .fold(f32::NEG_INFINITY, f32::max);
-            let range = (max_val - min_val).max(f32::EPSILON);
-            let y_min = (min_val - range * 0.1) as f64;
-            let y_max = (max_val + range * 0.1) as f64;
-
-            // Build chart
-            let mut chart = ChartBuilder::on(area)
-                .margin(5)
-                .x_label_area_size(if config.show_labels { 35 } else { 0 })
-                .y_label_area_size(if config.show_labels { 50 } else { 0 })
-                .build_cartesian_2d(0f64..num_samples as f64, y_min..y_max)
-                .unwrap();
-
-            // Configure mesh (grid)
-            if config.show_grid {
-                chart
-                    .configure_mesh()
-                    .x_labels(5)
-                    .y_labels(3)
-                    .x_desc(if *is_input {
-                        format!("Input Ch#{}", idx)
-                    } else {
-                        format!(
-                            "Output Ch#{}",
-                            if config.with_inputs {
-                                idx - input_data.len()
-                            } else {
-                                idx
-                            }
-                        )
-                    })
-                    .label_style(("sans-serif", 10, &color))
-                    .axis_style(color.mix(0.3))
-                    .draw()
-                    .unwrap();
-            } else if config.show_labels {
-                chart
-                    .configure_mesh()
-                    .disable_mesh()
-                    .x_labels(5)
-                    .y_labels(3)
-                    .x_desc(if *is_input {
-                        format!("Input Ch#{}", idx)
-                    } else {
-                        format!(
-                            "Output Ch#{}",
-                            if config.with_inputs {
-                                idx - input_data.len()
-                            } else {
-                                idx
-                            }
-                        )
-                    })
-                    .label_style(("sans-serif", 10, &color))
-                    .axis_style(color.mix(0.3))
-                    .draw()
-                    .unwrap();
-            }
-
-            // Draw waveform
-            let line_style = ShapeStyle {
-                color: color.to_rgba(),
-                filled: false,
-                stroke_width: config.line_width as u32,
+            let label = if config.show_labels {
+                if *is_input {
+                    config
+                        .input_titles
+                        .get(idx)
+                        .cloned()
+                        .or_else(|| Some(format!("Input Ch#{idx}")))
+                } else {
+                    config
+                        .output_titles
+                        .get(output_idx)
+                        .cloned()
+                        .or_else(|| Some(format!("Output Ch#{output_idx}")))
+                }
+            } else {
+                None
             };
 
-            chart
-                .draw_series(std::iter::once(PathElement::new(
-                    channel_data
-                        .iter()
-                        .enumerate()
-                        .map(|(i, &sample)| (i as f64, sample as f64))
-                        .collect::<Vec<(f64, f64)>>(),
-                    line_style,
-                )))
-                .unwrap();
+            channel_chart(
+                channel_data,
+                color,
+                label,
+                config.line_width,
+                config.show_grid,
+                area,
+            );
         }
 
         current_area.present().unwrap();
@@ -237,6 +181,73 @@ fn get_contrasting_color(bg: &RGBColor) -> RGBColor {
     } else {
         RGBColor(32, 32, 32) // Dark gray
     }
+}
+
+fn channel_chart(
+    channel_data: &[f32],
+    color: RGBColor,
+    label: Option<String>,
+    line_width: f32,
+    show_grid: bool,
+    area: &DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
+) {
+    let num_samples = channel_data.len();
+
+    // Calculate data range
+    let min_val = channel_data.iter().cloned().fold(f32::INFINITY, f32::min);
+    let max_val = channel_data
+        .iter()
+        .cloned()
+        .fold(f32::NEG_INFINITY, f32::max);
+    let range = (max_val - min_val).max(f32::EPSILON);
+    let y_min = (min_val - range * 0.1) as f64;
+    let y_max = (max_val + range * 0.1) as f64;
+
+    // Build chart
+    let mut chart = ChartBuilder::on(area)
+        .margin(5)
+        .x_label_area_size(if label.is_some() { 35 } else { 0 })
+        .y_label_area_size(if label.is_some() { 50 } else { 0 })
+        .build_cartesian_2d(0f64..num_samples as f64, y_min..y_max)
+        .unwrap();
+
+    let mut mesh = chart.configure_mesh();
+
+    mesh.axis_style(color.mix(0.3));
+
+    if !show_grid {
+        mesh.disable_mesh();
+    } else {
+        mesh.light_line_style(color.mix(0.1))
+            .bold_line_style(color.mix(0.2));
+    }
+
+    if let Some(label) = label {
+        mesh.x_labels(5)
+            .y_labels(3)
+            .x_desc(label)
+            .label_style(("sans-serif", 10, &color));
+    }
+
+    mesh.draw().unwrap();
+
+    // Draw waveform
+    let line_style = ShapeStyle {
+        color: color.to_rgba(),
+        filled: false,
+        stroke_width: line_width as u32,
+    };
+
+    chart
+        .draw_series(std::iter::once(PathElement::new(
+            channel_data
+                .iter()
+                .enumerate()
+                .map(|(i, &sample)| (i as f64, sample as f64))
+                .collect::<Vec<(f64, f64)>>(),
+            line_style,
+        )))
+        .unwrap();
 }
 
 #[cfg(test)]
@@ -373,6 +384,48 @@ mod tests {
         let unit = lowpass_hz(1000.0, 0.7) | highpass_hz(200.0, 0.7);
         assert_audio_unit_snapshot!(
             "chart_stereo_custom_colors",
+            unit,
+            InputSource::Flat(vec![0.5, -0.5]),
+            config
+        );
+    }
+
+    #[test]
+    fn chart_with_custom_output_channel_labels() {
+        let config = SnapshotConfigBuilder::default()
+            .with_inputs(true)
+            .output_color("#FF1744")
+            .output_color("#00E676")
+            .output_title("lowpass_hz(1000.0, 0.7)")
+            .output_title("highpass_hz(200.0, 0.7)")
+            .build()
+            .unwrap();
+
+        // Create stereo filter unit
+        let unit = lowpass_hz(1000.0, 0.7) | highpass_hz(200.0, 0.7);
+        assert_audio_unit_snapshot!(
+            "chart_stereo_custom_labels",
+            unit,
+            InputSource::Flat(vec![0.5, -0.5]),
+            config
+        );
+    }
+
+    #[test]
+    fn chart_with_custom_input_channel_labels() {
+        let config = SnapshotConfigBuilder::default()
+            .with_inputs(true)
+            .input_color("#2979FF")
+            .input_color("#FFEA00")
+            .input_title("left")
+            .input_title("right")
+            .build()
+            .unwrap();
+
+        // Create stereo filter unit
+        let unit = lowpass_hz(1000.0, 0.7) | highpass_hz(200.0, 0.7);
+        assert_audio_unit_snapshot!(
+            "chart_stereo_custom_inputs",
             unit,
             InputSource::Flat(vec![0.5, -0.5]),
             config

@@ -41,6 +41,16 @@ pub struct SnapshotConfig {
     /// Default is `None`
     #[builder(default, setter(into, strip_option))]
     pub chart_title: Option<String>,
+    /// Optional titles for output channels
+    ///
+    /// Default is empty `Vec`
+    #[builder(default, setter(into, each(into, name = "output_title")))]
+    pub output_titles: Vec<String>,
+    /// Optional titles for input channels
+    ///
+    /// Default is empty `Vec`
+    #[builder(default, setter(into, each(into, name = "input_title")))]
+    pub input_titles: Vec<String>,
     /// Show grid lines on the chart
     ///
     /// Default is `false`
@@ -95,6 +105,8 @@ impl Default for SnapshotConfig {
             processing_mode: Processing::default(),
             with_inputs: false,
             chart_title: None,
+            output_titles: Vec::new(),
+            input_titles: Vec::new(),
             show_grid: false,
             show_labels: true,
             output_colors: None,

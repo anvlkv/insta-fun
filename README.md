@@ -4,7 +4,7 @@ SVG snapshot testing for FunDSP audio units.
 
 Generate visual snapshots of audio processing units to catch regressions and verify signal behavior.
 
-![Example](example.png)
+![Example](https://raw.githubusercontent.com/anvlkv/insta-fun/refs/heads/main/src/snapshots/doctest_macros_rs__doc_highpass.snap.svg)
 
 > **Note:** Snapshot assertion uses `insta::assert_binary_snapshot` which is currently experimental.
 
@@ -45,9 +45,9 @@ fn example_test() {
 
 ## Processing Modes
 
-- **Tick**: Process one sample at a time (default)
-- **Batch**: Process up to 64 samples at once for efficiency
+- **Tick**: Process one sample at a time (default) for testing `fundsp::AudioUnit::tick`
+- **Batch**: Process up to 64 samples at once for testing `fundsp::AudioUnit::process`
 
 ## The Unlicense
 
-See [LICENSE](./LICENSE) file for details.
+See [LICENSE](https://raw.githubusercontent.com/anvlkv/insta-fun/refs/heads/main/LICENSE) file for details.
