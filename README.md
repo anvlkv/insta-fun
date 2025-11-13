@@ -41,6 +41,9 @@ fn example_test() {
 - Configurable sample count, SVG dimensions, and processing modes
 - Built-in input generators (impulse, sine, custom)
 - Batch or tick-by-tick processing
+- Warmup
+- Chart layouts with legend
+- Label formatting
 - Assertion macro
 
 ## Processing Modes
