@@ -48,6 +48,14 @@ fn example_test() {
 - **Tick**: Process one sample at a time (default) for testing `fundsp::AudioUnit::tick`
 - **Batch**: Process up to 64 samples at once for testing `fundsp::AudioUnit::process`
 
+## Examples
+
+See [snapshots](https://github.com/anvlkv/insta-fun/tree/main/src/snapshots) for full list of example charts.
+
+See [tests](https://github.com/anvlkv/insta-fun/tree/main/src/tests.rs) for more usage examples.
+
+See [chart tests](https://github.com/anvlkv/insta-fun/tree/main/src/chart.rs) for usage examples covering specific chart options.
+
 ## The Unlicense
 
 See [LICENSE](https://raw.githubusercontent.com/anvlkv/insta-fun/refs/heads/main/LICENSE) file for details.

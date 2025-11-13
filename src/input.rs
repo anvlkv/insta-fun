@@ -1,8 +1,10 @@
 use fundsp::hacker::AudioUnit;
 
 /// Input provided to the audio unit
+#[derive(Default)]
 pub enum InputSource {
     /// No input
+    #[default]
     None,
     /// Input provided by a channel vec
     ///
@@ -43,7 +45,7 @@ impl InputSource {
         }))
     }
 
-    pub fn into_data(self, num_inputs: usize, num_samples: usize) -> Vec<Vec<f32>> {
+    pub fn make_data(&mut self, num_inputs: usize, num_samples: usize) -> Vec<Vec<f32>> {
         match self {
             InputSource::None => vec![vec![0.0; num_samples]; num_inputs],
             InputSource::VecByChannel(data) => {
@@ -95,7 +97,7 @@ impl InputSource {
             InputSource::Generator(generator_fn) => (0..num_inputs)
                 .map(|ch| (0..num_samples).map(|i| generator_fn(i, ch)).collect())
                 .collect(),
-            InputSource::Unit(mut unit) => {
+            InputSource::Unit(unit) => {
                 let mut data = vec![vec![0.0; num_samples]; num_inputs];
                 for i in 0..num_samples {
                     let mut outputs = vec![0.0; num_inputs];

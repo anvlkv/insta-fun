@@ -1,6 +1,6 @@
 use fundsp::prelude::*;
 
-use crate::chart::generate_svg;
+use crate::chart::{AbnormalSample, generate_svg};
 use crate::config::{Processing, SnapshotConfig};
 use crate::input::InputSource;
 
@@ -82,7 +82,7 @@ where
 /// ```
 pub fn snapshot_audio_unit_with_input_and_options<N>(
     mut unit: N,
-    input_source: InputSource,
+    mut input_source: InputSource,
     config: SnapshotConfig,
 ) -> String
 where
@@ -95,9 +95,45 @@ where
     unit.reset();
     unit.allocate();
 
-    let input_data = input_source.into_data(num_inputs, config.num_samples);
+    let input_data = input_source.make_data(num_inputs, config.num_samples);
 
     let mut output_data: Vec<Vec<f32>> = vec![vec![]; num_outputs];
+
+    let warmup_samples = config
+        .warm_up
+        .warm_up_samples(config.sample_rate, num_inputs);
+
+    let num_warmup_samples = warmup_samples
+        .iter()
+        .map(|ch| ch.len())
+        .next()
+        .unwrap_or_default();
+
+    let mut abnormalities: Vec<Vec<(usize, AbnormalSample)>> = vec![vec![]; num_outputs];
+
+    let mut checked_sample = |mut sample: f32, ch: usize, i: usize| {
+        if sample.is_nan() || sample.is_infinite() {
+            let abnormality = AbnormalSample::from(sample);
+
+            if config.allow_abnormal_samples {
+                abnormalities[ch].push((i, abnormality));
+                sample = 0.0;
+            } else {
+                panic!("Output channel #[{ch}] at sample [{i}] produced [{abnormality}] sample");
+            }
+        }
+        sample
+    };
+
+    (0..num_warmup_samples).for_each(|i| {
+        let mut input_frame = vec![0.0; num_inputs];
+        for ch in 0..num_inputs {
+            input_frame[ch] = input_data[ch][i];
+        }
+        let mut output_frame = vec![0.0; num_outputs];
+        unit.tick(&input_frame, &mut output_frame);
+        // do nothing, warmup samples
+    });
 
     match config.processing_mode {
         Processing::Tick => {
@@ -109,7 +145,8 @@ where
                 let mut output_frame = vec![0.0; num_outputs];
                 unit.tick(&input_frame, &mut output_frame);
                 for ch in 0..num_outputs {
-                    output_data[ch].push(output_frame[ch]);
+                    let sample = checked_sample(output_frame[ch], ch, i);
+                    output_data[ch].push(sample);
                 }
             });
         }
@@ -135,11 +172,17 @@ where
                 unit.process(chunk.len(), &input_ref, &mut output_ref);
 
                 for (ch, data) in output_data.iter_mut().enumerate() {
-                    data.extend_from_slice(output_buf.channel_f32(ch));
+                    data.extend(
+                        output_buf
+                            .channel_f32(ch)
+                            .iter()
+                            .enumerate()
+                            .map(|(i, &value)| checked_sample(value, ch, i + chunk[0])),
+                    );
                 }
             }
         }
     }
 
-    generate_svg(&input_data, &output_data, &config)
+    generate_svg(&input_data, &output_data, &abnormalities, &config)
 }

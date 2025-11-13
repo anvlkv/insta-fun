@@ -1,6 +1,6 @@
 [package]
 name = "insta-fun"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2024"
 description = "Snapshot testing of fundsp units. Visualize output in svg and compare using insta"
 repository = "https://github.com/anvlkv/insta-fun"
@@ -12,6 +12,7 @@ derive_builder = "0.20.2"
 fundsp = { version = "0.20", default-features = false }
 plotters = { version = "0.3.7", default-features = false, features = [
   "line_series",
+  "point_series",
   "svg_backend"
 ] }
 
