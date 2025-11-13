@@ -544,3 +544,22 @@ fn test_chart_layout_combined_per_type_no_inputs() {
         config
     );
 }
+
+#[test]
+fn chart_x_axis_labels_as_time() {
+    let config = SnapshotConfigBuilder::default()
+        .format_x_axis_labels_as_time(true)
+        .show_labels(true)
+        .num_samples(30000)
+        .max_labels_x_axis(None)
+        .build()
+        .unwrap();
+    let unit = sine_hz::<f32>(440.0);
+
+    assert_audio_unit_snapshot!(
+        "chart_x_axis_labels_as_time",
+        unit,
+        InputSource::None,
+        config
+    );
+}

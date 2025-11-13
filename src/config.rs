@@ -10,16 +10,50 @@ const DEFAULT_HEIGHT: usize = 500;
 #[derive(Debug, Clone, Builder)]
 /// Configuration for snapshotting an audio unit.
 pub struct SnapshotConfig {
-    /// Number of samples to generate.
-    ///
-    /// Default is 1024
-    #[builder(default = "1024")]
-    pub num_samples: usize,
+    // Audio configuration
     /// Sample rate of the audio unit.
     ///
     /// Default is 44100.0 [fundsp::DEFAULT_SR]
     #[builder(default = "fundsp::DEFAULT_SR")]
     pub sample_rate: f64,
+    /// Number of samples to generate.
+    ///
+    /// Default is 1024
+    #[builder(default = "1024")]
+    pub num_samples: usize,
+    /// Processing mode for snapshotting an audio unit.
+    ///
+    /// Default - `Tick`
+    #[builder(default = "Processing::default()")]
+    pub processing_mode: Processing,
+    /// Warm-up mode for snapshotting an audio unit.
+    ///
+    /// Default - `WarmUp::None`
+    #[builder(default = "WarmUp::None")]
+    pub warm_up: WarmUp,
+    /// How to handle abnormal samples: `NaN`,`±Infinity`
+    ///
+    /// When set to `true` abnormal samples are allowed during processing,
+    /// but skipped in actual output. Plotted with labeled dots.
+    ///
+    /// When set to `false` and encoutered abnormal samples,
+    /// the snapshotting process will panic.
+    #[builder(default = "false")]
+    pub allow_abnormal_samples: bool,
+
+    // Chart configuration
+    /// Chart layout
+    ///
+    /// Whether to plot channels on separate charts or combined charts.
+    ///
+    /// Default - `Layout::Separate`
+    #[builder(default)]
+    pub chart_layout: Layout,
+    /// Whether to include inputs in snapshot
+    ///
+    /// Default - `false`
+    #[builder(default)]
+    pub with_inputs: bool,
     /// Optional width of the SVG `viewBox`
     ///
     /// `None` means proportional to num_samples
@@ -30,16 +64,25 @@ pub struct SnapshotConfig {
     /// Default - 500
     #[builder(default = "DEFAULT_HEIGHT")]
     pub svg_height_per_channel: usize,
-    /// Processing mode for snapshotting an audio unit.
+
+    // Chart labels
+    /// Show ax- labels
     ///
-    /// Default - `Tick`
-    #[builder(default = "Processing::default()")]
-    pub processing_mode: Processing,
-    /// Whether to include inputs in snapshot
+    /// Default - `true`
+    #[builder(default = "true")]
+    pub show_labels: bool,
+    /// X axis labels format
+    ///
+    /// Whether to format X axis labels as time
     ///
     /// Default - `false`
     #[builder(default)]
-    pub with_inputs: bool,
+    pub format_x_axis_labels_as_time: bool,
+    /// Maximum number of labels along X axis
+    ///
+    /// Default - `Some(5)`
+    #[builder(default = "Some(5)")]
+    pub max_labels_x_axis: Option<usize>,
     /// Optional chart title
     ///
     /// Default - `None`
@@ -55,16 +98,25 @@ pub struct SnapshotConfig {
     /// Default - empty `Vec`
     #[builder(default, setter(into, each(into, name = "input_title")))]
     pub input_titles: Vec<String>,
+
+    // Lines
     /// Show grid lines on the chart
     ///
     /// Default - `false`
     #[builder(default)]
     pub show_grid: bool,
-    /// Show ax- labels
+    /// Waveform line thickness
     ///
-    /// Default - `true`
-    #[builder(default = "true")]
-    pub show_labels: bool,
+    /// Default - 2.0
+    #[builder(default = "2.0")]
+    pub line_width: f32,
+
+    // Chart colors
+    /// Chart background color (hex string)
+    ///
+    /// Default - "#000000" (black)
+    #[builder(default = "\"#000000\".to_string()", setter(into))]
+    pub background_color: String,
     /// Custom colors for output channels (hex strings)
     ///
     /// Default - `None` (uses default palette)
@@ -75,37 +127,6 @@ pub struct SnapshotConfig {
     /// Default - `None` (uses default palette)
     #[builder(default, setter(into, strip_option, each(into, name = "input_color")))]
     pub input_colors: Option<Vec<String>>,
-    /// Chart background color (hex string)
-    ///
-    /// Default - "#000000" (black)
-    #[builder(default = "\"#000000\".to_string()", setter(into))]
-    pub background_color: String,
-    /// Waveform line thickness
-    ///
-    /// Default - 2.0
-    #[builder(default = "2.0")]
-    pub line_width: f32,
-    /// Warm-up mode for snapshotting an audio unit.
-    ///
-    /// Default - `WarmUp::None`
-    #[builder(default = "WarmUp::None")]
-    pub warm_up: WarmUp,
-    /// How to handle abnormal samples: `NaN`,`±Infinity`
-    ///
-    /// When set to `true` abnormal samples are allowed during processing,
-    /// but skipped in actual output. Plotted with labeled dots.
-    ///
-    /// When set to `false` and encoutered abnormal samples,
-    /// the snapshotting process will panic.
-    #[builder(default = "false")]
-    pub allow_abnormal_samples: bool,
-    /// Chart layout
-    ///
-    /// Whether to plot channels on separate charts or combined charts.
-    ///
-    /// Default - `Layout::Separate`
-    #[builder(default)]
-    pub chart_layout: Layout,
 }
 
 /// Processing mode for snapshotting an audio unit.
@@ -134,6 +155,7 @@ impl Default for SnapshotConfig {
             input_titles: Vec::new(),
             show_grid: false,
             show_labels: true,
+            max_labels_x_axis: Some(5),
             output_colors: None,
             input_colors: None,
             background_color: "#000000".to_string(),
@@ -141,6 +163,7 @@ impl Default for SnapshotConfig {
             warm_up: WarmUp::default(),
             allow_abnormal_samples: false,
             chart_layout: Layout::default(),
+            format_x_axis_labels_as_time: false,
         }
     }
 }

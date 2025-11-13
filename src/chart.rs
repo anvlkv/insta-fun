@@ -7,7 +7,8 @@ use crate::abnormal::{AbnormalSample, abnormal_smaples_series};
 use crate::chart_data::ChannelChartData;
 use crate::config::SnapshotConfig;
 use crate::util::{
-    INPUT_CHANNEL_COLORS, OUTPUT_CHANNEL_COLORS, get_contrasting_color, parse_hex_color,
+    INPUT_CHANNEL_COLORS, OUTPUT_CHANNEL_COLORS, get_contrasting_color, num_x_labels,
+    parse_hex_color, time_formatter,
 };
 
 /// Chart layout
@@ -100,13 +101,7 @@ pub(crate) fn generate_svg(
                     .chain(output_charts.into_iter())
                     .zip(areas)
                 {
-                    one_channel_chart(
-                        chart,
-                        config.line_width,
-                        config.show_grid,
-                        start_sample,
-                        &area,
-                    );
+                    one_channel_chart(chart, config, start_sample, &area);
                 }
             }
             Layout::CombinedPerChannelType => {
@@ -207,9 +202,20 @@ fn multi_channel_chart(
     }
 
     if config.show_labels {
-        mesh.x_labels(5)
-            .y_labels(3)
-            .label_style(("sans-serif", 10, &axis_color));
+        let x_labels = num_x_labels(num_samples, config.sample_rate);
+        mesh.x_labels(
+            config
+                .max_labels_x_axis
+                .map(|mx| x_labels.min(mx))
+                .unwrap_or(x_labels),
+        )
+        .y_labels(3)
+        .label_style(("sans-serif", 10, &axis_color));
+    }
+
+    let formatter = |v: &f64| time_formatter(*v as usize, config.sample_rate);
+    if config.format_x_axis_labels_as_time {
+        mesh.x_label_formatter(&formatter);
     }
 
     mesh.draw().unwrap();
@@ -314,8 +320,7 @@ fn multi_channel_chart(
 
 fn one_channel_chart(
     chart_data: ChannelChartData,
-    line_width: f32,
-    show_grid: bool,
+    config: &SnapshotConfig,
     start_from: usize,
     area: &DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
 ) {
@@ -350,7 +355,7 @@ fn one_channel_chart(
 
     mesh.axis_style(color.mix(0.3));
 
-    if !show_grid {
+    if !config.show_grid {
         mesh.disable_mesh();
     } else {
         mesh.light_line_style(color.mix(0.1))
@@ -358,10 +363,21 @@ fn one_channel_chart(
     }
 
     if let Some(label) = label {
-        mesh.x_labels(5)
-            .y_labels(3)
-            .x_desc(label)
-            .label_style(("sans-serif", 10, &color));
+        let x_labels = num_x_labels(num_samples, config.sample_rate);
+        mesh.x_labels(
+            config
+                .max_labels_x_axis
+                .map(|mx| x_labels.min(mx))
+                .unwrap_or(x_labels),
+        )
+        .y_labels(3)
+        .x_desc(label)
+        .label_style(("sans-serif", 10, &color));
+    }
+
+    let formatter = |v: &f64| time_formatter(*v as usize, config.sample_rate);
+    if config.format_x_axis_labels_as_time {
+        mesh.x_label_formatter(&formatter);
     }
 
     mesh.draw().unwrap();
@@ -370,7 +386,7 @@ fn one_channel_chart(
     let line_style = ShapeStyle {
         color: color.to_rgba(),
         filled: false,
-        stroke_width: line_width as u32,
+        stroke_width: config.line_width as u32,
     };
 
     chart
