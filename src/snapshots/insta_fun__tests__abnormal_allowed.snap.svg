@@ -1,0 +1,1532 @@
+<svg width="1600" height="500" viewBox="0 0 1600 500" xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="0" width="1600" height="500" opacity="1" fill="#000000" stroke="none"/>
+<text x="800" y="5" dy="0.76em" text-anchor="middle" font-family="sans-serif" font-size="16.129032258064516" opacity="1" fill="#FFFFFF">
+abnormal_allowed
+</text>
+<text x="825" y="495" dy="-0.5ex" text-anchor="middle" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+Output Ch#0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="54,31 54,459 "/>
+<text x="45" y="424" dy="0.5ex" text-anchor="end" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+0.0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="49,424 54,424 "/>
+<text x="45" y="201" dy="0.5ex" text-anchor="end" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+500.0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="49,201 54,201 "/>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="55,460 1594,460 "/>
+<text x="55" y="470" dy="0.76em" text-anchor="middle" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+0.0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="55,460 55,465 "/>
+<text x="439" y="470" dy="0.76em" text-anchor="middle" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+200.0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="439,460 439,465 "/>
+<text x="824" y="470" dy="0.76em" text-anchor="middle" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+400.0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="824,460 824,465 "/>
+<text x="1209" y="470" dy="0.76em" text-anchor="middle" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+600.0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="1209,460 1209,465 "/>
+<text x="1594" y="470" dy="0.76em" text-anchor="middle" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#4285F4">
+800.0
+</text>
+<polyline fill="none" opacity="0.3" stroke="#4285F4" stroke-width="1" points="1594,460 1594,465 "/>
+<polyline fill="none" opacity="1" stroke="#4285F4" stroke-width="2" points="55,424 56,423 58,423 60,424 62,422 64,424 66,424 68,421 70,420 72,424 74,424 76,419 78,424 80,418 81,418 83,424 85,417 87,416 89,424 91,415 93,424 95,424 97,414 99,414 101,424 103,424 105,412 106,424 108,411 110,411 112,424 114,410 116,410 118,424 120,409 122,424 124,424 126,407 128,407 130,424 131,424 133,406 135,424 137,405 139,404 141,424 143,403 145,403 147,424 149,402 151,424 153,424 155,401 156,400 158,424 160,424 162,399 164,424 166,398 168,397 170,424 172,397 174,396 176,424 178,395 180,424 181,424 183,394 185,393 187,424 189,424 191,392 193,424 195,391 197,391 199,424 201,390 203,389 205,424 206,389 208,424 210,424 212,387 214,387 216,424 218,424 220,385 222,424 224,385 226,384 228,424 230,383 231,383 233,424 235,382 237,424 239,424 241,381 243,380 245,424 247,424 249,379 251,424 253,378 255,377 256,424 258,377 260,376 262,424 264,375 266,424 268,424 270,374 272,373 274,424 276,424 278,372 280,424 282,371 283,371 285,424 287,370 289,369 291,424 293,368 295,424 297,424 299,367 301,367 303,424 305,424 307,365 308,424 310,364 312,364 314,424 316,363 318,363 320,424 322,362 324,424 326,424 328,360 330,360 332,424 333,424 335,359 337,424 339,358 341,357 343,424 345,356 347,356 349,424 351,355 353,424 355,424 357,354 358,353 360,424 362,424 364,352 366,424 368,351 370,351 372,424 374,350 376,349 378,424 380,348 382,424 383,424 385,347 387,347 389,424 391,424 393,345 395,424 397,344 399,344 401,424 403,343 405,343 407,424 408,342 410,424 412,424 414,340 416,340 418,424 420,424 422,339 424,424 426,338 428,337 430,424 432,336 433,336 435,424 437,335 439,424 441,424 443,334 445,333 447,424 449,424 451,332 453,424 455,331 457,331 458,424 460,330 462,329 464,424 466,328 468,424 470,424 472,327 474,327 476,424 478,424 480,325 482,424 483,324 485,324 487,424 489,323 491,323 493,424 495,322 497,424 499,424 501,320 503,320 505,424 507,424 509,318 510,424 512,318 514,317 516,424 518,316 520,316 522,424 524,315 526,424 528,424 530,314 532,313 534,424 535,424 537,312 539,424 541,311 543,310 545,424 547,310 549,309 551,424 553,308 555,424 557,424 559,307 560,306 562,424 564,424 566,305 568,424 570,304 572,304 574,424 576,303 578,302 580,424 582,302 584,424 585,424 587,300 589,300 591,424 593,424 595,298 597,424 599,298 601,297 603,424 605,296 607,296 609,424 610,295 612,424 614,424 616,293 618,293 620,424 622,424 624,292 626,424 628,291 630,290 632,424 634,289 635,289 637,424 639,288 641,424 643,424 645,287 647,286 649,424 651,424 653,285 655,424 657,284 659,284 660,424 662,283 664,282 666,424 668,281 670,424 672,424 674,280 676,280 678,424 680,424 682,278 684,424 685,277 687,277 689,424 691,276 693,276 695,424 697,275 699,424 701,424 703,273 705,273 707,424 709,424 710,272 712,424 714,271 716,270 718,424 720,269 722,269 724,424 726,268 728,424 730,424 732,267 734,266 736,424 737,424 739,265 741,424 743,264 745,264 747,424 749,263 751,262 753,424 755,261 757,424 759,424 761,260 762,260 764,424 766,424 768,258 770,424 772,257 774,257 776,424 778,256 780,256 782,424 784,255 786,424 787,424 789,253 791,253 793,424 795,424 797,252 799,424 801,251 803,250 805,424 807,249 809,249 811,424 812,248 814,424 816,424 818,247 820,246 822,424 824,424 826,245 828,424 830,244 832,243 834,424 836,243 837,242 839,424 841,241 843,424 845,424 847,240 849,239 851,424 853,424 855,238 857,424 859,237 861,237 862,424 864,236 866,235 868,424 870,235 872,424 874,424 876,233 878,233 880,424 882,424 884,231 886,424 887,231 889,230 891,424 893,229 895,229 897,424 899,228 901,424 903,424 905,227 907,226 909,424 911,424 912,225 914,424 916,224 918,223 920,424 922,223 924,222 926,424 928,221 930,424 932,424 934,220 936,219 938,424 939,424 941,218 943,424 945,217 947,217 949,424 951,216 953,215 955,424 957,214 959,424 961,424 963,213 964,213 966,424 968,424 970,211 972,424 974,210 976,210 978,424 980,209 982,209 984,424 986,208 988,424 989,424 991,206 993,206 995,424 997,424 999,205 1001,424 1003,204 1005,203 1007,424 1009,202 1011,202 1013,424 1014,201 1016,424 1018,424 1020,200 1022,199 1024,424 1026,424 1028,198 1030,424 1032,197 1034,197 1036,424 1038,196 1039,195 1041,424 1043,194 1045,424 1047,424 1049,193 1051,193 1053,424 1055,424 1057,191 1059,424 1061,190 1063,190 1064,424 1066,189 1068,189 1070,424 1072,188 1074,424 1076,424 1078,186 1080,186 1082,424 1084,424 1086,185 1088,424 1089,184 1091,183 1093,424 1095,182 1097,182 1099,424 1101,181 1103,424 1105,424 1107,180 1109,179 1111,424 1113,424 1114,178 1116,424 1118,177 1120,177 1122,424 1124,176 1126,175 1128,424 1130,174 1132,424 1134,424 1136,173 1138,173 1139,424 1141,424 1143,171 1145,424 1147,170 1149,170 1151,424 1153,169 1155,168 1157,424 1159,168 1161,424 1163,424 1165,166 1166,166 1168,424 1170,424 1172,164 1174,424 1176,164 1178,163 1180,424 1182,162 1184,162 1186,424 1188,161 1190,424 1191,424 1193,160 1195,159 1197,424 1199,424 1201,158 1203,424 1205,157 1207,156 1209,424 1211,156 1213,155 1215,424 1216,154 1218,424 1220,424 1222,153 1224,152 1226,424 1228,424 1230,151 1232,424 1234,150 1236,150 1238,424 1240,149 1241,148 1243,424 1245,148 1247,424 1249,424 1251,146 1253,146 1255,424 1257,424 1259,144 1261,424 1263,143 1265,143 1266,424 1268,142 1270,142 1272,424 1274,141 1276,424 1278,424 1280,139 1282,139 1284,424 1286,424 1288,138 1290,424 1291,137 1293,136 1295,424 1297,135 1299,135 1301,424 1303,134 1305,424 1307,424 1309,133 1311,132 1313,424 1315,424 1316,131 1318,424 1320,130 1322,130 1324,424 1326,129 1328,128 1330,424 1332,127 1334,424 1336,424 1338,126 1340,126 1341,424 1343,424 1345,124 1347,424 1349,123 1351,123 1353,424 1355,122 1357,122 1359,424 1361,121 1363,424 1365,424 1366,119 1368,119 1370,424 1372,424 1374,118 1376,424 1378,117 1380,116 1382,424 1384,115 1386,115 1388,424 1390,114 1392,424 1393,424 1395,113 1397,112 1399,424 1401,424 1403,111 1405,424 1407,110 1409,110 1411,424 1413,109 1415,108 1417,424 1418,107 1420,424 1422,424 1424,106 1426,106 1428,424 1430,424 1432,104 1434,424 1436,103 1438,103 1440,424 1442,102 1443,102 1445,424 1447,101 1449,424 1451,424 1453,99 1455,99 1457,424 1459,424 1461,98 1463,424 1465,97 1467,96 1468,424 1470,95 1472,95 1474,424 1476,94 1478,424 1480,424 1482,93 1484,92 1486,424 1488,424 1490,91 1492,424 1493,90 1495,89 1497,424 1499,89 1501,88 1503,424 1505,87 1507,424 1509,424 1511,86 1513,85 1515,424 1517,424 1518,84 1520,424 1522,83 1524,83 1526,424 1528,82 1530,81 1532,424 1534,81 1536,424 1538,424 1540,79 1542,79 1543,424 1545,424 1547,77 1549,424 1551,77 1553,76 1555,424 1557,75 1559,75 1561,424 1563,74 1565,424 1567,424 1568,73 1570,72 1572,424 1574,424 1576,71 1578,424 1580,70 1582,69 1584,424 1586,69 1588,68 1590,424 1592,67 "/>
+<circle cx="55" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="55" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="60" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="60" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="64" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="64" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="66" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="66" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="72" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="72" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="74" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="74" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="78" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="78" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="83" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="83" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="89" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="89" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="93" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="93" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="95" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="95" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="101" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="101" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="103" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="103" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="106" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="106" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="112" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="112" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="118" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="118" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="122" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="122" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="124" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="124" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="130" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="130" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="131" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="131" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="135" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="135" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="141" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="141" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="147" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="147" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="151" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="151" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="153" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="153" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="158" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="158" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="160" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="160" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="164" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="164" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="170" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="170" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="176" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="176" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="180" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="180" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="181" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="181" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="187" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="187" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="189" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="189" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="193" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="193" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="199" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="199" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="205" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="205" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="208" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="208" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="210" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="210" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="216" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="216" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="218" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="218" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="222" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="222" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="228" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="228" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="233" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="233" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="237" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="237" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="239" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="239" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="245" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="245" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="247" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="247" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="251" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="251" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="256" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="256" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="262" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="262" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="266" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="266" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="268" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="268" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="274" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="274" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="276" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="276" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="280" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="280" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="285" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="285" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="291" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="291" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="295" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="295" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="297" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="297" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="303" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="303" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="305" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="305" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="308" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="308" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="314" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="314" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="320" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="320" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="324" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="324" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="326" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="326" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="332" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="332" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="333" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="333" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="337" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="337" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="343" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="343" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="349" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="349" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="353" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="353" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="355" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="355" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="360" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="360" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="362" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="362" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="366" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="366" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="372" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="372" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="378" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="378" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="382" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="382" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="383" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="383" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="389" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="389" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="391" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="391" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="395" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="395" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="401" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="401" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="407" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="407" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="410" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="410" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="412" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="412" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="418" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="418" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="420" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="420" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="424" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="424" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="430" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="430" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="435" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="435" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="439" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="439" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="441" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="441" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="447" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="447" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="449" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="449" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="453" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="453" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="458" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="458" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="464" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="464" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="468" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="468" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="470" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="470" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="476" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="476" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="478" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="478" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="482" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="482" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="487" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="487" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="493" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="493" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="497" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="497" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="499" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="499" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="505" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="505" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="507" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="507" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="510" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="510" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="516" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="516" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="522" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="522" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="526" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="526" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="528" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="528" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="534" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="534" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="535" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="535" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="539" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="539" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="545" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="545" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="551" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="551" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="555" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="555" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="557" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="557" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="562" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="562" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="564" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="564" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="568" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="568" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="574" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="574" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="580" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="580" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="584" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="584" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="585" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="585" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="591" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="591" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="593" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="593" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="597" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="597" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="603" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="603" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="609" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="609" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="612" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="612" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="614" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="614" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="620" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="620" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="622" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="622" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="626" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="626" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="632" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="632" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="637" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="637" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="641" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="641" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="643" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="643" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="649" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="649" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="651" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="651" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="655" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="655" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="660" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="660" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="666" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="666" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="670" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="670" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="672" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="672" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="678" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="678" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="680" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="680" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="684" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="684" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="689" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="689" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="695" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="695" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="699" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="699" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="701" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="701" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="707" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="707" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="709" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="709" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="712" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="712" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="718" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="718" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="724" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="724" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="728" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="728" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="730" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="730" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="736" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="736" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="737" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="737" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="741" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="741" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="747" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="747" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="753" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="753" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="757" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="757" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="759" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="759" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="764" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="764" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="766" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="766" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="770" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="770" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="776" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="776" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="782" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="782" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="786" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="786" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="787" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="787" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="793" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="793" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="795" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="795" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="799" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="799" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="805" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="805" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="811" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="811" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="814" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="814" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="816" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="816" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="822" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="822" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="824" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="824" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="828" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="828" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="834" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="834" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="839" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="839" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="843" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="843" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="845" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="845" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="851" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="851" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="853" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="853" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="857" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="857" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="862" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="862" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="868" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="868" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="872" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="872" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="874" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="874" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="880" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="880" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="882" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="882" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="886" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="886" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="891" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="891" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="897" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="897" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="901" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="901" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="903" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="903" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="909" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="909" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="911" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="911" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="914" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="914" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="920" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="920" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="926" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="926" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="930" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="930" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="932" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="932" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="938" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="938" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="939" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="939" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="943" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="943" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="949" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="949" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="955" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="955" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="959" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="959" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="961" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="961" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="966" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="966" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="968" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="968" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="972" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="972" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="978" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="978" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="984" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="984" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="988" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="988" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="989" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="989" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="995" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="995" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="997" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="997" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1001" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1001" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1007" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1007" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1013" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1013" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1016" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1016" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1018" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1018" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1024" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1024" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1026" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1026" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1030" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1030" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1036" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1036" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1041" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1041" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1045" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1045" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1047" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1047" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1053" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1053" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1055" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1055" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1059" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1059" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1064" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1064" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1070" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1070" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1074" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1074" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1076" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1076" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1082" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1082" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1084" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1084" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1088" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1088" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1093" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1093" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1099" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1099" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1103" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1103" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1105" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1105" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1111" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1111" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1113" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1113" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1116" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1116" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1122" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1122" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1128" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1128" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1132" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1132" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1134" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1134" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1139" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1139" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1141" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1141" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1145" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1145" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1151" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1151" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1157" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1157" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1161" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1161" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1163" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1163" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1168" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1168" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1170" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1170" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1174" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1174" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1180" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1180" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1186" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1186" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1190" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1190" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1191" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1191" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1197" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1197" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1199" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1199" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1203" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1203" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1209" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1209" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1215" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1215" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1218" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1218" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1220" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1220" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1226" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1226" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1228" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1228" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1232" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1232" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1238" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1238" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1243" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1243" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1247" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1247" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1249" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1249" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1255" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1255" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1257" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1257" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1261" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1261" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1266" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1266" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1272" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1272" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1276" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1276" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1278" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1278" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1284" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1284" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1286" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1286" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1290" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1290" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1295" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1295" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1301" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1301" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1305" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1305" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1307" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1307" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1313" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1313" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1315" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1315" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1318" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1318" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1324" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1324" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1330" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1330" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1334" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1334" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1336" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1336" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1341" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1341" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1343" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1343" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1347" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1347" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1353" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1353" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1359" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1359" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1363" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1363" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1365" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1365" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1370" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1370" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1372" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1372" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1376" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1376" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1382" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1382" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1388" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1388" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1392" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1392" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1393" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1393" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1399" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1399" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1401" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1401" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1405" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1405" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1411" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1411" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1417" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1417" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1420" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1420" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1422" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1422" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1428" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1428" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1430" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1430" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1434" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1434" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1440" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1440" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1445" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1445" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1449" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1449" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1451" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1451" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1457" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1457" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1459" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1459" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1463" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1463" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1468" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1468" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1474" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1474" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1478" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1478" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1480" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1480" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1486" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1486" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1488" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1488" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1492" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1492" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1497" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1497" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1503" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1503" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1507" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1507" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1509" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1509" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1515" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1515" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1517" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1517" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1520" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1520" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1526" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1526" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1532" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1532" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1536" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1536" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1538" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1538" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1543" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1543" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1545" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1545" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1549" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1549" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1555" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1555" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1561" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1561" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1565" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1565" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1567" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1567" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1572" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1572" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1574" cy="31" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1574" y="16" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+∞
+</text>
+<circle cx="1578" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1578" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+<circle cx="1584" cy="424" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1584" y="419" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+NaN
+</text>
+<circle cx="1590" cy="459" r="3" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="1590" y="474" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="8.064516129032258" opacity="1" fill="#FF0000">
+-∞
+</text>
+</svg>

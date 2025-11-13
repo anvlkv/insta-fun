@@ -3,26 +3,17 @@ use plotters::drawing::IntoDrawingArea;
 use plotters::element::DashedPathElement;
 use plotters::prelude::*;
 
+use crate::abnormal::{AbnormalSample, abnormal_smaples_series};
+use crate::chart_data::ChannelChartData;
 use crate::config::SnapshotConfig;
+use crate::util::{
+    INPUT_CHANNEL_COLORS, OUTPUT_CHANNEL_COLORS, get_contrasting_color, parse_hex_color,
+};
 
-const OUTPUT_CHANNEL_COLORS: &[&str] = &[
-    "#4285F4", "#EA4335", "#FBBC04", "#34A853", "#FF6D00", "#AB47BC", "#00ACC1", "#7CB342",
-    "#9C27B0", "#3F51B5", "#009688", "#8BC34A", "#FFEB3B", "#FF9800", "#795548", "#607D8B",
-    "#E91E63", "#673AB7", "#2196F3", "#00BCD4", "#4CAF50", "#CDDC39", "#FFC107", "#FF5722",
-    "#9E9E9E", "#03A9F4", "#8D6E63", "#78909C", "#880E4F", "#4A148C", "#0D47A1", "#004D40",
-];
-
-const INPUT_CHANNEL_COLORS: &[&str] = &[
-    "#B39DDB", "#FFAB91", "#FFF59D", "#A5D6A7", "#FFCC80", "#CE93D8", "#80DEEA", "#C5E1A5",
-    "#BA68C8", "#9FA8DA", "#80CBC4", "#DCE775", "#FFF176", "#FFB74D", "#BCAAA4", "#B0BEC5",
-    "#F48FB1", "#B39DDB", "#90CAF9", "#80DEEA", "#A5D6A7", "#E6EE9C", "#FFD54F", "#FF8A65",
-    "#BDBDBD", "#81D4FA", "#A1887F", "#90A4AE", "#C2185B", "#7B1FA2", "#1976D2", "#00796B",
-];
-
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 /// Chart layout
 ///
 /// Whether to plot channels on separate charts or combined charts.
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
 pub enum Layout {
     /// Each channel plots on its own chart
     #[default]
@@ -33,112 +24,6 @@ pub enum Layout {
     CombinedPerChannelType,
     /// All channels plot on one chart
     Combined,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) enum AbnormalSample {
-    Nan,
-    NegInf,
-    PosInf,
-}
-
-impl std::fmt::Display for AbnormalSample {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            AbnormalSample::Nan => write!(f, "NaN"),
-            AbnormalSample::NegInf => write!(f, "-∞"),
-            AbnormalSample::PosInf => write!(f, "∞"),
-        }
-    }
-}
-
-impl From<f32> for AbnormalSample {
-    fn from(sample: f32) -> Self {
-        if sample.is_nan() {
-            AbnormalSample::Nan
-        } else if sample.is_infinite() && sample.is_sign_negative() {
-            AbnormalSample::NegInf
-        } else if sample.is_infinite() && sample.is_sign_positive() {
-            AbnormalSample::PosInf
-        } else {
-            unreachable!()
-        }
-    }
-}
-
-#[allow(dead_code)]
-struct ChannelChartData {
-    data: Vec<f32>,
-    abnormalities: Vec<(usize, AbnormalSample)>,
-    color: RGBColor,
-    label: Option<String>,
-    is_input: bool,
-    idx: usize,
-}
-
-impl ChannelChartData {
-    fn from_input_data(data: &[f32], idx: usize, config: &SnapshotConfig) -> Self {
-        let color = config
-            .input_colors
-            .as_ref()
-            .and_then(|colors| colors.get(idx))
-            .map(|s| s.as_str())
-            .unwrap_or_else(|| INPUT_CHANNEL_COLORS[idx % INPUT_CHANNEL_COLORS.len()]);
-        let color = parse_hex_color(color);
-
-        let label = if config.show_labels {
-            config
-                .input_titles
-                .get(idx)
-                .cloned()
-                .or_else(|| Some(format!("Input Ch#{idx}")))
-        } else {
-            None
-        };
-
-        Self {
-            data: data.to_vec(),
-            abnormalities: Vec::new(),
-            is_input: true,
-            color,
-            label,
-            idx,
-        }
-    }
-
-    fn from_output_data(
-        data: &[f32],
-        abnormalities: &[(usize, AbnormalSample)],
-        idx: usize,
-        config: &SnapshotConfig,
-    ) -> Self {
-        let color = config
-            .output_colors
-            .as_ref()
-            .and_then(|colors| colors.get(idx))
-            .map(|s| s.as_str())
-            .unwrap_or_else(|| OUTPUT_CHANNEL_COLORS[idx % OUTPUT_CHANNEL_COLORS.len()]);
-        let color = parse_hex_color(color);
-
-        let label = if config.show_labels {
-            config
-                .output_titles
-                .get(idx)
-                .cloned()
-                .or_else(|| Some(format!("Output Ch#{idx}")))
-        } else {
-            None
-        };
-
-        Self {
-            data: data.to_vec(),
-            abnormalities: abnormalities.to_vec(),
-            is_input: false,
-            color,
-            label,
-            idx,
-        }
-    }
 }
 
 pub(crate) fn generate_svg(
@@ -201,6 +86,11 @@ pub(crate) fn generate_svg(
             })
             .collect();
 
+        let start_sample = config.warm_up.num_samples(config.sample_rate);
+
+        let output_axis_color = parse_hex_color(OUTPUT_CHANNEL_COLORS[0]);
+        let input_axis_color = parse_hex_color(INPUT_CHANNEL_COLORS[0]);
+
         match config.chart_layout {
             Layout::SeparateChannels => {
                 // Split area for each channel
@@ -210,51 +100,53 @@ pub(crate) fn generate_svg(
                     .chain(output_charts.into_iter())
                     .zip(areas)
                 {
-                    one_channel_chart(chart, config.line_width, config.show_grid, &area);
+                    one_channel_chart(
+                        chart,
+                        config.line_width,
+                        config.show_grid,
+                        start_sample,
+                        &area,
+                    );
                 }
             }
             Layout::CombinedPerChannelType => {
-                let areas = current_area.split_evenly((if config.with_inputs { 2 } else { 1 }, 1));
-                let output_axis_color = RGBColor(0, 0, 255);
-
                 if config.with_inputs {
-                    let input_axis_color = RGBColor(255, 0, 0);
+                    let areas = current_area.split_evenly((2, 1));
 
                     multi_channel_chart(
                         input_charts,
-                        config.line_width,
-                        config.show_grid,
+                        config,
                         true,
+                        start_sample,
                         input_axis_color,
                         &areas[0],
                     );
                     multi_channel_chart(
                         output_charts,
-                        config.line_width,
-                        config.show_grid,
+                        config,
                         true,
+                        start_sample,
                         output_axis_color,
                         &areas[1],
                     );
                 } else {
                     multi_channel_chart(
                         output_charts,
-                        config.line_width,
-                        config.show_grid,
+                        config,
                         true,
+                        start_sample,
                         output_axis_color,
-                        &areas[0],
+                        &current_area,
                     );
                 }
             }
             Layout::Combined => {
                 let charts = output_charts.into_iter().chain(input_charts).collect();
-                let output_axis_color = RGBColor(0, 0, 255);
                 multi_channel_chart(
                     charts,
-                    config.line_width,
-                    config.show_grid,
+                    config,
                     false,
+                    start_sample,
                     output_axis_color,
                     &current_area,
                 );
@@ -267,53 +159,11 @@ pub(crate) fn generate_svg(
     svg_buffer
 }
 
-// Helper function to parse hex color strings
-fn parse_hex_color(hex: &str) -> RGBColor {
-    let hex = hex.trim_start_matches('#');
-    let r = u8::from_str_radix(&hex[0..2], 16).unwrap_or(0);
-    let g = u8::from_str_radix(&hex[2..4], 16).unwrap_or(0);
-    let b = u8::from_str_radix(&hex[4..6], 16).unwrap_or(0);
-    RGBColor(r, g, b)
-}
-
-// Helper function to get a contrasting color for text
-fn get_contrasting_color(bg: &RGBColor) -> RGBColor {
-    // Calculate relative luminance using WCAG formula
-    let r = bg.0 as f32 / 255.0;
-    let g = bg.1 as f32 / 255.0;
-    let b = bg.2 as f32 / 255.0;
-
-    let r_linear = if r <= 0.03928 {
-        r / 12.92
-    } else {
-        ((r + 0.055) / 1.055).powf(2.4)
-    };
-    let g_linear = if g <= 0.03928 {
-        g / 12.92
-    } else {
-        ((g + 0.055) / 1.055).powf(2.4)
-    };
-    let b_linear = if b <= 0.03928 {
-        b / 12.92
-    } else {
-        ((b + 0.055) / 1.055).powf(2.4)
-    };
-
-    let luminance = 0.2126 * r_linear + 0.7152 * g_linear + 0.0722 * b_linear;
-
-    // Use white for dark backgrounds, dark gray for light backgrounds
-    if luminance < 0.5 {
-        RGBColor(255, 255, 255) // White
-    } else {
-        RGBColor(32, 32, 32) // Dark gray
-    }
-}
-
 fn multi_channel_chart(
     charts_data: Vec<ChannelChartData>,
-    line_width: f32,
-    show_grid: bool,
+    config: &SnapshotConfig,
     solid_input: bool,
+    start_from: usize,
     axis_color: RGBColor,
     area: &DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
 ) {
@@ -324,14 +174,15 @@ fn multi_channel_chart(
         .unwrap_or_default();
     let min_val = charts_data
         .iter()
-        .map(|chart| chart.data.iter().cloned().fold(f32::INFINITY, f32::min))
-        .reduce(f32::min)
-        .unwrap_or_default();
+        .flat_map(|c| c.data.iter())
+        .cloned()
+        .fold(f32::INFINITY, f32::min);
     let max_val = charts_data
         .iter()
-        .map(|chart| chart.data.iter().cloned().fold(f32::NEG_INFINITY, f32::max))
-        .reduce(f32::max)
-        .unwrap_or_default();
+        .flat_map(|c| c.data.iter())
+        .cloned()
+        .fold(f32::NEG_INFINITY, f32::max);
+
     let range = (max_val - min_val).max(f32::EPSILON);
     let y_min = (min_val - range * 0.1) as f64;
     let y_max = (max_val + range * 0.1) as f64;
@@ -339,21 +190,31 @@ fn multi_channel_chart(
     // Build chart
     let mut chart = ChartBuilder::on(area)
         .margin(5)
-        .build_cartesian_2d(0f64..num_samples as f64, y_min..y_max)
+        .x_label_area_size(35)
+        .y_label_area_size(50)
+        .build_cartesian_2d(start_from as f64..num_samples as f64, y_min..y_max)
         .unwrap();
 
     let mut mesh = chart.configure_mesh();
 
     mesh.axis_style(axis_color.mix(0.3));
 
-    if !show_grid {
+    if !config.show_grid {
         mesh.disable_mesh();
     } else {
         mesh.light_line_style(axis_color.mix(0.1))
             .bold_line_style(axis_color.mix(0.2));
     }
 
+    if config.show_labels {
+        mesh.x_labels(5)
+            .y_labels(3)
+            .label_style(("sans-serif", 10, &axis_color));
+    }
+
     mesh.draw().unwrap();
+
+    let mut has_legend = false;
 
     let ctx = chart
         .draw_series(
@@ -370,14 +231,14 @@ fn multi_channel_chart(
                     let line_style = ShapeStyle {
                         color: color.to_rgba(),
                         filled: false,
-                        stroke_width: line_width as u32,
+                        stroke_width: config.line_width as u32,
                     };
 
                     PathElement::new(
                         channel_data
                             .iter()
                             .enumerate()
-                            .map(|(i, &sample)| (i as f64, sample as f64))
+                            .map(|(i, &sample)| ((i + start_from) as f64, sample as f64))
                             .collect::<Vec<(f64, f64)>>(),
                         line_style,
                     )
@@ -391,6 +252,8 @@ fn multi_channel_chart(
     {
         ctx.label(entry.label.as_ref().unwrap())
             .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], entry.color));
+
+        has_legend = true;
     }
 
     if !solid_input && charts_data.iter().any(|d| d.is_input) {
@@ -405,14 +268,14 @@ fn multi_channel_chart(
                 let line_style = ShapeStyle {
                     color: color.to_rgba(),
                     filled: false,
-                    stroke_width: line_width as u32,
+                    stroke_width: config.line_width as u32,
                 };
 
                 DashedPathElement::new(
                     channel_data
                         .iter()
                         .enumerate()
-                        .map(|(i, &sample)| (i as f64, sample as f64))
+                        .map(|(i, &sample)| ((i + start_from) as f64, sample as f64))
                         .collect::<Vec<(f64, f64)>>(),
                     2,
                     3,
@@ -425,66 +288,43 @@ fn multi_channel_chart(
             .iter()
             .filter(|d| d.label.is_some() && d.is_input)
         {
-            ctx.label(entry.label.as_ref().unwrap())
-                .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], entry.color));
+            ctx.label(entry.label.as_ref().unwrap()).legend(|(x, y)| {
+                DashedPathElement::new(vec![(x, y), (x + 20, y)], 2, 3, entry.color)
+            });
+
+            has_legend = true;
         }
     }
 
-    if charts_data.iter().any(|d| !d.abnormalities.is_empty()) {
+    abnormal_smaples_series(&charts_data, &mut chart, y_min, y_max);
+
+    if has_legend {
+        let background = parse_hex_color(&config.background_color);
+        let contrasting = get_contrasting_color(&background);
+
         chart
-            .draw_series(PointSeries::of_element(
-                charts_data
-                    .iter()
-                    .flat_map(|d| d.abnormalities.iter())
-                    .map(|&(i, ab)| {
-                        (
-                            i as f64,
-                            match ab {
-                                AbnormalSample::Nan => 0.0,
-                                AbnormalSample::NegInf => y_min.min(-1.0),
-                                AbnormalSample::PosInf => y_max.max(1.0),
-                            },
-                        )
-                    }),
-                3,
-                ShapeStyle::from(&RED).filled(),
-                &|coord, size, style| {
-                    EmptyElement::at(coord)
-                        + Circle::new((0, 0), size, style)
-                        + Text::new(
-                            match coord.1 {
-                                0.0 => AbnormalSample::Nan.to_string(),
-                                y if y < 0.0 => AbnormalSample::NegInf.to_string(),
-                                y if y > 0.0 => AbnormalSample::PosInf.to_string(),
-                                _ => format!("{:.2}", coord.1),
-                            },
-                            match coord.1 {
-                                0.0 => (0, -5),
-                                y if y < 0.0 => (0, 15),
-                                y if y > 0.0 => (0, -15),
-                                _ => (0, 0),
-                            },
-                            ("sans-serif", 15),
-                        )
-                },
-            ))
+            .configure_series_labels()
+            .border_style(contrasting)
+            .background_style(background)
+            .label_font(TextStyle::from(("sans-serif", 10)).color(&contrasting))
+            .draw()
             .unwrap();
     }
 }
 
 fn one_channel_chart(
-    chart: ChannelChartData,
+    chart_data: ChannelChartData,
     line_width: f32,
     show_grid: bool,
+    start_from: usize,
     area: &DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
 ) {
     let ChannelChartData {
         data: channel_data,
-        abnormalities: channel_abnormalities,
         color,
         label,
         ..
-    } = chart;
+    } = &chart_data;
 
     let num_samples = channel_data.len();
 
@@ -503,7 +343,7 @@ fn one_channel_chart(
         .margin(5)
         .x_label_area_size(if label.is_some() { 35 } else { 0 })
         .y_label_area_size(if label.is_some() { 50 } else { 0 })
-        .build_cartesian_2d(0f64..num_samples as f64, y_min..y_max)
+        .build_cartesian_2d(start_from as f64..num_samples as f64, y_min..y_max)
         .unwrap();
 
     let mut mesh = chart.configure_mesh();
@@ -538,47 +378,11 @@ fn one_channel_chart(
             channel_data
                 .iter()
                 .enumerate()
-                .map(|(i, &sample)| (i as f64, sample as f64))
+                .map(|(i, &sample)| ((i + start_from) as f64, sample as f64))
                 .collect::<Vec<(f64, f64)>>(),
             line_style,
         )))
         .unwrap();
 
-    if !channel_abnormalities.is_empty() {
-        chart
-            .draw_series(PointSeries::of_element(
-                channel_abnormalities.iter().map(|&(i, ab)| {
-                    (
-                        i as f64,
-                        match ab {
-                            AbnormalSample::Nan => 0.0,
-                            AbnormalSample::NegInf => y_min.min(-1.0),
-                            AbnormalSample::PosInf => y_max.max(1.0),
-                        },
-                    )
-                }),
-                3,
-                ShapeStyle::from(&RED).filled(),
-                &|coord, size, style| {
-                    EmptyElement::at(coord)
-                        + Circle::new((0, 0), size, style)
-                        + Text::new(
-                            match coord.1 {
-                                0.0 => AbnormalSample::Nan.to_string(),
-                                y if y < 0.0 => AbnormalSample::NegInf.to_string(),
-                                y if y > 0.0 => AbnormalSample::PosInf.to_string(),
-                                _ => format!("{:.2}", coord.1),
-                            },
-                            match coord.1 {
-                                0.0 => (0, -5),
-                                y if y < 0.0 => (0, 15),
-                                y if y > 0.0 => (0, -15),
-                                _ => (0, 0),
-                            },
-                            ("sans-serif", 15),
-                        )
-                },
-            ))
-            .unwrap();
-    }
+    abnormal_smaples_series(&[chart_data], &mut chart, y_min, y_max);
 }

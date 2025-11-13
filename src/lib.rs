@@ -1,6 +1,10 @@
 #![doc = include_str!("../README.md")]
 
+mod abnormal;
 mod chart;
+mod chart_data;
+mod util;
+
 pub mod config;
 pub mod input;
 pub mod macros;

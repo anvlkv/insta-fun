@@ -1,4 +1,5 @@
 use fundsp::prelude::*;
+use std::{cell::RefCell, rc::Rc};
 
 use crate::assert_audio_unit_snapshot;
 use crate::prelude::*;
@@ -383,6 +384,163 @@ fn chart_with_custom_input_channel_labels() {
         "chart_stereo_custom_inputs",
         unit,
         InputSource::Flat(vec![0.5, -0.5]),
+        config
+    );
+}
+
+#[test]
+fn test_warmup_none() {
+    let config = SnapshotConfigBuilder::default()
+        .warm_up(WarmUp::None)
+        .num_samples(256)
+        .build()
+        .unwrap();
+    let unit = lowpass_hz(500.0, 0.8);
+    assert_audio_unit_snapshot!("warmup_none", unit, InputSource::impulse(), config);
+}
+
+#[test]
+fn test_warmup_samples() {
+    let config = SnapshotConfigBuilder::default()
+        .warm_up(WarmUp::Samples(200))
+        .num_samples(256)
+        .build()
+        .unwrap();
+    let unit = lowpass_hz(500.0, 0.8);
+    assert_audio_unit_snapshot!("warmup_samples_200", unit, InputSource::impulse(), config);
+}
+
+#[test]
+fn test_warmup_seconds() {
+    let config = SnapshotConfigBuilder::default()
+        .warm_up(WarmUp::Seconds(0.01))
+        .num_samples(600)
+        .build()
+        .unwrap();
+    let unit = lowpass_hz(500.0, 0.8);
+    assert_audio_unit_snapshot!("warmup_seconds_0_01", unit, InputSource::impulse(), config);
+}
+
+#[test]
+fn test_warmup_samples_with_input() {
+    let warm_input = Rc::new(RefCell::new(InputSource::impulse()));
+    let config = SnapshotConfigBuilder::default()
+        .warm_up(WarmUp::SamplesWithInput {
+            samples: 128,
+            input: warm_input.clone(),
+        })
+        .num_samples(256)
+        .build()
+        .unwrap();
+    let unit = resonator_hz(440.0, 50.0);
+    assert_audio_unit_snapshot!(
+        "warmup_samples_with_input_impulse",
+        unit,
+        InputSource::impulse(),
+        config
+    );
+}
+
+#[test]
+fn test_abnormal_allowed() {
+    let config = SnapshotConfigBuilder::default()
+        .allow_abnormal_samples(true)
+        .num_samples(800)
+        .build()
+        .unwrap();
+    let unit = pass();
+    assert_audio_unit_snapshot!(
+        "abnormal_allowed",
+        unit,
+        InputSource::Generator(Box::new(|sample, _| {
+            if sample.is_multiple_of(3) && sample.is_multiple_of(5) {
+                f32::NAN
+            } else if sample.is_multiple_of(3) {
+                f32::NEG_INFINITY
+            } else if sample.is_multiple_of(5) {
+                f32::INFINITY
+            } else {
+                sample as f32
+            }
+        })),
+        config
+    );
+}
+
+#[test]
+#[should_panic]
+fn test_abnormal_disallowed_panic() {
+    let config = SnapshotConfigBuilder::default()
+        .allow_abnormal_samples(false)
+        .num_samples(800)
+        .build()
+        .unwrap();
+    let unit = pass();
+    assert_audio_unit_snapshot!(
+        "abnormal_disallowed_should_panic",
+        unit,
+        InputSource::Generator(Box::new(|sample, _| {
+            if sample.is_multiple_of(3) && sample.is_multiple_of(5) {
+                f32::NAN
+            } else if sample.is_multiple_of(3) {
+                f32::NEG_INFINITY
+            } else if sample.is_multiple_of(5) {
+                f32::INFINITY
+            } else {
+                sample as f32
+            }
+        })),
+        config
+    );
+}
+
+#[test]
+fn test_chart_layout_combined() {
+    let config = SnapshotConfigBuilder::default()
+        .chart_layout(Layout::Combined)
+        .show_grid(true)
+        .with_inputs(true)
+        .build()
+        .unwrap();
+    let unit = lowpass_hz(1000.0, 0.7) | highpass_hz(200.0, 0.7);
+    assert_audio_unit_snapshot!(
+        "chart_layout_combined",
+        unit,
+        InputSource::Flat(vec![0.5, -0.5]),
+        config
+    );
+}
+
+#[test]
+fn test_chart_layout_combined_per_type() {
+    let config = SnapshotConfigBuilder::default()
+        .chart_layout(Layout::CombinedPerChannelType)
+        .show_grid(true)
+        .with_inputs(true)
+        .build()
+        .unwrap();
+    let unit = lowpass_hz(1000.0, 0.7) | highpass_hz(200.0, 0.7);
+    assert_audio_unit_snapshot!(
+        "chart_layout_combined_per_type",
+        unit,
+        InputSource::Flat(vec![0.5, -0.5]),
+        config
+    );
+}
+
+#[test]
+fn test_chart_layout_combined_per_type_no_inputs() {
+    let config = SnapshotConfigBuilder::default()
+        .with_inputs(false)
+        .chart_layout(Layout::CombinedPerChannelType)
+        .show_grid(true)
+        .build()
+        .unwrap();
+    let unit = lowpass_hz(800.0, 0.7) | highpass_hz(300.0, 0.7);
+    assert_audio_unit_snapshot!(
+        "chart_layout_combined_per_type_no_inputs",
+        unit,
+        InputSource::None,
         config
     );
 }

@@ -1,6 +1,7 @@
 use fundsp::prelude::*;
 
-use crate::chart::{AbnormalSample, generate_svg};
+use crate::abnormal::AbnormalSample;
+use crate::chart::generate_svg;
 use crate::config::{Processing, SnapshotConfig};
 use crate::input::InputSource;
 

@@ -33,7 +33,7 @@ impl std::fmt::Debug for WarmUp {
 }
 
 impl WarmUp {
-    pub fn warm_up_samples(&self, sample_rate: f64, num_inputs: usize) -> Vec<Vec<f32>> {
+    pub(crate) fn warm_up_samples(&self, sample_rate: f64, num_inputs: usize) -> Vec<Vec<f32>> {
         let none_input = Rc::new(RefCell::new(InputSource::None));
         let (num_samples, input) = match self {
             WarmUp::None => (0, &none_input),
@@ -43,5 +43,14 @@ impl WarmUp {
         };
 
         input.borrow_mut().make_data(num_inputs, num_samples)
+    }
+
+    pub(crate) fn num_samples(&self, sample_rate: f64) -> usize {
+        match self {
+            WarmUp::None => 0,
+            WarmUp::Samples(samples) => *samples,
+            WarmUp::Seconds(seconds) => (*seconds * sample_rate) as usize,
+            WarmUp::SamplesWithInput { samples, .. } => *samples,
+        }
     }
 }
