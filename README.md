@@ -52,9 +52,7 @@ fn example_test() {
 
 See [snapshots](https://github.com/anvlkv/insta-fun/tree/main/src/snapshots) for full list of example charts.
 
-See [tests](https://github.com/anvlkv/insta-fun/tree/main/src/tests.rs) for more usage examples.
-
-See [chart tests](https://github.com/anvlkv/insta-fun/tree/main/src/chart.rs) for usage examples covering specific chart options.
+See [tests](https://github.com/anvlkv/insta-fun/tree/main/src/tests.rs) for all usage examples.
 
 ## The Unlicense
 
