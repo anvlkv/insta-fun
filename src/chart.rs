@@ -187,7 +187,10 @@ fn multi_channel_chart(
         .margin(5)
         .x_label_area_size(35)
         .y_label_area_size(50)
-        .build_cartesian_2d(start_from as f64..num_samples as f64, y_min..y_max)
+        .build_cartesian_2d(
+            start_from as f64..(num_samples + start_from) as f64,
+            y_min..y_max,
+        )
         .unwrap();
 
     let mut mesh = chart.configure_mesh();
@@ -222,83 +225,76 @@ fn multi_channel_chart(
 
     let mut has_legend = false;
 
-    let ctx = chart
-        .draw_series(
-            charts_data
-                .iter()
-                .filter(|d| !d.is_input || solid_input)
-                .map(|entry| {
-                    let ChannelChartData {
-                        data: channel_data,
-                        color,
-                        ..
-                    } = entry;
+    // Draw outputs (or inputs as solid when `solid_input` is true) one by one,
+    // registering a legend entry per series.
+    for entry in charts_data.iter().filter(|d| !d.is_input || solid_input) {
+        let ChannelChartData {
+            data: channel_data,
+            color,
+            label,
+            ..
+        } = entry;
 
-                    let line_style = ShapeStyle {
-                        color: color.to_rgba(),
-                        filled: false,
-                        stroke_width: config.line_width as u32,
-                    };
+        let line_style = ShapeStyle {
+            color: color.to_rgba(),
+            filled: false,
+            stroke_width: config.line_width as u32,
+        };
 
-                    PathElement::new(
-                        channel_data
-                            .iter()
-                            .enumerate()
-                            .map(|(i, &sample)| ((i + start_from) as f64, sample as f64))
-                            .collect::<Vec<(f64, f64)>>(),
-                        line_style,
-                    )
-                }),
-        )
-        .unwrap();
-
-    for entry in charts_data
-        .iter()
-        .filter(|d| d.label.is_some() && (!d.is_input || solid_input))
-    {
-        ctx.label(entry.label.as_ref().unwrap())
-            .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], entry.color));
-
-        has_legend = true;
-    }
-
-    if !solid_input && charts_data.iter().any(|d| d.is_input) {
-        let ctx = chart
-            .draw_series(charts_data.iter().filter(|d| d.is_input).map(|entry| {
-                let ChannelChartData {
-                    data: channel_data,
-                    color,
-                    ..
-                } = entry;
-
-                let line_style = ShapeStyle {
-                    color: color.to_rgba(),
-                    filled: false,
-                    stroke_width: config.line_width as u32,
-                };
-
-                DashedPathElement::new(
-                    channel_data
-                        .iter()
-                        .enumerate()
-                        .map(|(i, &sample)| ((i + start_from) as f64, sample as f64))
-                        .collect::<Vec<(f64, f64)>>(),
-                    2,
-                    3,
-                    line_style,
-                )
-            }))
+        let series = chart
+            .draw_series(std::iter::once(PathElement::new(
+                channel_data
+                    .iter()
+                    .enumerate()
+                    .map(|(i, &sample)| ((i + start_from) as f64, sample as f64))
+                    .collect::<Vec<(f64, f64)>>(),
+                line_style,
+            )))
             .unwrap();
 
-        for entry in charts_data
-            .iter()
-            .filter(|d| d.label.is_some() && d.is_input)
-        {
-            ctx.label(entry.label.as_ref().unwrap()).legend(|(x, y)| {
-                DashedPathElement::new(vec![(x, y), (x + 20, y)], 2, 3, entry.color)
-            });
-
+        if let Some(label) = label {
+            series
+                .label(label)
+                .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], entry.color));
             has_legend = true;
+        }
+    }
+
+    // Dashed inputs when not solid
+    if !solid_input && charts_data.iter().any(|d| d.is_input) {
+        for entry in charts_data.iter().filter(|d| d.is_input) {
+            let ChannelChartData {
+                data: channel_data,
+                color,
+                label,
+                ..
+            } = entry;
+
+            let line_style = ShapeStyle {
+                color: color.to_rgba(),
+                filled: false,
+                stroke_width: config.line_width as u32,
+            };
+
+            let dashed = DashedPathElement::new(
+                channel_data
+                    .iter()
+                    .enumerate()
+                    .map(|(i, &sample)| ((i + start_from) as f64, sample as f64))
+                    .collect::<Vec<(f64, f64)>>(),
+                2,
+                3,
+                line_style,
+            );
+
+            let series = chart.draw_series(std::iter::once(dashed)).unwrap();
+
+            if let Some(label) = label {
+                series.label(label).legend(|(x, y)| {
+                    DashedPathElement::new(vec![(x, y), (x + 20, y)], 2, 3, entry.color)
+                });
+                has_legend = true;
+            }
         }
     }
 
@@ -348,7 +344,10 @@ fn one_channel_chart(
         .margin(5)
         .x_label_area_size(if label.is_some() { 35 } else { 0 })
         .y_label_area_size(if label.is_some() { 50 } else { 0 })
-        .build_cartesian_2d(start_from as f64..num_samples as f64, y_min..y_max)
+        .build_cartesian_2d(
+            start_from as f64..(num_samples + start_from) as f64,
+            y_min..y_max,
+        )
         .unwrap();
 
     let mut mesh = chart.configure_mesh();

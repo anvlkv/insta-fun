@@ -1,6 +1,6 @@
 [package]
 name = "insta-fun"
-version = "1.1.1"
+version = "1.1.2"
 edition = "2024"
 description = "Snapshot testing of fundsp units. Visualize output in svg and compare using insta"
 repository = "https://github.com/anvlkv/insta-fun"
