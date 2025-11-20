@@ -5,7 +5,7 @@ use plotters::prelude::*;
 
 use crate::abnormal::{AbnormalSample, abnormal_smaples_series};
 use crate::chart_data::ChannelChartData;
-use crate::config::SnapshotConfig;
+use crate::config::SvgChartConfig;
 use crate::util::{
     INPUT_CHANNEL_COLORS, OUTPUT_CHANNEL_COLORS, get_contrasting_color, num_x_labels,
     parse_hex_color, time_formatter,
@@ -31,7 +31,10 @@ pub(crate) fn generate_svg(
     input_data: &[Vec<f32>],
     output_data: &[Vec<f32>],
     abnormalities: &[Vec<(usize, AbnormalSample)>],
-    config: &SnapshotConfig,
+    config: &SvgChartConfig,
+    sample_rate: f64,
+    num_samples: usize,
+    start_sample: usize,
 ) -> String {
     let height_per_channel = config.svg_height_per_channel;
     let num_channels = output_data.len()
@@ -40,13 +43,12 @@ pub(crate) fn generate_svg(
         } else {
             0
         };
-    let num_samples = output_data.first().map(|c| c.len()).unwrap_or(0);
 
     if num_samples == 0 || num_channels == 0 {
         return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text>Empty</text></svg>".to_string();
     }
 
-    let svg_width = config.svg_width.unwrap_or(config.num_samples * 2) as u32;
+    let svg_width = config.svg_width.unwrap_or(num_samples * 2) as u32;
     let total_height = (height_per_channel * num_channels) as u32;
 
     // Create SVG backend with buffer
@@ -87,8 +89,6 @@ pub(crate) fn generate_svg(
             })
             .collect();
 
-        let start_sample = config.warm_up.num_samples(config.sample_rate);
-
         let output_axis_color = parse_hex_color(OUTPUT_CHANNEL_COLORS[0]);
         let input_axis_color = parse_hex_color(INPUT_CHANNEL_COLORS[0]);
 
@@ -101,7 +101,7 @@ pub(crate) fn generate_svg(
                     .chain(output_charts.into_iter())
                     .zip(areas)
                 {
-                    one_channel_chart(chart, config, start_sample, &area);
+                    one_channel_chart(chart, config, start_sample, &area, sample_rate);
                 }
             }
             Layout::CombinedPerChannelType => {
@@ -115,6 +115,7 @@ pub(crate) fn generate_svg(
                         start_sample,
                         input_axis_color,
                         &areas[0],
+                        sample_rate,
                     );
                     multi_channel_chart(
                         output_charts,
@@ -123,6 +124,7 @@ pub(crate) fn generate_svg(
                         start_sample,
                         output_axis_color,
                         &areas[1],
+                        sample_rate,
                     );
                 } else {
                     multi_channel_chart(
@@ -132,6 +134,7 @@ pub(crate) fn generate_svg(
                         start_sample,
                         output_axis_color,
                         &current_area,
+                        sample_rate,
                     );
                 }
             }
@@ -144,6 +147,7 @@ pub(crate) fn generate_svg(
                     start_sample,
                     output_axis_color,
                     &current_area,
+                    sample_rate,
                 );
             }
         }
@@ -156,11 +160,12 @@ pub(crate) fn generate_svg(
 
 fn multi_channel_chart(
     charts_data: Vec<ChannelChartData>,
-    config: &SnapshotConfig,
+    config: &SvgChartConfig,
     solid_input: bool,
     start_from: usize,
     axis_color: RGBColor,
     area: &DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
+    sample_rate: f64,
 ) {
     let num_samples = charts_data
         .iter()
@@ -205,7 +210,7 @@ fn multi_channel_chart(
     }
 
     if config.show_labels {
-        let x_labels = num_x_labels(num_samples, config.sample_rate);
+        let x_labels = num_x_labels(num_samples, sample_rate);
         mesh.x_labels(
             config
                 .max_labels_x_axis
@@ -216,7 +221,7 @@ fn multi_channel_chart(
         .label_style(("sans-serif", 10, &axis_color));
     }
 
-    let formatter = |v: &f64| time_formatter(*v as usize, config.sample_rate);
+    let formatter = |v: &f64| time_formatter(*v as usize, sample_rate);
     if config.format_x_axis_labels_as_time {
         mesh.x_label_formatter(&formatter);
     }
@@ -316,9 +321,10 @@ fn multi_channel_chart(
 
 fn one_channel_chart(
     chart_data: ChannelChartData,
-    config: &SnapshotConfig,
+    config: &SvgChartConfig,
     start_from: usize,
     area: &DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
+    sample_rate: f64,
 ) {
     let ChannelChartData {
         data: channel_data,
@@ -362,7 +368,7 @@ fn one_channel_chart(
     }
 
     if let Some(label) = label {
-        let x_labels = num_x_labels(num_samples, config.sample_rate);
+        let x_labels = num_x_labels(num_samples, sample_rate);
         mesh.x_labels(
             config
                 .max_labels_x_axis
@@ -374,7 +380,7 @@ fn one_channel_chart(
         .label_style(("sans-serif", 10, &color));
     }
 
-    let formatter = |v: &f64| time_formatter(*v as usize, config.sample_rate);
+    let formatter = |v: &f64| time_formatter(*v as usize, sample_rate);
     if config.format_x_axis_labels_as_time {
         mesh.x_label_formatter(&formatter);
     }

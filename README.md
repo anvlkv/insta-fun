@@ -1,6 +1,6 @@
 # insta-fun
 
-SVG snapshot testing for FunDSP audio units.
+SVG & WAV snapshot testing for FunDSP audio units.
 
 Generate visual snapshots of audio processing units to catch regressions and verify signal behavior.
 
@@ -16,40 +16,74 @@ use fundsp::prelude::*;
 
 #[test]
 fn example_test() {
-    // Simple snapshot
+    // Simple SVG snapshot (default output_mode = SvgChart)
     let unit = sine_hz::<f32>(440.0);
-    let svg = snapshot_audio_unit(unit);
+    let svg_bytes = snapshot_audio_unit(unit);
 
-    // With input signal
+    // With input signal (impulse)
     let filter = lowpass_hz(1000.0, 1.0);
-    let svg = snapshot_audio_unit_with_input(filter, InputSource::impulse());
+    let svg_bytes_with_input = snapshot_audio_unit_with_input(filter, InputSource::impulse());
 
-    // Custom configuration
-    let config = SnapshotConfigBuilder::default().num_samples(100).build().unwrap();
-    let svg = snapshot_audio_unit_with_options(sine_hz::<f32>(440.0), config);
+    // Custom chart configuration (SvgChartConfig separated from SnapshotConfig)
+    let chart = SvgChartConfigBuilder::default()
+        .chart_title("Custom Sine")
+        .show_grid(true)
+        .build()
+        .unwrap();
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(2048)
+        .output_mode(chart) // inject chart config
+        .build()
+        .unwrap();
+    let custom_svg = snapshot_audio_unit_with_options(sine_hz::<f32>(440.0), config);
 
-    // With a macro
-    let unit = sine_hz::<f32>(440.0);
-    assert_audio_unit_snapshot!(unit);
+    // WAV output (audible snapshot)
+    let wav_config = SnapshotConfigBuilder::default()
+        .num_samples(2048)
+        .output_mode(WavOutput::Wav16) // or WavOutput::Wav32
+        .build()
+        .unwrap();
+    let wav_bytes = snapshot_audio_unit_with_input_and_options(sine_hz::<f32>(440.0), InputSource::None, wav_config);
+
+    // Macro (produces both an SVG and a 16-bit WAV by default)
+    assert_audio_unit_snapshot!(sine_hz::<f32>(440.0));
+
+    // Macro with custom config (single output based on config.output_mode)
+    let wav_only_cfg = SnapshotConfigBuilder::default()
+        .output_mode(WavOutput::Wav32)
+        .build()
+        .unwrap();
+    assert_audio_unit_snapshot!(sine_hz::<f32>(220.0), wav_only_cfg);
 }
 ```
 
 ## Features
 
 - Visualizes audio unit inputs and outputs as SVG waveforms
+- Generates audible WAV snapshots (16-bit & 32-bit)
 - Supports multi-channel audio with color-coded traces
-- Configurable sample count, SVG dimensions, and processing modes
-- Built-in input generators (impulse, sine, custom)
-- Batch or tick-by-tick processing
-- Warmup
-- Chart layouts with legend
-- Label formatting
-- Assertion macro
+- Configurable sample count, processing mode, warmup, and abnormal sample handling
+- Separate chart configuration via SvgChartConfigBuilder
+- Built-in input generators (impulse, sine, custom, generator fn, unit passthrough)
+- Tick or batch processing (up to fundsp::MAX_BUFFER_SIZE)
+- Multiple chart layouts & label formatting options
+- Assertion macro (default: both SVG + WAV16 when no custom config)
+
+## Configuration Overview
+
+SnapshotConfig controls audio generation parameters (sample_rate, num_samples, processing_mode, warm_up, allow_abnormal_samples, output_mode).
+
+SvgChartConfig controls purely visual/chart properties (layout, titles, labels, colors, dimensions, etc) and is injected through `SnapshotConfigBuilder::output_mode(chart_cfg)`.
+
+Set WAV output by providing `output_mode(WavOutput::Wav16)` or `output_mode(WavOutput::Wav32)`.
+
+Macro arms without an explicit `SnapshotConfig` produce both an SVG chart (default SvgChartConfig) and a 16-bit WAV file. Arms with a provided `SnapshotConfig` produce exactly one snapshot determined by `output_mode`.
 
 ## Processing Modes
 
-- **Tick**: Process one sample at a time (default) for testing `fundsp::AudioUnit::tick`
-- **Batch**: Process up to 64 samples at once for testing `fundsp::AudioUnit::process`
+- **Tick**: Process one sample at a time (default) targeting `AudioUnit::tick`
+- **Batch**: Process chunks (<= 64) targeting `AudioUnit::process`
+
 
 ## Examples
 

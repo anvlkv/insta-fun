@@ -2,7 +2,7 @@ use plotters::style::RGBColor;
 
 use crate::{
     abnormal::AbnormalSample,
-    config::SnapshotConfig,
+    config::SvgChartConfig,
     util::{INPUT_CHANNEL_COLORS, OUTPUT_CHANNEL_COLORS, parse_hex_color},
 };
 
@@ -17,7 +17,7 @@ pub(crate) struct ChannelChartData {
 }
 
 impl ChannelChartData {
-    pub fn from_input_data(data: &[f32], idx: usize, config: &SnapshotConfig) -> Self {
+    pub fn from_input_data(data: &[f32], idx: usize, config: &SvgChartConfig) -> Self {
         let color = config
             .input_colors
             .as_ref()
@@ -50,7 +50,7 @@ impl ChannelChartData {
         data: &[f32],
         abnormalities: &[(usize, AbnormalSample)],
         idx: usize,
-        config: &SnapshotConfig,
+        config: &SvgChartConfig,
     ) -> Self {
         let color = config
             .output_colors

@@ -4,8 +4,9 @@ use crate::abnormal::AbnormalSample;
 use crate::chart::generate_svg;
 use crate::config::{Processing, SnapshotConfig};
 use crate::input::InputSource;
+use crate::wav::generate_wav;
 
-/// Create an SVG snapshot of audio unit outputs
+/// Create a snapshot of audio unit outputs (default: SVG; configure `output_mode` for WAV)
 /// ## Example
 ///
 /// ```
@@ -14,16 +15,16 @@ use crate::input::InputSource;
 ///
 /// let unit = sine_hz::<f32>(440.0);
 /// let svg = snapshot_audio_unit(unit);
-/// println!("{svg}");
+/// println!("{}", svg.len());
 /// ```
-pub fn snapshot_audio_unit<N>(unit: N) -> String
+pub fn snapshot_audio_unit<N>(unit: N) -> Vec<u8>
 where
     N: AudioUnit,
 {
     snapshot_audio_unit_with_input_and_options(unit, InputSource::None, SnapshotConfig::default())
 }
 
-/// Create an SVG snapshot of audio unit outputs, with options
+/// Create a snapshot of audio unit outputs with options (SVG or WAV via `output_mode`)
 ///
 /// ## Example
 ///
@@ -33,16 +34,16 @@ where
 ///
 /// let unit = sine_hz::<f32>(440.0);
 /// let svg = snapshot_audio_unit_with_options(unit, SnapshotConfig::default());
-/// println!("{svg}");
+/// println!("{}", svg.len());
 /// ```
-pub fn snapshot_audio_unit_with_options<N>(unit: N, options: SnapshotConfig) -> String
+pub fn snapshot_audio_unit_with_options<N>(unit: N, options: SnapshotConfig) -> Vec<u8>
 where
     N: AudioUnit,
 {
     snapshot_audio_unit_with_input_and_options(unit, InputSource::None, options)
 }
 
-/// Create an SVG snapshot of audio unit inputs and outputs
+/// Create a snapshot of audio unit inputs and outputs (SVG by default; WAV if selected)
 ///
 /// ## Example
 ///
@@ -52,9 +53,9 @@ where
 ///
 /// let unit = sine_hz::<f32>(440.0);
 /// let svg = snapshot_audio_unit_with_input(unit, InputSource::None);
-/// println!("{svg}");
+/// println!("{}", svg.len());
 /// ```
-pub fn snapshot_audio_unit_with_input<N>(unit: N, input_source: InputSource) -> String
+pub fn snapshot_audio_unit_with_input<N>(unit: N, input_source: InputSource) -> Vec<u8>
 where
     N: AudioUnit,
 {
@@ -62,13 +63,12 @@ where
         unit,
         input_source,
         SnapshotConfig {
-            with_inputs: true,
             ..SnapshotConfig::default()
         },
     )
 }
 
-/// Create an SVG snapshot of audio unit inputs and outputs, with options
+/// Create a snapshot (inputs & outputs) with options (choose SVG chart or WAV via `output_mode`)
 ///
 /// ## Example
 ///
@@ -79,13 +79,13 @@ where
 /// let config = SnapshotConfig::default();
 /// let unit = sine_hz::<f32>(440.0);
 /// let svg = snapshot_audio_unit_with_input_and_options(unit, InputSource::None, config);
-/// println!("{svg}");
+/// println!("{}", svg.len());
 /// ```
 pub fn snapshot_audio_unit_with_input_and_options<N>(
     mut unit: N,
     mut input_source: InputSource,
     config: SnapshotConfig,
-) -> String
+) -> Vec<u8>
 where
     N: AudioUnit,
 {
@@ -185,5 +185,27 @@ where
         }
     }
 
-    generate_svg(&input_data, &output_data, &abnormalities, &config)
+    match config.output_mode {
+        crate::config::SnapshotOutputMode::SvgChart(svg_chart_config) => {
+            let start_sample = config.warm_up.num_samples(config.sample_rate);
+
+            generate_svg(
+                &input_data,
+                &output_data,
+                &abnormalities,
+                &svg_chart_config,
+                config.sample_rate,
+                config.num_samples,
+                start_sample,
+            )
+            .as_bytes()
+            .to_vec()
+        }
+        crate::config::SnapshotOutputMode::Wav(wav_output) => generate_wav(
+            &output_data,
+            &wav_output,
+            config.sample_rate,
+            config.num_samples,
+        ),
+    }
 }

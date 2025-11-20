@@ -1,5 +1,5 @@
 ---
 source: src/tests.rs
-extension: svg
+extension: wav
 snapshot_kind: binary
 ---

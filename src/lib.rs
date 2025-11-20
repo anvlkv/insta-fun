@@ -4,6 +4,7 @@ mod abnormal;
 mod chart;
 mod chart_data;
 mod util;
+mod wav;
 
 pub mod config;
 pub mod input;
