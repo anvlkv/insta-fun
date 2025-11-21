@@ -15,28 +15,28 @@
 .page-content svg,
 article img,
 article svg {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  margin: 1rem 0;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
 }
 
 .page-content audio,
 article audio {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  margin: 0.5rem 0 1.5rem;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.5rem 0 1.5rem;
 }
 
 /* Wider readable content width and centered wrapper */
 .wrapper {
-  max-width: 72rem; /* ~1152px */
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  margin-left: auto;
-  margin-right: auto;
+    max-width: 72rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* No-sidebar layout: ensure no reserved space remains and sidebar is hidden if present */
@@ -44,20 +44,45 @@ body.layout-no-sidebar .sidebar,
 body.layout-no-sidebar aside,
 body.layout-no-sidebar nav.sidebar,
 body.layout-no-sidebar .site-nav {
-  display: none !important;
-  visibility: hidden !important;
+    display: none !important;
+    visibility: hidden !important;
 }
 
 /* Ensure header/content/footer all align to the same wide wrapper in no-sidebar layout */
+/* No-sidebar layout structure and full-width main content */
+body.layout-no-sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 body.layout-no-sidebar .site-header .wrapper,
-body.layout-no-sidebar #content.wrapper,
-body.layout-no-sidebar main.wrapper,
 body.layout-no-sidebar .site-footer .wrapper {
-  max-width: 72rem; /* ~1152px */
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  margin-left: auto;
-  margin-right: auto;
+    max-width: 72rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.layout-no-sidebar main#content {
+    flex: 1 0 auto;
+    width: 90vw;
+    max-width: 90vw;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin: 1rem auto 2rem;
+}
+
+body.layout-no-sidebar .site-header,
+body.layout-no-sidebar .site-footer {
+    position: relative;
+    z-index: 2;
+}
+
+body.layout-no-sidebar main#content {
+    position: relative;
+    z-index: 1;
 }
 
 /* If the theme left any left offset for sidebar on larger screens, neutralize it */
@@ -66,8 +91,8 @@ body.layout-no-sidebar main,
 body.layout-no-sidebar .page-content,
 body.layout-no-sidebar .site-header,
 body.layout-no-sidebar .site-footer {
-  margin-left: 0 !important;
-  padding-left: inherit;
+    margin-left: 0 !important;
+    padding-left: inherit;
 }
 
 /* Typography niceties for wide pages */
@@ -75,7 +100,7 @@ body.layout-no-sidebar .site-footer {
 .page-content li,
 article p,
 article li {
-  line-height: 1.65;
+    line-height: 1.65;
 }
 
 /* Tables or code blocks, if any, should be horizontally scrollable rather than overflow */
@@ -83,27 +108,27 @@ article li {
 .page-content table,
 article pre,
 article table {
-  max-width: 100%;
-  overflow-x: auto;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-  .wrapper,
-  body.layout-no-sidebar .site-header .wrapper,
-  body.layout-no-sidebar #content.wrapper,
-  body.layout-no-sidebar main.wrapper,
-  body.layout-no-sidebar .site-footer .wrapper {
-    max-width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+    .wrapper,
+    body.layout-no-sidebar .site-header .wrapper,
+    body.layout-no-sidebar #content.wrapper,
+    body.layout-no-sidebar main.wrapper,
+    body.layout-no-sidebar .site-footer .wrapper {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 
-  /* Slightly tighter vertical rhythm on small screens */
-  .page-content img,
-  .page-content svg,
-  article img,
-  article svg {
-    margin: 0.75rem 0;
-  }
+    /* Slightly tighter vertical rhythm on small screens */
+    .page-content img,
+    .page-content svg,
+    article img,
+    article svg {
+        margin: 0.75rem 0;
+    }
 }
