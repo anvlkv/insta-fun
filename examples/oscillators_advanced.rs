@@ -1,44 +1,6 @@
 use fundsp::hacker32::*;
 use insta_fun::prelude::*;
 
-/// Advanced oscillators snapshot examples (hacker32, uniform naming).
-///
-/// Captured for each unit:
-///   1. SVG chart: 2000 samples (waveform visualization)
-///   2. WAV audio: 1 second (DEFAULT_SR samples, 16-bit)
-///
-/// Units & Variants:
-/// - DSF Saw (roughness sweep via `dsf_saw_r`)
-/// - DSF Square (roughness sweep via `dsf_square_r`)
-/// - Pulse wave (width/duty sweep; upstream freq & width)
-/// - Synthesized threshold pulses (approximate pulse by thresholding sine)
-/// - Simple PWM (duty modulated by LFO)
-///
-/// Run:
-///   cargo run --example oscillators_advanced
-///
-/// Update snapshots automatically:
-///   INSTA_UPDATE=auto cargo run --example oscillators_advanced
-///
-/// Naming convention (uniform, all f32 literals rendered as fixed width):
-///   adv_<kind>_<base>_<freq>hz_<param><value>
-/// Examples:
-///   adv_dsf_saw_440hz_rough0_00
-///   adv_pulse_440hz_width0_10
-///   adv_synth_pulse_440hz_duty0_10
-///
-/// Notes:
-/// - dsf_saw_r(rough) & dsf_square_r(rough) take a single upstream frequency input.
-/// - pulse() expects two upstream inputs: (frequency Hz, width 0.0..1.0).
-/// - All numeric literals are f32 to avoid inference issues.
-/// - InputSource::None is used (self-contained oscillators).
-/// - No speculative warm-up added; oscillators are periodic and deterministic from t=0.
-/// - Abnormal sample handling enabled (allow_abnormal_samples = true) so roughness=1.00
-///   snapshots (which can produce -∞ at singular points) are recorded without panic.
-///   The system replaces those abnormal samples with 0.0 and annotates them.
-/// - Safe variants (rough0_99) are added beside rough1_00 to provide fully finite waveforms.
-///
-/// MAYA DRY KISS: helper builders for configs; explicit snapshot calls keep clarity.
 fn main() {
     const CHART_SAMPLES: usize = 2000;
     const ONE_SECOND_SAMPLES: usize = DEFAULT_SR as usize;

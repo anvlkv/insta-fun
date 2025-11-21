@@ -1,17 +1,6 @@
 use fundsp::prelude::*;
 use insta_fun::prelude::*;
 
-/// Oscillators snapshot examples driven from main.
-///
-/// For each oscillator:
-/// - SVG chart: 2000 samples
-/// - WAV audio: 1 second at DEFAULT_SR (44100 Hz)
-///
-/// How to run:
-///   cargo run --example oscillators
-///
-/// To update Insta snapshots, you may want:
-///   INSTA_UPDATE=auto cargo run --example oscillators
 fn main() {
     const CHART_SAMPLES: usize = 2000;
     const ONE_SECOND_SAMPLES: usize = fundsp::DEFAULT_SR as usize;
