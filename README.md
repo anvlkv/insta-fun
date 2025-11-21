@@ -6,7 +6,7 @@ Generate visual snapshots of audio processing units to catch regressions and ver
 
 ![Example](https://raw.githubusercontent.com/anvlkv/insta-fun/refs/heads/main/src/snapshots/insta_fun__tests__macro_with_input.snap.svg)
 
-> **Note:** Snapshot assertion uses `insta::assert_binary_snapshot` which is currently experimental.
+> **Note:** Snapshot assertion uses `insta::assert_binary_snapshot` which is currently marked experimental.
 
 ## Usage
 
@@ -84,8 +84,15 @@ Macro arms without an explicit `SnapshotConfig` produce both an SVG chart (defau
 - Tick: Process one sample at a time (default) targeting `AudioUnit::tick`
 - Batch: Process chunks (<= 64) targeting `AudioUnit::process`
 
-
 ## Examples
+
+See [snapshots](https://github.com/anvlkv/insta-fun/tree/main/src/snapshots) for full list of example charts.
+
+See [tests](https://github.com/anvlkv/insta-fun/tree/main/src/tests.rs) for all usage examples.
+
+### Bonus
+
+Snapshots of all the `fundsp` AudioNodes [anvlkv.github.io/insta-fun](https://anvlkv.github.io/insta-fun)
 
 - Ready-made example suites (charts: 2000 samples; audio: 1 second each):
   - Oscillators: cargo run --example oscillators
@@ -94,12 +101,13 @@ Macro arms without an explicit `SnapshotConfig` produce both an SVG chart (defau
   - Advanced Oscillators (DSF, pulse & PWM): cargo run --example oscillators_advanced
   - Advanced Filters (nonlinear & morph progression): cargo run --example filters_advanced
 
-These examples use the assert_audio_unit_snapshot!("name", ...) macro variant with a literal name. Each example emits a 2000-sample SVG chart and a 1-second WAV per unit. Advanced examples extend coverage to DSF oscillators, pulse width modulation, and nonlinear (dirty/feedback) plus morphing filters.
-
-See [snapshots](https://github.com/anvlkv/insta-fun/tree/main/src/snapshots) for full list of example charts.
-
-See [tests](https://github.com/anvlkv/insta-fun/tree/main/src/tests.rs) for all usage examples.
-
 ## The Unlicense
 
 See [LICENSE](https://raw.githubusercontent.com/anvlkv/insta-fun/refs/heads/main/LICENSE) file for details.
+
+
+## P.S.
+
+🩻🎇🏙️🌁
+
+Happy testing!
