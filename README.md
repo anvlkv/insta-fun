@@ -91,8 +91,10 @@ Macro arms without an explicit `SnapshotConfig` produce both an SVG chart (defau
   - Oscillators: cargo run --example oscillators
   - Filters (impulse responses): cargo run --example filters
   - Time FX, dynamics, and noise: cargo run --example time_fx_and_noise
+  - Advanced Oscillators (DSF, pulse & PWM): cargo run --example oscillators_advanced
+  - Advanced Filters (nonlinear & morph progression): cargo run --example filters_advanced
 
-These examples use the assert_audio_unit_snapshot!("name", ...) macro variant with a literal name. Each example emits a 2000-sample SVG chart and a 1-second WAV per unit.
+These examples use the assert_audio_unit_snapshot!("name", ...) macro variant with a literal name. Each example emits a 2000-sample SVG chart and a 1-second WAV per unit. Advanced examples extend coverage to DSF oscillators, pulse width modulation, and nonlinear (dirty/feedback) plus morphing filters.
 
 See [snapshots](https://github.com/anvlkv/insta-fun/tree/main/src/snapshots) for full list of example charts.
 
