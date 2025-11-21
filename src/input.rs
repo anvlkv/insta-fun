@@ -34,6 +34,30 @@ pub enum InputSource {
     Unit(Box<dyn AudioUnit>),
 }
 
+impl From<Box<dyn AudioUnit>> for InputSource {
+    fn from(unit: Box<dyn AudioUnit>) -> Self {
+        InputSource::Unit(unit)
+    }
+}
+
+impl From<Box<dyn Fn(usize, usize) -> f32>> for InputSource {
+    fn from(generator_fn: Box<dyn Fn(usize, usize) -> f32>) -> Self {
+        InputSource::Generator(generator_fn)
+    }
+}
+
+impl From<Vec<f32>> for InputSource {
+    fn from(data: Vec<f32>) -> Self {
+        InputSource::Flat(data)
+    }
+}
+
+impl From<Vec<Vec<f32>>> for InputSource {
+    fn from(data: Vec<Vec<f32>>) -> Self {
+        InputSource::VecByChannel(data)
+    }
+}
+
 impl InputSource {
     pub fn impulse() -> Self {
         Self::Generator(Box::new(|i, _| if i == 0 { 1.0 } else { 0.0 }))

@@ -7,6 +7,15 @@ repository = "https://github.com/anvlkv/insta-fun"
 license = "Unlicense"
 keywords = ["fundsp", "insta", "plotters", "testing", "visualization"]
 
+[[example]]
+name = "filters"
+
+[[example]]
+name = "oscillators"
+
+[[example]]
+name = "time_fx_and_noise"
+
 [dependencies]
 derive_builder = "0.20.2"
 fundsp = { version = "0.20", default-features = false, features = ["std"] }

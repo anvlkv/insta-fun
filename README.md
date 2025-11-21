@@ -81,11 +81,18 @@ Macro arms without an explicit `SnapshotConfig` produce both an SVG chart (defau
 
 ## Processing Modes
 
-- **Tick**: Process one sample at a time (default) targeting `AudioUnit::tick`
-- **Batch**: Process chunks (<= 64) targeting `AudioUnit::process`
+- Tick: Process one sample at a time (default) targeting `AudioUnit::tick`
+- Batch: Process chunks (<= 64) targeting `AudioUnit::process`
 
 
 ## Examples
+
+- Ready-made example suites (charts: 2000 samples; audio: 1 second each):
+  - Oscillators: cargo run --example oscillators
+  - Filters (impulse responses): cargo run --example filters
+  - Time FX, dynamics, and noise: cargo run --example time_fx_and_noise
+
+These examples use the assert_audio_unit_snapshot!("name", ...) macro variant with a literal name. Each example emits a 2000-sample SVG chart and a 1-second WAV per unit.
 
 See [snapshots](https://github.com/anvlkv/insta-fun/tree/main/src/snapshots) for full list of example charts.
 

@@ -1,0 +1,5 @@
+---
+source: examples/time_fx_and_noise.rs
+extension: wav
+snapshot_kind: binary
+---
