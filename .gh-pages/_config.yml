@@ -1,3 +1,11 @@
 theme: jekyll-theme-minimal
 title: Insta-fun | fundsp snapshots
 description: SVG and WAV snapshots of every AudioNode in fundsp
+
+# Ensure SCSS is compiled and cache-busted references work
+sass:
+  style: compressed
+
+# Provide site.github.build_revision locally and on GitHub Pages
+plugins:
+  - jekyll-github-metadata

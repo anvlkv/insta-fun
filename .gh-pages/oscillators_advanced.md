@@ -1,3 +1,6 @@
+---
+layout: no_sidebar
+---
 # Advanced Oscillators
 
 Back to [index](./index.html)

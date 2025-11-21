@@ -1,3 +1,6 @@
+---
+layout: no_sidebar
+---
 # filters_advanced
 
 Advanced nonlinear & morphing filter snapshots (`hacker32` API).  

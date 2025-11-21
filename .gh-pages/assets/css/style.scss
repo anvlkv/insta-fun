@@ -1,0 +1,109 @@
+---
+# Empty front matter so Jekyll processes SCSS+Liquid here
+---
+
+/* Inherit the default theme styles first */
+@import "jekyll-theme-minimal";
+
+/* MAYA DRY KISS overrides:
+   - Make inner pages wide and media responsive
+   - Remove sidebar spacing on "no_sidebar" layout
+*/
+
+/* Global media sizing (images/SVG/audio) */
+.page-content img,
+.page-content svg,
+article img,
+article svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.page-content audio,
+article audio {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Wider readable content width and centered wrapper */
+.wrapper {
+  max-width: 72rem; /* ~1152px */
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* No-sidebar layout: ensure no reserved space remains and sidebar is hidden if present */
+body.layout-no-sidebar .sidebar,
+body.layout-no-sidebar aside,
+body.layout-no-sidebar nav.sidebar,
+body.layout-no-sidebar .site-nav {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Ensure header/content/footer all align to the same wide wrapper in no-sidebar layout */
+body.layout-no-sidebar .site-header .wrapper,
+body.layout-no-sidebar #content.wrapper,
+body.layout-no-sidebar main.wrapper,
+body.layout-no-sidebar .site-footer .wrapper {
+  max-width: 72rem; /* ~1152px */
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* If the theme left any left offset for sidebar on larger screens, neutralize it */
+body.layout-no-sidebar #content,
+body.layout-no-sidebar main,
+body.layout-no-sidebar .page-content,
+body.layout-no-sidebar .site-header,
+body.layout-no-sidebar .site-footer {
+  margin-left: 0 !important;
+  padding-left: inherit;
+}
+
+/* Typography niceties for wide pages */
+.page-content p,
+.page-content li,
+article p,
+article li {
+  line-height: 1.65;
+}
+
+/* Tables or code blocks, if any, should be horizontally scrollable rather than overflow */
+.page-content pre,
+.page-content table,
+article pre,
+article table {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .wrapper,
+  body.layout-no-sidebar .site-header .wrapper,
+  body.layout-no-sidebar #content.wrapper,
+  body.layout-no-sidebar main.wrapper,
+  body.layout-no-sidebar .site-footer .wrapper {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Slightly tighter vertical rhythm on small screens */
+  .page-content img,
+  .page-content svg,
+  article img,
+  article svg {
+    margin: 0.75rem 0;
+  }
+}

@@ -1,3 +1,6 @@
+---
+layout: no_sidebar
+---
 # Filters
 
 Snapshot gallery for fundamental filter types in `fundsp` (impulse response SVG + 1s WAV audio).

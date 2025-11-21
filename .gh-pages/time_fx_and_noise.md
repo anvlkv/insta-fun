@@ -1,3 +1,6 @@
+---
+layout: no_sidebar
+---
 # time_fx_and_noise
 
 Snapshots of time-based effects, dynamics, resonators, delay, reverb, and noise generators. Each entry shows a terse description, expression, SVG chart, and WAV audio.

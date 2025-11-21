@@ -1,3 +1,6 @@
+---
+layout: no_sidebar
+---
 # Oscillators
 
 Snapshots for basic oscillators (from `examples/oscillators.rs`).
