@@ -4,9 +4,9 @@ use insta_fun::prelude::*;
 /// Filters snapshot examples driven from main.
 ///
 /// For each filter:
-/// - Input: impulse (to visualize impulse response)
-/// - SVG chart: 2000 samples
+/// - SVG chart: 2000 samples, impulse input (impulse response)
 /// - WAV audio: 1 second at DEFAULT_SR (44100 Hz)
+///   driven by 440 Hz sine via network (InputSource::None)
 ///
 /// How to run:
 ///   cargo run --example filters
@@ -44,8 +44,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_svf_lowpass_1k_q0_707",
-        lowpass_hz(1_000.0, 0.707),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> lowpass_hz(1_000.0, 0.707),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -58,8 +58,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_svf_highpass_1k_q0_707",
-        highpass_hz(1_000.0, 0.707),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> highpass_hz(1_000.0, 0.707),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -72,8 +72,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_svf_bandpass_1k_q1_0",
-        bandpass_hz(1_000.0, 1.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> bandpass_hz(1_000.0, 1.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -86,8 +86,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_svf_notch_1k_q1_0",
-        notch_hz(1_000.0, 1.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> notch_hz(1_000.0, 1.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -100,8 +100,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_peak_1k_q1_0",
-        peak_hz(1_000.0, 1.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> peak_hz(1_000.0, 1.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -114,8 +114,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_bell_1k_q0_707_gain1_5",
-        bell_hz(1_000.0, 0.707, 1.5),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> bell_hz(1_000.0, 0.707, 1.5),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -128,8 +128,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_lowshelf_500hz_q0_707_gain1_5",
-        lowshelf_hz(500.0, 0.707, 1.5),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> lowshelf_hz(500.0, 0.707, 1.5),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -142,8 +142,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_highshelf_2k_q0_707_gain1_5",
-        highshelf_hz(2_000.0, 0.707, 1.5),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> highshelf_hz(2_000.0, 0.707, 1.5),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -158,8 +158,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_moog_lowpass_1k_q0_5",
-        moog_hz(1_000.0, 0.5),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> moog_hz(1_000.0, 0.5),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -172,8 +172,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_lowrez_lowpass_1k_q1_0",
-        lowrez_hz(1_000.0, 1.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> lowrez_hz(1_000.0, 1.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -186,8 +186,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_bandrez_bandpass_1k_q3_0",
-        bandrez_hz(1_000.0, 3.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> bandrez_hz(1_000.0, 3.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -200,8 +200,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_lowpole_800hz",
-        lowpole_hz(800.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> lowpole_hz(800.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -214,8 +214,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_highpole_300hz",
-        highpole_hz(300.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> highpole_hz(300.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -230,8 +230,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_morph_lowpass_1k_q0_8",
-        morph_hz(1_000.0, 0.8, -1.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> morph_hz(1_000.0, 0.8, -1.0),
+        InputSource::None,
         wav_cfg()
     );
 
@@ -246,8 +246,8 @@ fn main() {
     );
     assert_audio_unit_snapshot!(
         "filter_dcblock_10hz",
-        dcblock_hz(10.0),
-        InputSource::impulse(),
+        sine_hz::<f32>(440.0) >> dcblock_hz(10.0),
+        InputSource::None,
         wav_cfg()
     );
 }
