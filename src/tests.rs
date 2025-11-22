@@ -461,7 +461,7 @@ fn test_warmup_seconds() {
         .build()
         .unwrap();
     let unit = lowpass_hz(500.0, 0.8);
-    assert_audio_unit_snapshot!("warmup_seconds_0_01", unit, InputSource::impulse(), config);
+    assert_audio_unit_snapshot!("warmup_seconds", unit, InputSource::impulse(), config);
 }
 
 #[test]
