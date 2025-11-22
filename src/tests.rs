@@ -450,12 +450,7 @@ fn test_warmup_samples() {
         .build()
         .unwrap();
     let unit = lowpass_hz(500.0, 0.8);
-    assert_audio_unit_snapshot!(
-        "warmup_samples_20_000",
-        unit,
-        InputSource::impulse(),
-        config
-    );
+    assert_audio_unit_snapshot!("warmup_samples", unit, InputSource::impulse(), config);
 }
 
 #[test]
