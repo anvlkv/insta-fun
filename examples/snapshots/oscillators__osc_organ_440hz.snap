@@ -1,5 +1,5 @@
 ---
 source: examples/oscillators.rs
-extension: wav
+extension: svg
 snapshot_kind: binary
 ---

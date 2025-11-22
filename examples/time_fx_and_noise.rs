@@ -4,7 +4,6 @@ use insta_fun::prelude::*;
 fn main() {
     const CHART_SAMPLES: usize = 2000;
     const ONE_SECOND_SAMPLES: usize = fundsp::DEFAULT_SR as usize;
-    const SR_F32: f32 = fundsp::DEFAULT_SR as f32;
 
     // Helpers to build configs per snapshot:
     // - chart_cfg(): default SvgChart with 2000 samples (title is set by macro from literal name)
@@ -12,6 +11,7 @@ fn main() {
     let chart_cfg = || {
         SnapshotConfigBuilder::default()
             .num_samples(CHART_SAMPLES)
+            .with_inputs(true)
             .build()
             .unwrap()
         // output_mode defaults to SvgChart; macro will set chart title via name
@@ -33,13 +33,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_chorus",
         chorus(1, 0.015, 0.005, 0.2),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_chorus",
         chorus(1, 0.015, 0.005, 0.2),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -54,13 +54,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_flanger",
         flanger_node.clone(),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_flanger",
         flanger_node,
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -68,13 +68,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_phaser",
         phaser(0.5, |t: f32| sin_hz(0.2, t) * 0.5 + 0.5),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_phaser",
         phaser(0.5, |t: f32| sin_hz(0.2, t) * 0.5 + 0.5),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -85,13 +85,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "dyn_limiter_mul2_in",
         limiting_chain.clone(),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "dyn_limiter_mul2_in",
         limiting_chain,
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -101,13 +101,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_resonator_440hz_bw50",
         resonator_hz(440.0, 50.0),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_resonator_440hz_bw50",
         resonator_hz(440.0, 50.0),
-        InputSource::sine(440.0, SR_F32),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -117,28 +117,28 @@ fn main() {
     // Generate stereo by stacking two mono sines, then feed into reverb.
     assert_audio_unit_snapshot!(
         "fx_reverb_stereo_room10m_time2s_damp0_5",
-        (sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0)) >> reverb_stereo(10.0, 2.0, 0.5),
-        InputSource::None,
+        reverb_stereo(10.0, 2.0, 0.5),
+        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_reverb_stereo_room10m_time2s_damp0_5",
-        (sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0)) >> reverb_stereo(10.0, 2.0, 0.5),
-        InputSource::None,
+        reverb_stereo(10.0, 2.0, 0.5),
+        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0))),
         wav_cfg()
     );
 
     // Simple delay of 250 ms on a 440 Hz sine.
     assert_audio_unit_snapshot!(
         "fx_delay_250ms_sine_440",
-        sine_hz::<f32>(440.0) >> delay(0.25),
-        InputSource::None,
+        delay(0.25),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_delay_250ms_sine_440",
-        sine_hz::<f32>(440.0) >> delay(0.25),
-        InputSource::None,
+        delay(0.25),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 

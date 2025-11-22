@@ -1,5 +1,5 @@
 ---
 source: examples/time_fx_and_noise.rs
-extension: wav
+extension: svg
 snapshot_kind: binary
 ---
