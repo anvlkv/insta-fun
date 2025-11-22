@@ -14,7 +14,7 @@
 ///
 /// ## Examples
 ///
-/// ```
+/// ```rust,no_run
 /// use fundsp::prelude::*;
 /// use insta_fun::prelude::*;
 ///
@@ -23,7 +23,7 @@
 /// assert_audio_unit_snapshot!("doc_sawtooth", unit);
 /// ```
 ///
-/// ```
+/// ```rust,no_run
 /// use fundsp::prelude::*;
 /// use insta_fun::prelude::*;
 ///
@@ -31,7 +31,7 @@
 /// assert_audio_unit_snapshot!("doc_lowpass", lowpass_hz(1000.0, 1.0), InputSource::impulse());
 /// ```
 ///
-/// ```
+/// ```rust,no_run
 /// use fundsp::prelude::*;
 /// use insta_fun::prelude::*;
 ///
@@ -50,7 +50,7 @@
 /// );
 /// ```
 ///
-/// ```
+/// ```rust,no_run
 /// use fundsp::prelude::*;
 /// use insta_fun::prelude::*;
 ///
