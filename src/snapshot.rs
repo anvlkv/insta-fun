@@ -129,7 +129,7 @@ where
     (0..num_warmup_samples).for_each(|i| {
         let mut input_frame = vec![0.0; num_inputs];
         for ch in 0..num_inputs {
-            input_frame[ch] = input_data[ch][i];
+            input_frame[ch] = warmup_samples[ch][i];
         }
         let mut output_frame = vec![0.0; num_outputs];
         unit.tick(&input_frame, &mut output_frame);

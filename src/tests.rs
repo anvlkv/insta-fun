@@ -445,12 +445,17 @@ fn test_warmup_none() {
 #[test]
 fn test_warmup_samples() {
     let config = SnapshotConfigBuilder::default()
-        .warm_up(WarmUp::Samples(200))
-        .num_samples(256)
+        .warm_up(WarmUp::Samples(20_000))
+        .num_samples(2560)
         .build()
         .unwrap();
     let unit = lowpass_hz(500.0, 0.8);
-    assert_audio_unit_snapshot!("warmup_samples_200", unit, InputSource::impulse(), config);
+    assert_audio_unit_snapshot!(
+        "warmup_samples_20_000",
+        unit,
+        InputSource::impulse(),
+        config
+    );
 }
 
 #[test]
@@ -652,7 +657,7 @@ fn test_wav32_basic() {
 #[test]
 fn test_wav16_with_warmup() {
     let config = SnapshotConfigBuilder::default()
-        .warm_up(WarmUp::Samples(512))
+        .warm_up(WarmUp::Samples(20_000))
         .output_mode(WavOutput::Wav16)
         .num_samples(2048)
         .build()
