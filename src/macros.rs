@@ -168,22 +168,47 @@ macro_rules! assert_audio_unit_snapshot {
         let mut config = $config;
         config.maybe_title($name);
 
+        let is_audio = matches!(
+            config.output_mode,
+            $crate::config::SnapshotOutputMode::Wav(_)
+        );
+
         let name = config.file_name(Some($name));
         let data = $crate::snapshot::snapshot_audio_unit_with_input_and_options($unit, $input, config);
 
-        ::insta::with_settings!({ omit_expression => true}, {
-            ::insta::assert_binary_snapshot!(&name, data.as_slice().to_vec());
-        });
+
+        if is_audio {
+            ::insta::with_settings!({ omit_expression => true, snapshot_suffix => "audio" }, {
+                ::insta::assert_binary_snapshot!(&name, data.as_slice().to_vec());
+            });
+        }
+        else {
+            ::insta::with_settings!({ omit_expression => true}, {
+                ::insta::assert_binary_snapshot!(&name, data.as_slice().to_vec());
+            });
+        }
     }};
 
     // With unit and config (single snapshot; uses config.output_mode)
     ($unit:expr, $config:expr) => {{
+
+        let is_audio = matches!(
+            $config.output_mode,
+            $crate::config::SnapshotOutputMode::Wav(_)
+        );
         // Capture name before moving config into processing.
         let name = $config.file_name(None);
         let data = $crate::snapshot::snapshot_audio_unit_with_options($unit, $config);
 
-        ::insta::with_settings!({ omit_expression => true}, {
-            ::insta::assert_binary_snapshot!(&name, data.as_slice().to_vec());
-        });
+        if is_audio {
+            ::insta::with_settings!({ omit_expression => true, snapshot_suffix => "audio" }, {
+                ::insta::assert_binary_snapshot!(&name, data.as_slice().to_vec());
+            });
+        }
+        else {
+            ::insta::with_settings!({ omit_expression => true }, {
+                ::insta::assert_binary_snapshot!(&name, data.as_slice().to_vec());
+            });
+        }
     }};
 }
