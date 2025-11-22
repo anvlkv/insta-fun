@@ -126,8 +126,8 @@ impl InputSource {
                 for i in 0..num_samples {
                     let mut outputs = vec![0.0; num_inputs];
                     unit.tick(&[], &mut outputs);
-                    for slc in data.iter_mut() {
-                        slc[i] = outputs[i];
+                    for (ch, slc) in data.iter_mut().enumerate() {
+                        slc[i] = outputs[ch];
                     }
                 }
                 data
