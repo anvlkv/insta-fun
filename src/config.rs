@@ -261,6 +261,7 @@ impl SnapshotConfig {
     }
 }
 
+/// Legacy (v1.x) compatibility helpers
 impl SnapshotConfigBuilder {
     /// Internal helper to ensure we have a mutable reference to an underlying `SvgChartConfig`
     /// Creating a default one if `output_mode` is `None` or replacing a `Wav` variant.
