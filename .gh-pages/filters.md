@@ -24,6 +24,11 @@ Snapshot gallery for fundamental filter types in `fundsp` (impulse response SVG 
 - [filter_highpole_300hz](#filter_highpole_300hz)
 - [filter_morph_lowpass_1k_q0_8](#filter_morph_lowpass_1k_q0_8)
 - [filter_dcblock_10hz](#filter_dcblock_10hz)
+- [filter_allpass_1k_q0_707](#filter_allpass_1k_q0_707)
+- [filter_butter_lowpass_1k](#filter_butter_lowpass_1k)
+- [filter_fir3_gain0_50_white](#filter_fir3_gain0_50_white)
+- [filter_pinkpass_white](#filter_pinkpass_white)
+- [filter_follow_attack100ms](#filter_follow_attack100ms)
 
 ---
 
@@ -127,5 +132,35 @@ DC blocker 10 Hz
 Expression: `dcblock_hz(10.0)`  
 ![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_dcblock_10hz.snap.svg)  
 <audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_dcblock_10hz@audio.snap.wav"></audio>
+
+### filter_allpass_1k_q0_707
+Allpass 1 kHz Q≈0.707  
+Expression: `allpass_hz(1_000.0, 0.707)`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_allpass_1k_q0_707.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_allpass_1k_q0_707@audio.snap.wav"></audio>
+
+### filter_butter_lowpass_1k
+Butterworth lowpass 1 kHz (2nd order)  
+Expression: `butterpass_hz(1_000.0)`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_butter_lowpass_1k.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_butter_lowpass_1k@audio.snap.wav"></audio>
+
+### filter_fir3_gain0_50_white
+FIR3 Nyquist gain 0.50 (white noise input)  
+Expression: `fir3(0.50)`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_fir3_gain0_50_white.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_fir3_gain0_50_white@audio.snap.wav"></audio>
+
+### filter_pinkpass_white
+Pinking filter shaping white noise (≈3 dB/oct slope)  
+Expression: `pinkpass::<f32>()`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_pinkpass_white.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_pinkpass_white@audio.snap.wav"></audio>
+
+### filter_follow_attack100ms
+Amplitude follower (~100 ms) on modulated 220 Hz sine  
+Expression: `sine_hz::<f32>(220.0) * (1.0 + 0.5 * sine_hz::<f32>(2.0)) >> follow(0.10)`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_follow_attack100ms.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/filters__filter_follow_attack100ms@audio.snap.wav"></audio>
 
 ---

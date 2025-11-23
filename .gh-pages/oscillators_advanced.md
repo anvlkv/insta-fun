@@ -29,12 +29,11 @@ Minimal snapshots of advanced oscillator variants (hacker32 API). Each entry:
   - [adv_pulse_440hz_width0_25](#adv_pulse_440hz_width0_25)
   - [adv_pulse_440hz_width0_50](#adv_pulse_440hz_width0_50)
   - [adv_pulse_440hz_width0_75](#adv_pulse_440hz_width0_75)
-- [Synth Threshold Pulses](#synth-threshold-pulses)
-  - [adv_synth_pulse_440hz_duty0_10](#adv_synth_pulse_440hz_duty0_10)
-  - [adv_synth_pulse_440hz_duty0_25](#adv_synth_pulse_440hz_duty0_25)
-  - [adv_synth_pulse_440hz_duty0_75](#adv_synth_pulse_440hz_duty0_75)
-- [Simple PWM](#simple-pwm)
-  - [adv_pwm_sine_440hz_lfo1hz](#adv_pwm_sine_440hz_lfo1hz)
+- [Physical & Chaotic](#physical--chaotic)
+  - [osc_pluck_110hz_damp0_50](#osc_pluck_110hz_damp0_50)
+  - [osc_lorenz](#osc_lorenz)
+  - [osc_rossler](#osc_rossler)
+
 
 ---
 
@@ -121,35 +120,24 @@ Expression: `constant((440.0f32, 0.75f32)) >> pulse()`
 <audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_pulse_440hz_width0_75@audio.snap.wav"></audio>
 
 ---
+## Physical & Chaotic
 
-## Synth Threshold Pulses
+### osc_pluck_110hz_damp0_50
+Plucked string model at 110 Hz, damping 0.50.  
+Expression: `pluck(110.0, 0.995, 0.50)`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__osc_pluck_110hz_damp0_50.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__osc_pluck_110hz_damp0_50@audio.snap.wav"></audio>
 
-### adv_synth_pulse_440hz_duty0_10
-Duty 0.10  
-Expression: `synth_threshold_pulse(440.0f32, 0.10f32)`  
-![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_synth_pulse_440hz_duty0_10.snap.svg)  
-<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_synth_pulse_440hz_duty0_10@audio.snap.wav"></audio>
+### osc_lorenz
+Lorenz attractor oscillator (chaotic dynamics).  
+Expression: `lorenz()`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__osc_lorenz.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__osc_lorenz@audio.snap.wav"></audio>
 
-### adv_synth_pulse_440hz_duty0_25
-Duty 0.25  
-Expression: `synth_threshold_pulse(440.0f32, 0.25f32)`  
-![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_synth_pulse_440hz_duty0_25.snap.svg)  
-<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_synth_pulse_440hz_duty0_25@audio.snap.wav"></audio>
+### osc_rossler
+Rossler attractor oscillator (chaotic dynamics).  
+Expression: `rossler()`  
+![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__osc_rossler.snap.svg)  
+<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__osc_rossler@audio.snap.wav"></audio>
 
-### adv_synth_pulse_440hz_duty0_75
-Duty 0.75  
-Expression: `synth_threshold_pulse(440.0f32, 0.75f32)`  
-![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_synth_pulse_440hz_duty0_75.snap.svg)  
-<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_synth_pulse_440hz_duty0_75@audio.snap.wav"></audio>
 
----
-
-## Simple PWM
-
-### adv_pwm_sine_440hz_lfo1hz
-PWM (carrier 440 Hz, LFO 1 Hz)  
-Expression: `(sine_hz(440.0f32) | sine_hz(1.0f32)) >> map(...)`  
-![](https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_pwm_sine_440hz_lfo1hz.snap.svg)  
-<audio controls src="https://github.com/anvlkv/insta-fun/raw/refs/heads/main/examples/snapshots/oscillators_advanced__adv_pwm_sine_440hz_lfo1hz@audio.snap.wav"></audio>
-
----

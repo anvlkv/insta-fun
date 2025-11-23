@@ -1,5 +1,5 @@
 ---
-source: examples/oscillators_advanced.rs
+source: examples/filters.rs
 extension: wav
 snapshot_kind: binary
 ---

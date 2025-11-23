@@ -22,6 +22,12 @@ name = "filters_advanced"
 [[example]]
 name = "oscillators_advanced"
 
+[[example]]
+name = "modulation_and_control"
+
+[[example]]
+name = "utility_shaping_rate"
+
 [dependencies]
 derive_builder = "0.20.2"
 fundsp = { version = "0.20", default-features = false, features = ["std"] }

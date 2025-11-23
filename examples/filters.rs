@@ -246,4 +246,63 @@ fn main() {
         InputSource::Unit(input.clone()),
         wav_cfg()
     );
+
+    // --- Other Fundamental Filters ---
+    // Representative examples: allpass, butterworth, FIR3 (Nyquist gain shaping), pinking filter, amplitude follower.
+
+    // Allpass at 1 kHz, Q=0.707
+    assert_audio_unit_snapshot!(
+        "filter_allpass_1k_q0_707",
+        allpass_hz(1_000.0, 0.707),
+        InputSource::Unit(input.clone()),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "filter_allpass_1k_q0_707",
+        allpass_hz(1_000.0, 0.707),
+        InputSource::Unit(input.clone()),
+        wav_cfg()
+    );
+
+    // Butterworth lowpass 1 kHz (2nd order)
+    assert_audio_unit_snapshot!(
+        "filter_butter_lowpass_1k",
+        butterpass_hz(1_000.0),
+        InputSource::Unit(input.clone()),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "filter_butter_lowpass_1k",
+        butterpass_hz(1_000.0),
+        InputSource::Unit(input.clone()),
+        wav_cfg()
+    );
+
+    // FIR3 with Nyquist gain 0.50 on white noise input
+    assert_audio_unit_snapshot!(
+        "filter_fir3_gain0_50_white",
+        fir3(0.50),
+        InputSource::Unit(Box::new(white())),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "filter_fir3_gain0_50_white",
+        fir3(0.50),
+        InputSource::Unit(Box::new(white())),
+        wav_cfg()
+    );
+
+    // Pink noise (white() filtered to 3 dB/octave slope)
+    assert_audio_unit_snapshot!(
+        "filter_pinkpass_white",
+        pinkpass::<f32>(),
+        InputSource::Unit(Box::new(white())),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "filter_pinkpass_white",
+        pinkpass::<f32>(),
+        InputSource::Unit(Box::new(white())),
+        wav_cfg()
+    );
 }

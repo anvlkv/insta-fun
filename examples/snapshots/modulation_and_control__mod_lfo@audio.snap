@@ -1,0 +1,5 @@
+---
+source: examples/modulation_and_control.rs
+extension: wav
+snapshot_kind: binary
+---

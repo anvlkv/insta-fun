@@ -78,6 +78,49 @@ fn main() {
         wav_cfg()
     );
 
+    /* Spatial & Mixing */
+
+    // Fixed equal power pan at 0.25
+    assert_audio_unit_snapshot!(
+        "spatial_pan_0_25_sine440",
+        pan(0.25),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "spatial_pan_0_25_sine440",
+        pan(0.25),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        wav_cfg()
+    );
+
+    // Removed incorrect argumentful pan() example; pan position fixed for this representative snapshot.
+
+    // Rotate stereo pair by π/4 with gain 0.8
+    let stereo_src = sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0);
+    assert_audio_unit_snapshot!(
+        "spatial_rotate_pi4_gain0_8",
+        stereo_src.clone() >> rotate(std::f32::consts::FRAC_PI_4, 0.8),
+        InputSource::None,
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "spatial_rotate_pi4_gain0_8",
+        stereo_src >> rotate(std::f32::consts::FRAC_PI_4, 0.8),
+        InputSource::None,
+        wav_cfg()
+    );
+
+    /* Dynamics & Metering */
+
+    // Meter (RMS, 100 ms smoothing) – chart snapshot only (no WAV needed for control signal).
+    assert_audio_unit_snapshot!(
+        "meter_rms_sine440",
+        sine_hz::<f32>(440.0) >> meter(Meter::Rms(0.1)),
+        InputSource::None,
+        chart_cfg()
+    );
+
     /* Dynamics */
 
     // Limiter with a hot input (multiply by 2x before limiting) to demonstrate gain control
@@ -128,6 +171,36 @@ fn main() {
         wav_cfg()
     );
 
+    // Reverb2 (hybrid FDN) with loop lowpass coloration
+    let loop_filter2 = lowpass_hz(5_000.0, 0.7);
+    assert_audio_unit_snapshot!(
+        "reverb2_room15m_time2_5s_diff0_7_mod0_3_lp5k",
+        reverb2_stereo(15.0, 2.5, 0.7, 0.3, loop_filter2.clone()),
+        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "reverb2_room15m_time2_5s_diff0_7_mod0_3_lp5k",
+        reverb2_stereo(15.0, 2.5, 0.7, 0.3, loop_filter2),
+        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        wav_cfg()
+    );
+
+    // Reverb3 (allpass loop based) with loop lowpass coloration
+    let loop_filter3 = lowpass_hz(6_000.0, 0.7);
+    assert_audio_unit_snapshot!(
+        "reverb3_time2_0s_diff0_7_lp6k",
+        reverb3_stereo(2.0, 0.7, loop_filter3.clone()),
+        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "reverb3_time2_0s_diff0_7_lp6k",
+        reverb3_stereo(2.0, 0.7, loop_filter3),
+        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        wav_cfg()
+    );
+
     // Simple delay of 250 ms on a 440 Hz sine.
     assert_audio_unit_snapshot!(
         "fx_delay_250ms_sine_440",
@@ -139,6 +212,50 @@ fn main() {
         "fx_delay_250ms_sine_440",
         delay(0.25),
         InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        wav_cfg()
+    );
+
+    /* Delay & Feedback */
+
+    // Single tapped linear delay between 30ms..90ms
+    assert_audio_unit_snapshot!(
+        "delay_tap_linear_30ms_90ms_sine440",
+        tap_linear(0.03, 0.09),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "delay_tap_linear_30ms_90ms_sine440",
+        tap_linear(0.03, 0.09),
+        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        wav_cfg()
+    );
+
+    // Multitap linear delay (3 taps) 10ms..50ms
+    assert_audio_unit_snapshot!(
+        "delay_multitap_linear_3_10ms_50ms_sine330",
+        multitap_linear::<U3>(0.01, 0.05),
+        InputSource::Unit(Box::new(sine_hz::<f32>(330.0))),
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "delay_multitap_linear_3_10ms_50ms_sine330",
+        multitap_linear::<U3>(0.01, 0.05),
+        InputSource::Unit(Box::new(sine_hz::<f32>(330.0))),
+        wav_cfg()
+    );
+
+    // Simple feedback loop with lowpass filtering (demonstrates resonance build-up)
+    assert_audio_unit_snapshot!(
+        "feedback_lowpass_1k_q0_7_sine220",
+        sine_hz::<f32>(220.0) >> feedback(lowpass_hz(1_000.0, 0.7)),
+        InputSource::None,
+        chart_cfg()
+    );
+    assert_audio_unit_snapshot!(
+        "feedback_lowpass_1k_q0_7_sine220",
+        sine_hz::<f32>(220.0) >> feedback(lowpass_hz(1_000.0, 0.7)),
+        InputSource::None,
         wav_cfg()
     );
 
