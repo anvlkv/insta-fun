@@ -122,12 +122,28 @@ impl InputSource {
                 .map(|ch| (0..num_samples).map(|i| generator_fn(i, ch)).collect())
                 .collect(),
             InputSource::Unit(unit) => {
-                let mut data = vec![vec![0.0; num_samples]; num_inputs];
-                for i in 0..num_samples {
-                    let mut outputs = vec![0.0; num_inputs];
+                // 1. Tick the driving unit with an output frame sized to its own outputs().
+                // 2. Collect its raw outputs.
+                // 3. Map/truncate/pad those outputs to the required num_inputs for the target snapshot.
+                let unit_outputs = unit.outputs();
+
+                // Raw capture buffer sized to the driving unit's actual outputs.
+                let mut raw = vec![vec![0.0; num_samples]; unit_outputs];
+                (0..num_samples).for_each(|i| {
+                    let mut outputs = vec![0.0; unit_outputs];
                     unit.tick(&[], &mut outputs);
-                    for (ch, slc) in data.iter_mut().enumerate() {
-                        slc[i] = outputs[ch];
+                    for ch in 0..unit_outputs {
+                        raw[ch][i] = outputs[ch];
+                    }
+                });
+
+                // Map raw outputs to target input channels.
+                // If fewer outputs than required, remaining channels stay silent (zeros).
+                // If more outputs than required, excess channels are discarded.
+                let mut data = vec![vec![0.0; num_samples]; num_inputs];
+                for ch in 0..num_inputs {
+                    if ch < unit_outputs {
+                        data[ch] = raw[ch].clone();
                     }
                 }
                 data
