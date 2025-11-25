@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 use derive_builder::Builder;
 use fundsp::DEFAULT_SR;
 
@@ -54,6 +56,153 @@ pub struct SnapshotConfig {
     pub output_mode: SnapshotOutputMode,
 }
 
+#[derive(Debug, Clone, Copy, Default)]
+pub enum SvgPreserveAspectRatioAlignment {
+    #[default]
+    None,
+    XMinYMin,
+    XMidYMin,
+    XMaxYMin,
+    XMinYMid,
+    XMidYMid,
+    XMaxYMid,
+    XMinYMax,
+    XMidYMax,
+    XMaxYMax,
+}
+
+impl std::fmt::Display for SvgPreserveAspectRatioAlignment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SvgPreserveAspectRatioAlignment::None => write!(f, "none"),
+            SvgPreserveAspectRatioAlignment::XMinYMin => write!(f, "xMinYMin"),
+            SvgPreserveAspectRatioAlignment::XMidYMin => write!(f, "xMidYMin"),
+            SvgPreserveAspectRatioAlignment::XMaxYMin => write!(f, "xMaxYMin"),
+            SvgPreserveAspectRatioAlignment::XMinYMid => write!(f, "xMinYMid"),
+            SvgPreserveAspectRatioAlignment::XMidYMid => write!(f, "xMidYMid"),
+            SvgPreserveAspectRatioAlignment::XMaxYMid => write!(f, "xMaxYMid"),
+            SvgPreserveAspectRatioAlignment::XMinYMax => write!(f, "xMinYMax"),
+            SvgPreserveAspectRatioAlignment::XMidYMax => write!(f, "xMidYMax"),
+            SvgPreserveAspectRatioAlignment::XMaxYMax => write!(f, "xMaxYMax"),
+        }
+    }
+}
+
+impl FromStr for SvgPreserveAspectRatioAlignment {
+    type Err = ();
+
+    fn from_str(input: &str) -> Result<SvgPreserveAspectRatioAlignment, Self::Err> {
+        match input {
+            "none" => Ok(SvgPreserveAspectRatioAlignment::None),
+            "xMinYMin" => Ok(SvgPreserveAspectRatioAlignment::XMinYMin),
+            "xMidYMin" => Ok(SvgPreserveAspectRatioAlignment::XMidYMin),
+            "xMaxYMin" => Ok(SvgPreserveAspectRatioAlignment::XMaxYMin),
+            "xMinYMid" => Ok(SvgPreserveAspectRatioAlignment::XMinYMid),
+            "xMidYMid" => Ok(SvgPreserveAspectRatioAlignment::XMidYMid),
+            "xMaxYMid" => Ok(SvgPreserveAspectRatioAlignment::XMaxYMid),
+            "xMinYMax" => Ok(SvgPreserveAspectRatioAlignment::XMinYMax),
+            "xMidYMax" => Ok(SvgPreserveAspectRatioAlignment::XMidYMax),
+            "xMaxYMax" => Ok(SvgPreserveAspectRatioAlignment::XMaxYMax),
+            _ => Err(()),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+pub enum SvgPreserveAspectRatioKwd {
+    #[default]
+    None,
+    Meet,
+    Slice,
+}
+
+impl FromStr for SvgPreserveAspectRatioKwd {
+    type Err = ();
+
+    fn from_str(input: &str) -> Result<SvgPreserveAspectRatioKwd, Self::Err> {
+        match input {
+            "meet" => Ok(SvgPreserveAspectRatioKwd::Meet),
+            "slice" => Ok(SvgPreserveAspectRatioKwd::Slice),
+            "" => Ok(SvgPreserveAspectRatioKwd::None),
+            _ => Err(()),
+        }
+    }
+}
+
+impl std::fmt::Display for SvgPreserveAspectRatioKwd {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SvgPreserveAspectRatioKwd::None => write!(f, ""),
+            SvgPreserveAspectRatioKwd::Meet => write!(f, " meet"),
+            SvgPreserveAspectRatioKwd::Slice => write!(f, " slice"),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, Default, Builder)]
+#[builder(default)]
+pub struct SvgPreserveAspectRatio {
+    pub alignment: SvgPreserveAspectRatioAlignment,
+    pub kwd: SvgPreserveAspectRatioKwd,
+}
+
+impl std::fmt::Display for SvgPreserveAspectRatio {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if let SvgPreserveAspectRatioAlignment::None = self.alignment {
+            write!(f, "none")
+        } else {
+            write!(f, "{}{}", self.alignment, self.kwd)
+        }
+    }
+}
+
+impl FromStr for SvgPreserveAspectRatio {
+    type Err = ();
+
+    fn from_str(input: &str) -> Result<SvgPreserveAspectRatio, Self::Err> {
+        let parts: Vec<&str> = input.split_whitespace().collect();
+        if parts.is_empty() {
+            return Err(());
+        }
+
+        let alignment = SvgPreserveAspectRatioAlignment::from_str(parts[0])?;
+        let kwd = if parts.len() > 1 {
+            SvgPreserveAspectRatioKwd::from_str(parts[1])?
+        } else {
+            SvgPreserveAspectRatioKwd::None
+        };
+
+        Ok(SvgPreserveAspectRatio { alignment, kwd })
+    }
+}
+
+impl SvgPreserveAspectRatio {
+    /// Center content: alignment only (XMidYMid), no scaling keyword.
+    /// Useful when you want the SVG to define size explicitly without forcing fit/fill behavior.
+    pub fn center() -> Self {
+        Self {
+            alignment: SvgPreserveAspectRatioAlignment::XMidYMid,
+            kwd: SvgPreserveAspectRatioKwd::None,
+        }
+    }
+
+    /// Scale to fit: center and scale uniformly so the whole viewBox is visible (xMidYMid meet).
+    pub fn scale_to_fit() -> Self {
+        Self {
+            alignment: SvgPreserveAspectRatioAlignment::XMidYMid,
+            kwd: SvgPreserveAspectRatioKwd::Meet,
+        }
+    }
+
+    /// Scale to fill: center and scale uniformly so the viewBox is completely covered (may crop) (xMidYMid slice).
+    pub fn scale_to_fill() -> Self {
+        Self {
+            alignment: SvgPreserveAspectRatioAlignment::XMidYMid,
+            kwd: SvgPreserveAspectRatioKwd::Slice,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Builder)]
 pub struct SvgChartConfig {
     // Chart configuration
@@ -79,6 +228,11 @@ pub struct SvgChartConfig {
     /// Default - 500
     #[builder(default = "DEFAULT_HEIGHT")]
     pub svg_height_per_channel: usize,
+    /// SVG aspect ratio preservation
+    ///
+    /// Default - `None`
+    #[builder(default, try_setter, setter(strip_option, into))]
+    pub preserve_aspect_ratio: Option<SvgPreserveAspectRatio>,
 
     // Chart labels
     /// Show ax- labels
@@ -207,6 +361,7 @@ impl Default for SvgChartConfig {
         Self {
             svg_width: None,
             svg_height_per_channel: DEFAULT_HEIGHT,
+            preserve_aspect_ratio: None,
             with_inputs: false,
             chart_title: None,
             output_titles: Vec::new(),

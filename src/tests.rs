@@ -2,7 +2,10 @@ use fundsp::prelude::*;
 use std::{cell::RefCell, rc::Rc};
 
 use crate::assert_audio_unit_snapshot;
-use crate::config::{SvgChartConfigBuilder, WavOutput};
+use crate::config::{
+    SvgChartConfigBuilder, SvgPreserveAspectRatio, SvgPreserveAspectRatioAlignment,
+    SvgPreserveAspectRatioBuilder, SvgPreserveAspectRatioKwd, WavOutput,
+};
 use crate::prelude::*;
 
 #[test]
@@ -315,6 +318,49 @@ fn test_chart_with_custom_dimensions() {
         .unwrap();
     let unit = sine_hz::<f32>(440.0);
     assert_audio_unit_snapshot!("chart_custom_dimensions", unit, InputSource::None, config);
+}
+
+#[test]
+fn test_chart_with_preserve_aspect_ratio_plain() {
+    let preserve = SvgPreserveAspectRatioBuilder::default()
+        .alignment(SvgPreserveAspectRatioAlignment::XMidYMid)
+        .kwd(SvgPreserveAspectRatioKwd::None)
+        .build()
+        .unwrap();
+    let chart = SvgChartConfigBuilder::default()
+        .preserve_aspect_ratio(preserve)
+        .build()
+        .unwrap();
+    let config = SnapshotConfigBuilder::default()
+        .output_mode(chart)
+        .build()
+        .unwrap();
+    let unit = sine_hz::<f32>(440.0);
+    assert_audio_unit_snapshot!(
+        "chart_preserve_aspect_ratio_plain",
+        unit,
+        InputSource::None,
+        config
+    );
+}
+
+#[test]
+fn test_chart_with_preserve_aspect_ratio_scale_to_fit() {
+    let chart = SvgChartConfigBuilder::default()
+        .preserve_aspect_ratio(SvgPreserveAspectRatio::scale_to_fit())
+        .build()
+        .unwrap();
+    let config = SnapshotConfigBuilder::default()
+        .output_mode(chart)
+        .build()
+        .unwrap();
+    let unit = sine_hz::<f32>(440.0);
+    assert_audio_unit_snapshot!(
+        "chart_preserve_aspect_ratio_scale_to_fit",
+        unit,
+        InputSource::None,
+        config
+    );
 }
 
 #[test]

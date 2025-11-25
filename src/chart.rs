@@ -155,7 +155,14 @@ pub(crate) fn generate_svg(
         current_area.present().unwrap();
     }
 
-    svg_buffer
+    if let Some(preserve_aspect_ratio) = config.preserve_aspect_ratio {
+        svg_buffer.replace(
+            "<svg ",
+            format!(r#"<svg preserveAspectRatio="{preserve_aspect_ratio}" "#).as_str(),
+        )
+    } else {
+        svg_buffer
+    }
 }
 
 fn multi_channel_chart(
