@@ -242,7 +242,7 @@ dependencies = [
 
 [[package]]
 name = "insta-fun"
-version = "2.0.3"
+version = "2.0.4"
 dependencies = [
  "derive_builder",
  "fundsp",

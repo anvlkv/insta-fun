@@ -157,8 +157,11 @@ pub(crate) fn generate_svg(
 
     if let Some(preserve_aspect_ratio) = config.preserve_aspect_ratio {
         svg_buffer.replace(
-            "<svg ",
-            format!(r#"<svg preserveAspectRatio="{preserve_aspect_ratio}" "#).as_str(),
+            format!(r#"<svg width="{svg_width}" height="{total_height}" "#).as_str(),
+            format!(
+                r#"<svg width="100%" height="100%" preserveAspectRatio="{preserve_aspect_ratio}" "#
+            )
+            .as_str(),
         )
     } else {
         svg_buffer
