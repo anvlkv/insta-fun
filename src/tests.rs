@@ -190,6 +190,18 @@ fn test_macro_variant_name_unit_input() {
 }
 
 #[test]
+fn test_macro_variant_expr_name_unit_input() {
+    // Dynamic name expression should match widened ($name:expr, $unit:expr, $input:expr) arm
+    let unit = lowpass_hz(500.0, 0.5);
+    let dyn_part = 42;
+    assert_audio_unit_snapshot!(
+        format!("macro_expr_name_{}", dyn_part),
+        unit,
+        InputSource::impulse()
+    );
+}
+
+#[test]
 fn test_macro_variant_name_unit_input_config() {
     let config = SnapshotConfigBuilder::default()
         .num_samples(512)

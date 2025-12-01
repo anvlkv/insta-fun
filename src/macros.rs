@@ -67,6 +67,13 @@
 ///     config
 /// );
 /// ```
+///
+/// Invariants / Notes:
+/// - Unit expression is evaluated once per macro invocation; cloned only for dual-snapshot arms.
+/// - Name expression (in widened arms) is evaluated exactly once and converted with Into<String>.
+/// - Input expression in the (name, unit, input) arm is evaluated twice (once per SVG, once per WAV).
+/// - Two-arg (name, unit) arm keeps `$name:literal` to avoid ambiguity with the (unit, config) arm.
+///   To use a dynamic (non-literal) name, supply an input or a config (3 or 4 argument forms).
 #[macro_export]
 macro_rules! assert_audio_unit_snapshot {
     // With just the unit (SVG + WAV16)
@@ -99,7 +106,7 @@ macro_rules! assert_audio_unit_snapshot {
         });
     }};
 
-    // With name and unit (name.svg + name.wav)
+    // With name and unit (name.svg + name.wav) - kept literal for disambiguation.
     ($name:literal, $unit:expr) => {{
         let mut __unit = $unit;
         let __unit_clone = __unit.clone();
@@ -129,19 +136,20 @@ macro_rules! assert_audio_unit_snapshot {
         });
     }};
 
-    // With input source (name.svg + name.wav)
-    ($name:literal, $unit:expr, $input:expr) => {{
+    // With input source (name.svg + name.wav) - widened name
+    ($name:expr, $unit:expr, $input:expr) => {{
+        let __name: String = ::std::convert::Into::into($name);
         let mut __unit = $unit;
         let __unit_clone = __unit.clone();
-        // Input expression is evaluated twice; prefer passing an expression (e.g. InputSource::impulse()).
+        // Input expression is evaluated twice; prefer passing a cheap expression (e.g. InputSource::impulse()).
         // If you have a bound variable you need two independent values.
 
         // SVG
         let config = $crate::config::SnapshotConfigBuilder::default()
-            .chart_title($name)
+            .chart_title(__name.as_str())
             .build()
             .unwrap();
-        let name = config.file_name(Some($name));
+        let name = config.file_name(Some(__name.as_str()));
         let data_svg =
             $crate::snapshot::snapshot_audio_unit_with_input_and_options(__unit, $input, config);
 
@@ -154,7 +162,7 @@ macro_rules! assert_audio_unit_snapshot {
             .output_mode($crate::config::WavOutput::Wav16)
             .build()
             .unwrap();
-        let name = config.file_name(Some($name));
+        let name = config.file_name(Some(__name.as_str()));
         let data_wav =
             $crate::snapshot::snapshot_audio_unit_with_input_and_options(__unit_clone, $input, config);
 
@@ -163,19 +171,19 @@ macro_rules! assert_audio_unit_snapshot {
         });
     }};
 
-    // With input source and config (single snapshot; uses config.output_mode)
-    ($name:literal, $unit:expr, $input:expr, $config:expr) => {{
+    // With input source and config (single snapshot; uses config.output_mode) - widened name
+    ($name:expr, $unit:expr, $input:expr, $config:expr) => {{
+        let __name: String = ::std::convert::Into::into($name);
         let mut config = $config;
-        config.maybe_title($name);
+        config.maybe_title(__name.as_str());
 
         let is_audio = matches!(
             config.output_mode,
             $crate::config::SnapshotOutputMode::Wav(_)
         );
 
-        let name = config.file_name(Some($name));
+        let name = config.file_name(Some(__name.as_str()));
         let data = $crate::snapshot::snapshot_audio_unit_with_input_and_options($unit, $input, config);
-
 
         if is_audio {
             ::insta::with_settings!({ omit_expression => true, snapshot_suffix => "audio" }, {
@@ -190,7 +198,9 @@ macro_rules! assert_audio_unit_snapshot {
     }};
 
     // With unit and config (single snapshot; uses config.output_mode)
-    ($unit:expr, $config:expr) => {{
+    // NOTE: The (name, unit) two-arg arm keeps name as a literal to avoid ambiguity with this (unit, config) arm.
+    // If you need a dynamic (non-literal) name, use a 3-arg or 4-arg form (name, unit, input[, config]) which are widened to $name:expr.
+        ($unit:expr, $config:expr) => {{
 
         let is_audio = matches!(
             $config.output_mode,
