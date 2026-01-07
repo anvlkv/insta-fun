@@ -719,3 +719,90 @@ fn test_wav16_with_warmup() {
     let data = snapshot_audio_unit_with_input_and_options(unit, InputSource::impulse(), config);
     insta::assert_binary_snapshot!("wav16_warmup.wav", data);
 }
+
+#[test]
+fn test_dsp_net_snapshot() {
+    use fundsp::prelude::*;
+
+    // Build a small but explicit stereo graph using Net APIs.
+    // Two global inputs feed two different chains; then merged to a stereo processor and piped to outputs.
+    let mut net = Net::new(2, 2);
+
+    // Left chain: global in[0] -> lowpass
+    let left_filter = lowpass_hz(500.0, 0.7);
+    let left_id = net.push(Box::new(left_filter));
+    net.connect_input(0, left_id, 0);
+
+    // Right chain: global in[1] -> highpass
+    let right_filter = highpass_hz(1200.0, 0.6);
+    let right_id = net.push(Box::new(right_filter));
+    net.connect_input(1, right_id, 0);
+
+    // Merge explicitly into a stereo pass-through to preserve channel mapping
+    let stereo = multipass::<U2>();
+    let stereo_id = net.push(Box::new(stereo));
+    // Wire left filter output -> stereo left input, right filter output -> stereo right input
+    net.connect(left_id, 0, stereo_id, 0);
+    net.connect(right_id, 0, stereo_id, 1);
+
+    // Pipe to global outputs for a clear visualization
+    net.pipe_output(stereo_id);
+
+    assert_dsp_net_snapshot!("net_graph", net);
+}
+
+#[test]
+fn test_dsp_net_snapshot_complex() {
+    use fundsp::prelude::*;
+
+    // Complex explicit stereo graph using push/connect/pipe_all/connect_output APIs.
+    // Topology:
+    // - Generator A (sine 220) -> Lowpass -> Pan to stereo
+    // - Generator B (saw 330)  -> Highpass -> Pan to stereo
+    // - Mix via bus node (sum) -> Reverb stereo -> Global outputs
+    // - Additionally tap one intermediate node directly to OUT[1] for richer wiring
+
+    let mut net = Net::new(0, 2);
+
+    // Generators
+    let gen_a = net.push(Box::new(sine_hz::<f32>(220.0))); // mono
+    let gen_b = net.push(Box::new(saw_hz(330.0))); // mono
+
+    // Filters
+    let lp = net.push(Box::new(lowpass_hz(400.0, 0.7))); // mono
+    let hp = net.push(Box::new(highpass_hz(800.0, 0.5))); // mono
+
+    // Wire generators to filters explicitly
+    net.connect(gen_a, 0, lp, 0);
+    net.connect(gen_b, 0, hp, 0);
+
+    // Pan each filtered mono signal to stereo
+    let pan_a = net.push(Box::new(pan(-0.25))); // slight left
+    let pan_b = net.push(Box::new(pan(0.25))); // slight right
+    net.pipe_all(lp, pan_a);
+    net.pipe_all(hp, pan_b);
+
+    // Bus/mix the two stereo streams into a stereo sum
+    let bus_mix = net.push(Box::new(multipass::<U2>() + multipass::<U2>())); // stereo + stereo -> stereo
+    // Connect left/right from pan_a into bus left/right
+    net.connect(pan_a, 0, bus_mix, 0);
+    net.connect(pan_a, 1, bus_mix, 1);
+    // Connect left/right from pan_b into bus left/right (sum second input)
+    // Using pipe_all to wrap-around would obscure port mapping; connect explicitly for clarity
+    net.connect(pan_b, 0, bus_mix, 0);
+    net.connect(pan_b, 1, bus_mix, 1);
+
+    // Stereo reverb after bus mix
+    let rev = net.push(Box::new(reverb_stereo(2.5, 0.6, 0.4)));
+
+    // Pipe all channels from bus -> reverb
+    net.pipe_all(bus_mix, rev);
+
+    // Main path to both global outputs
+    net.pipe_output(rev);
+
+    // Additional tap: connect the right output of pan_b directly to OUT[1] to visualize a parallel feed
+    net.connect_output(pan_b, 1, 1);
+
+    assert_dsp_net_snapshot!("complex_net_graph", net);
+}

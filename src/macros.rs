@@ -222,3 +222,27 @@ macro_rules! assert_audio_unit_snapshot {
         }
     }};
 }
+
+/// Macro to snapshot a fundsp `Net` as a Graphviz DOT binary using `snapshot_dsp_net`.
+///
+/// ### Usage:
+///
+/// `assert_dsp_net_snapshot!(name_expr, net_expr);`
+///
+/// - name_expr: used to name the snapshot file (e.g., "my_net")
+/// - net_expr: expression that evaluates to a `fundsp::net::Net`
+///
+/// Produces a single binary snapshot (.dot content) under the given name.
+#[macro_export]
+macro_rules! assert_dsp_net_snapshot {
+    ($name:expr, $net:expr) => {{
+        let __name: String = ::std::convert::Into::into($name);
+        // Build DOT bytes from the Net
+        let __snap_name = format!("{}.dot", __name);
+        let __bytes: ::std::vec::Vec<u8> = $crate::graph::snapshot_dsp_net_wiring($net);
+        // Assert as binary snapshot
+        ::insta::with_settings!({ omit_expression => true }, {
+            ::insta::assert_binary_snapshot!(&__snap_name, __bytes);
+        });
+    }};
+}
