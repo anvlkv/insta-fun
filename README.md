@@ -69,6 +69,52 @@ fn example_test() {
 - Multiple chart layouts & label formatting options
 - Assertion macro (default: both SVG + WAV16 when no custom config)
 
+## Optional feature: `dot` (Graphviz Net snapshots)
+
+Generate Graphviz DOT snapshots of `fundsp::net::Net` wiring for debugging and documentation.
+
+- What it does:
+  - Builds a directed graph of units, global inputs/outputs, and port-labeled edges.
+  - Emits DOT with preserved whitespace in labels for better readability.
+  - Uses deterministic node/edge ordering for stable snapshots.
+
+- Enable the feature:
+  ```toml
+  [dependencies]
+  insta-fun = { version = "2", features = ["dot"] }
+  ```
+
+- Usage:
+  ```rust
+  use fundsp::prelude::*;
+  use insta_fun::prelude::*;
+
+  #[test]
+  fn net_graph() {
+      // 2 inputs, 2 outputs
+      let mut net = Net::new(2, 2);
+
+      // Build a small explicit graph
+      let lp = net.push(Box::new(lowpass_hz(500.0, 0.7)));
+      net.connect_input(0, lp, 0);
+
+      let hp = net.push(Box::new(highpass_hz(1200.0, 0.6)));
+      net.connect_input(1, hp, 0);
+
+      let stereo = net.push(Box::new(multipass::<U2>()));
+      net.connect(lp, 0, stereo, 0);
+      net.connect(hp, 0, stereo, 1);
+      net.pipe_output(stereo);
+
+      // Produces my_net.dot snapshot via insta
+      assert_dsp_net_snapshot!("my_net", net);
+  }
+  ```
+
+- Notes:
+  - The DOT functionality is gated behind the `dot` feature and pulls in `petgraph` only when enabled.
+  - With `dot` disabled, the `graph::snapshot_dsp_net_wiring` function returns a tiny placeholder and tests using DOT are skipped.
+
 ## Configuration Overview
 
 SnapshotConfig controls audio generation parameters (sample_rate, num_samples, processing_mode, warm_up, allow_abnormal_samples, output_mode).

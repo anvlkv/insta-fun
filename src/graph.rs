@@ -1,3 +1,4 @@
+#![cfg(feature = "dot")]
 use fundsp::net::{Net, Source};
 use fundsp::prelude::*;
 use petgraph::dot::{Config, Dot};

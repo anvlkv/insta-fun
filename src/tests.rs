@@ -720,6 +720,7 @@ fn test_wav16_with_warmup() {
     insta::assert_binary_snapshot!("wav16_warmup.wav", data);
 }
 
+#[cfg(feature = "dot")]
 #[test]
 fn test_dsp_net_snapshot() {
     use fundsp::prelude::*;
@@ -751,6 +752,7 @@ fn test_dsp_net_snapshot() {
     assert_dsp_net_snapshot!("net_graph", net);
 }
 
+#[cfg(feature = "dot")]
 #[test]
 fn test_dsp_net_snapshot_complex() {
     use fundsp::prelude::*;

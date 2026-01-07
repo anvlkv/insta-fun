@@ -31,7 +31,7 @@ name = "utility_shaping_rate"
 [dependencies]
 derive_builder = "0.20.2"
 fundsp = { version = "0.21", default-features = false, features = ["std"] }
-petgraph = "0.8.3"
+petgraph = { version = "0.8.3", optional = true }
 plotters = { version = "0.3.7", default-features = false, features = [
   "line_series",
   "point_series",
@@ -40,3 +40,7 @@ plotters = { version = "0.3.7", default-features = false, features = [
 
 [dev-dependencies]
 insta = "1.46"
+
+[features]
+default = []
+dot = ["dep:petgraph"]
