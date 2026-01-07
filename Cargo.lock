@@ -188,9 +188,9 @@ checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
 
 [[package]]
 name = "fundsp"
-version = "0.22.0"
+version = "0.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "134d159885f46ede4454995d4d42c70493c8e54a8d6ab2414d6393966fe01c10"
+checksum = "6969e5c9d5c5c704723f547237494fde9b1addf16f718f65cd786b3b6e320a4f"
 dependencies = [
  "dyn-clone",
  "funutd",
@@ -309,7 +309,7 @@ dependencies = [
 
 [[package]]
 name = "insta-fun"
-version = "2.2.1"
+version = "2.2.2"
 dependencies = [
  "derive_builder",
  "fundsp",

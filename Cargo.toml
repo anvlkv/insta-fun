@@ -1,6 +1,6 @@
 [package]
 name = "insta-fun"
-version = "2.2.1"
+version = "2.2.2"
 edition = "2024"
 description = "Snapshot testing of fundsp units. Visualize output in svg and compare using insta"
 repository = "https://github.com/anvlkv/insta-fun"
@@ -30,7 +30,7 @@ name = "utility_shaping_rate"
 
 [dependencies]
 derive_builder = "0.20.2"
-fundsp = { version = "0.22", default-features = false, features = ["std"] }
+fundsp = { version = "0.23", default-features = false, features = ["std"] }
 petgraph = { version = "0.8.3", optional = true }
 plotters = { version = "0.3.7", default-features = false, features = [
   "line_series",
