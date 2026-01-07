@@ -1,4 +1,4 @@
-use fundsp::hacker::AudioUnit;
+use fundsp::prelude::AudioUnit;
 
 /// Input provided to the audio unit
 #[derive(Default)]

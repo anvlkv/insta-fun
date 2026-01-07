@@ -11,7 +11,7 @@ use crate::wav::generate_wav;
 ///
 /// ```
 /// use insta_fun::prelude::*;
-/// use fundsp::hacker::prelude::*;
+/// use fundsp::prelude::*;
 ///
 /// let unit = sine_hz::<f32>(440.0);
 /// let svg = snapshot_audio_unit(unit);
@@ -30,7 +30,7 @@ where
 ///
 /// ```
 /// use insta_fun::prelude::*;
-/// use fundsp::hacker::prelude::*;
+/// use fundsp::prelude::*;
 ///
 /// let unit = sine_hz::<f32>(440.0);
 /// let svg = snapshot_audio_unit_with_options(unit, SnapshotConfig::default());
@@ -49,7 +49,7 @@ where
 ///
 /// ```
 /// use insta_fun::prelude::*;
-/// use fundsp::hacker::prelude::*;
+/// use fundsp::prelude::*;
 ///
 /// let unit = sine_hz::<f32>(440.0);
 /// let svg = snapshot_audio_unit_with_input(unit, InputSource::None);
@@ -74,7 +74,7 @@ where
 ///
 /// ```
 /// use insta_fun::prelude::*;
-/// use fundsp::hacker::prelude::*;
+/// use fundsp::prelude::*;
 ///
 /// let config = SnapshotConfig::default();
 /// let unit = sine_hz::<f32>(440.0);

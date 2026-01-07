@@ -1,4 +1,4 @@
-use fundsp::hacker32::*;
+use fundsp::prelude32::*;
 use insta_fun::prelude::*;
 
 fn main() {

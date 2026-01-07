@@ -188,9 +188,9 @@ checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
 
 [[package]]
 name = "fundsp"
-version = "0.21.0"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8cdf2c88349e93f1fb775cdfaee5c86d3b8ab5976e582bac098e31838a1293c9"
+checksum = "134d159885f46ede4454995d4d42c70493c8e54a8d6ab2414d6393966fe01c10"
 dependencies = [
  "dyn-clone",
  "funutd",
@@ -200,6 +200,7 @@ dependencies = [
  "num-complex",
  "numeric-array",
  "once_cell",
+ "resampler",
  "thingbuf",
  "tinyvec",
  "wide",
@@ -308,7 +309,7 @@ dependencies = [
 
 [[package]]
 name = "insta-fun"
-version = "2.2.0"
+version = "2.2.1"
 dependencies = [
  "derive_builder",
  "fundsp",
@@ -474,6 +475,15 @@ name = "r-efi"
 version = "5.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "69cdb34c158ceb288df11e18b4bd39de994f6657d83847bdffdbd7f346754b0f"
+
+[[package]]
+name = "resampler"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3b30109dce6405f545442493099ca90f158b1f5a99c314ce11c6bf50b595f183"
+dependencies = [
+ "libm",
+]
 
 [[package]]
 name = "rustix"
