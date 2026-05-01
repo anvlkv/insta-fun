@@ -1,6 +1,5 @@
 ---
 source: src/tests.rs
-expression: data.as_slice().to_vec()
 extension: svg
 snapshot_kind: binary
 ---

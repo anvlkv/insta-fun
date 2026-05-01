@@ -35,5 +35,5 @@ pub mod prelude {
     pub use crate::{assert_audio_unit_snapshot, assert_dsp_net_snapshot};
 }
 
-#[cfg(all(test, feature = "dot"))]
+#[cfg(test)]
 mod tests;

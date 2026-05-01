@@ -223,7 +223,10 @@ pub struct SvgChartConfig {
     /// `None` means proportional to num_samples
     #[builder(default, setter(strip_option))]
     pub svg_width: Option<usize>,
-    /// Height of **one** channel in the SVG `viewBox`
+    /// Height of one chart row in the SVG `viewBox`
+    ///
+    /// For `Layout::SeparateChannels`, one row equals one channel.
+    /// For combined layouts, one row equals one combined chart.
     ///
     /// Default - 500
     #[builder(default = "DEFAULT_HEIGHT")]

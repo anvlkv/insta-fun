@@ -49,7 +49,19 @@ pub(crate) fn generate_svg(
     }
 
     let svg_width = config.svg_width.unwrap_or(num_samples * 2) as u32;
-    let total_height = (height_per_channel * num_channels) as u32;
+    let has_input_rows = config.with_inputs && !input_data.is_empty();
+    let chart_rows = match config.chart_layout {
+        Layout::SeparateChannels => num_channels,
+        Layout::CombinedPerChannelType => {
+            if has_input_rows {
+                2
+            } else {
+                1
+            }
+        }
+        Layout::Combined => 1,
+    };
+    let total_height = (height_per_channel * chart_rows) as u32;
 
     // Create SVG backend with buffer
     let mut svg_buffer = String::new();

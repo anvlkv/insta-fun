@@ -659,6 +659,41 @@ fn test_chart_layout_combined_per_type_no_inputs() {
 }
 
 #[test]
+fn test_chart_layout_combined_per_type_viewbox_height_uses_rows() {
+    let chart = SvgChartConfigBuilder::default()
+        .chart_layout(Layout::CombinedPerChannelType)
+        .with_inputs(true)
+        .svg_width(1024)
+        .svg_height_per_channel(512)
+        .show_grid(true)
+        .build()
+        .unwrap();
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(1280)
+        .output_mode(chart)
+        .build()
+        .unwrap();
+    let unit = lowpass_hz(1000.0, 0.7) | highpass_hz(200.0, 0.7);
+
+    let svg = snapshot_audio_unit_with_input_and_options(
+        unit,
+        InputSource::Flat(vec![0.5, -0.5]),
+        config,
+    );
+    let svg = String::from_utf8(svg).expect("snapshot output should be valid UTF-8 SVG");
+
+    insta::assert_binary_snapshot!("chart_layout_combined_per_type_viewbox_height.svg", svg.as_bytes().to_vec());
+
+    // CombinedPerChannelType with inputs renders two stacked charts:
+    // one for inputs and one for outputs.
+    assert!(
+        svg.contains("viewBox=\"0 0 1024 1024\""),
+        "expected row-based viewBox height, got header: {}",
+        svg.lines().next().unwrap_or_default()
+    );
+}
+
+#[test]
 fn chart_x_axis_labels_as_time() {
     let chart = SvgChartConfigBuilder::default()
         .format_x_axis_labels_as_time(true)
