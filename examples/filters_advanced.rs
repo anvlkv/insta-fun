@@ -43,13 +43,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_dirty_lowpass_1000hz_q0_70_shape0_50",
         dlowpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_dirty_lowpass_1000hz_q0_70_shape0_50")
     );
     assert_audio_unit_snapshot!(
         "adv_dirty_lowpass_1000hz_q0_70_shape0_50",
         dlowpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -57,13 +57,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_dirty_highpass_1000hz_q0_70_shape0_50",
         dhighpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_dirty_highpass_1000hz_q0_70_shape0_50")
     );
     assert_audio_unit_snapshot!(
         "adv_dirty_highpass_1000hz_q0_70_shape0_50",
         dhighpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -71,13 +71,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_dirty_resonator_1000hz_q5_00_shape0_80",
         dresonator_hz(SoftCrush(0.80f32), 1000.0f32, 5.00f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_dirty_resonator_1000hz_q5_00_shape0_80")
     );
     assert_audio_unit_snapshot!(
         "adv_dirty_resonator_1000hz_q5_00_shape0_80",
         dresonator_hz(SoftCrush(0.80f32), 1000.0f32, 5.00f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -85,13 +85,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_dirty_bell_1000hz_q0_70_gain1_50_shape0_50",
         dbell_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32, 1.50f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_dirty_bell_1000hz_q0_70_gain1_50_shape0_50")
     );
     assert_audio_unit_snapshot!(
         "adv_dirty_bell_1000hz_q0_70_gain1_50_shape0_50",
         dbell_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32, 1.50f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -103,13 +103,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_fb_lowpass_1000hz_q0_70_shape0_50",
         flowpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_fb_lowpass_1000hz_q0_70_shape0_50")
     );
     assert_audio_unit_snapshot!(
         "adv_fb_lowpass_1000hz_q0_70_shape0_50",
         flowpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -117,13 +117,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_fb_highpass_1000hz_q0_70_shape0_50",
         fhighpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_fb_highpass_1000hz_q0_70_shape0_50")
     );
     assert_audio_unit_snapshot!(
         "adv_fb_highpass_1000hz_q0_70_shape0_50",
         fhighpass_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -131,13 +131,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_fb_resonator_1000hz_q6_00_shape0_80",
         fresonator_hz(SoftCrush(0.80f32), 1000.0f32, 6.00f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_fb_resonator_1000hz_q6_00_shape0_80")
     );
     assert_audio_unit_snapshot!(
         "adv_fb_resonator_1000hz_q6_00_shape0_80",
         fresonator_hz(SoftCrush(0.80f32), 1000.0f32, 6.00f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -145,13 +145,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_fb_bell_1000hz_q0_70_gain1_50_shape0_50",
         fbell_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32, 1.50f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_fb_bell_1000hz_q0_70_gain1_50_shape0_50")
     );
     assert_audio_unit_snapshot!(
         "adv_fb_bell_1000hz_q0_70_gain1_50_shape0_50",
         fbell_hz(SoftCrush(0.50f32), 1000.0f32, 0.70f32, 1.50f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -166,13 +166,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_lp",
         morph_hz(1000.0f32, 0.80f32, -1.0f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_morph_1000hz_q0_80_m_lp")
     );
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_lp",
         morph_hz(1000.0f32, 0.80f32, -1.0f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -180,13 +180,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_lp_mid",
         morph_hz(1000.0f32, 0.80f32, -0.5f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_morph_1000hz_q0_80_m_lp_mid")
     );
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_lp_mid",
         morph_hz(1000.0f32, 0.80f32, -0.5f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -194,13 +194,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_peak",
         morph_hz(1000.0f32, 0.80f32, 0.0f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_morph_1000hz_q0_80_m_peak")
     );
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_peak",
         morph_hz(1000.0f32, 0.80f32, 0.0f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -208,13 +208,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_hp_mid",
         morph_hz(1000.0f32, 0.80f32, 0.5f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_morph_1000hz_q0_80_m_hp_mid")
     );
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_hp_mid",
         morph_hz(1000.0f32, 0.80f32, 0.5f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 
@@ -222,13 +222,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_hp",
         morph_hz(1000.0f32, 0.80f32, 1.0f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_chart("adv_morph_1000hz_q0_80_m_hp")
     );
     assert_audio_unit_snapshot!(
         "adv_morph_1000hz_q0_80_m_hp",
         morph_hz(1000.0f32, 0.80f32, 1.0f32),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         cfg_wav()
     );
 }

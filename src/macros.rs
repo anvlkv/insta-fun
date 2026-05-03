@@ -223,6 +223,48 @@ macro_rules! assert_audio_unit_snapshot {
     }};
 }
 
+/// Assert over raw processed data instead of rendering SVG/WAV snapshots.
+///
+/// This is useful for nondeterministic units where users want to validate
+/// shape/range/statistical invariants directly on sample buffers.
+///
+/// ## Usage
+///
+/// ```rust,no_run
+/// use fundsp::prelude::*;
+/// use insta_fun::prelude::*;
+///
+/// assert_audio_unit_data!(sine_hz::<f32>(440.0), |data: &AudioUnitSnapshotData| {
+///     assert_eq!(data.output_data.len(), 1);
+///     assert_eq!(data.output_data[0].len(), data.num_samples);
+/// });
+///
+/// assert_audio_unit_data!(
+///     lowpass_hz(1000.0, 0.7),
+///     InputSource::impulse() => |data: &AudioUnitSnapshotData| {
+///         assert_eq!(data.input_data.len(), 1);
+///     }
+/// );
+/// ```
+#[macro_export]
+macro_rules! assert_audio_unit_data {
+    ($unit:expr, $assertions:expr) => {{
+        let __data = $crate::snapshot::snapshot_audio_unit_data($unit);
+        ($assertions)(&__data);
+    }};
+
+    ($unit:expr, $input:expr => $assertions:expr) => {{
+        let __data = $crate::snapshot::snapshot_audio_unit_data_with_input($unit, $input);
+        ($assertions)(&__data);
+    }};
+
+    ($unit:expr, $input:expr, $config:expr => $assertions:expr) => {{
+        let __data =
+            $crate::snapshot::snapshot_audio_unit_data_with_input_and_options($unit, $input, $config);
+        ($assertions)(&__data);
+    }};
+}
+
 /// Macro to snapshot a fundsp `Net` as a Graphviz DOT binary using `snapshot_dsp_net`.
 ///
 /// ### Usage:

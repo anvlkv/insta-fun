@@ -1,7 +1,7 @@
 use fundsp::prelude::*;
 use std::{cell::RefCell, rc::Rc};
 
-use crate::assert_audio_unit_snapshot;
+use crate::{assert_audio_unit_data, assert_audio_unit_snapshot};
 use crate::config::{
     SvgChartConfigBuilder, SvgPreserveAspectRatio, SvgPreserveAspectRatioAlignment,
     SvgPreserveAspectRatioBuilder, SvgPreserveAspectRatioKwd, WavOutput,
@@ -224,6 +224,73 @@ fn test_macro_variant_unit_and_config() {
         .build()
         .unwrap();
     assert_audio_unit_snapshot!(unit, config);
+}
+
+#[test]
+fn test_raw_snapshot_data_basic_shape() {
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(128)
+        .build()
+        .unwrap();
+
+    let data = snapshot_audio_unit_data_with_input_and_options(
+        sine_hz::<f32>(440.0),
+        InputSource::None,
+        config,
+    );
+
+    assert_eq!(data.input_data.len(), 0);
+    assert_eq!(data.output_data.len(), 1);
+    assert_eq!(data.output_data[0].len(), 128);
+    assert_eq!(data.abnormalities.len(), 1);
+    assert_eq!(data.num_samples, 128);
+}
+
+#[test]
+fn test_raw_snapshot_data_reports_abnormalities() {
+    let config = SnapshotConfigBuilder::default()
+        .allow_abnormal_samples(true)
+        .num_samples(30)
+        .build()
+        .unwrap();
+
+    let data = snapshot_audio_unit_data_with_input_and_options(
+        pass(),
+        InputSource::Generator(Box::new(|sample, _| {
+            if sample.is_multiple_of(3) {
+                f32::INFINITY
+            } else {
+                sample as f32
+            }
+        })),
+        config,
+    );
+
+    assert!(
+        !data.abnormalities[0].is_empty(),
+        "expected abnormal samples to be collected"
+    );
+    assert!(data
+        .abnormalities[0]
+        .iter()
+        .all(|(_, kind)| *kind == SnapshotAbnormalSample::PosInf));
+    assert!(data.output_data[0].iter().all(|sample| sample.is_finite()));
+}
+
+#[test]
+fn test_macro_assert_audio_unit_data() {
+    assert_audio_unit_data!(
+        sine_hz::<f32>(220.0),
+        InputSource::None,
+        SnapshotConfigBuilder::default()
+            .num_samples(64)
+            .build()
+            .unwrap() => |data: &AudioUnitSnapshotData| {
+            assert_eq!(data.output_data.len(), 1);
+            assert_eq!(data.output_data[0].len(), 64);
+            assert!(data.output_data[0].iter().any(|sample| sample.abs() > 0.01));
+        }
+    );
 }
 
 #[test]

@@ -33,13 +33,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_chorus",
         chorus(1, 0.015, 0.005, 0.2),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_chorus",
         chorus(1, 0.015, 0.005, 0.2),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -54,13 +54,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_flanger",
         flanger_node.clone(),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_flanger",
         flanger_node,
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -68,13 +68,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_phaser",
         phaser(0.5, |t: f32| sin_hz(0.2, t) * 0.5 + 0.5),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_phaser",
         phaser(0.5, |t: f32| sin_hz(0.2, t) * 0.5 + 0.5),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -84,13 +84,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "spatial_pan_0_25_sine440",
         pan(0.25),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "spatial_pan_0_25_sine440",
         pan(0.25),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -128,13 +128,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "dyn_limiter_mul2_in",
         limiting_chain.clone(),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "dyn_limiter_mul2_in",
         limiting_chain,
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -144,13 +144,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_resonator_440hz_bw50",
         resonator_hz(440.0, 50.0),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_resonator_440hz_bw50",
         resonator_hz(440.0, 50.0),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -161,13 +161,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_reverb_stereo_room10m_time2s_damp0_5",
         reverb_stereo(10.0, 2.0, 0.5),
-        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_reverb_stereo_room10m_time2s_damp0_5",
         reverb_stereo(10.0, 2.0, 0.5),
-        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(220.0))),
         wav_cfg()
     );
 
@@ -176,13 +176,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "reverb2_room15m_time2_5s_diff0_7_mod0_3_lp5k",
         reverb2_stereo(15.0, 2.5, 0.7, 0.3, loop_filter2.clone()),
-        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "reverb2_room15m_time2_5s_diff0_7_mod0_3_lp5k",
         reverb2_stereo(15.0, 2.5, 0.7, 0.3, loop_filter2),
-        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
         wav_cfg()
     );
 
@@ -191,13 +191,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "reverb3_time2_0s_diff0_7_lp6k",
         reverb3_stereo(2.0, 0.7, loop_filter3.clone()),
-        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "reverb3_time2_0s_diff0_7_lp6k",
         reverb3_stereo(2.0, 0.7, loop_filter3),
-        InputSource::Unit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(220.0) | sine_hz::<f32>(330.0))),
         wav_cfg()
     );
 
@@ -205,13 +205,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "fx_delay_250ms_sine_440",
         delay(0.25),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "fx_delay_250ms_sine_440",
         delay(0.25),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -221,13 +221,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "delay_tap_linear_30ms_90ms_sine440",
         tap_linear(0.03, 0.09),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "delay_tap_linear_30ms_90ms_sine440",
         tap_linear(0.03, 0.09),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -235,13 +235,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "delay_multitap_linear_3_10ms_50ms_sine330",
         multitap_linear::<U3>(0.01, 0.05),
-        InputSource::Unit(Box::new(sine_hz::<f32>(330.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(330.0))),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "delay_multitap_linear_3_10ms_50ms_sine330",
         multitap_linear::<U3>(0.01, 0.05),
-        InputSource::Unit(Box::new(sine_hz::<f32>(330.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(330.0))),
         wav_cfg()
     );
 

@@ -117,13 +117,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "mod_follow_attack100ms",
         follower.clone(),
-        InputSource::Unit(Box::new(modulated_source.clone())),
+        InputSource::AudioUnit(Box::new(modulated_source.clone())),
         chart_cfg_inputs("mod_follow_attack100ms")
     );
     assert_audio_unit_snapshot!(
         "mod_follow_attack100ms",
         follower,
-        InputSource::Unit(Box::new(modulated_source)),
+        InputSource::AudioUnit(Box::new(modulated_source)),
         wav_cfg()
     );
 }

@@ -66,13 +66,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "util_clip_to_m0_5_p0_5_mul2_sine440",
         clip_proc.clone(),
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         chart_cfg_inputs("util_clip_to_m0_5_p0_5_mul2_sine440")
     );
     assert_audio_unit_snapshot!(
         "util_clip_to_m0_5_p0_5_mul2_sine440",
         clip_proc,
-        InputSource::Unit(Box::new(sine_hz::<f32>(440.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))),
         wav_cfg()
     );
 
@@ -108,13 +108,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "util_map_abs_sine110",
         abs_map.clone(),
-        InputSource::Unit(Box::new(sine_hz::<f32>(110.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(110.0))),
         chart_cfg_inputs("util_map_abs_sine110")
     );
     assert_audio_unit_snapshot!(
         "util_map_abs_sine110",
         abs_map,
-        InputSource::Unit(Box::new(sine_hz::<f32>(110.0))),
+        InputSource::AudioUnit(Box::new(sine_hz::<f32>(110.0))),
         wav_cfg()
     );
 
@@ -174,13 +174,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "util_resample_speed_ramp_0_5_to_1_5_sine440",
         resampler.clone(),
-        InputSource::Unit(Box::new(speed_node.clone())),
+        InputSource::AudioUnit(Box::new(speed_node.clone())),
         chart_cfg("util_resample_speed_ramp_0_5_to_1_5_sine440")
     );
     assert_audio_unit_snapshot!(
         "util_resample_speed_ramp_0_5_to_1_5_sine440",
         resampler,
-        InputSource::Unit(Box::new(speed_node)),
+        InputSource::AudioUnit(Box::new(speed_node)),
         wav_cfg()
     );
 }

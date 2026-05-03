@@ -31,12 +31,12 @@ pub enum InputSource {
     /// the number of inputs to the test target
     ///
     /// * if you need to set sample rate on input unit do that upfront
-    Unit(Box<dyn AudioUnit>),
+    AudioUnit(Box<dyn AudioUnit>),
 }
 
 impl From<Box<dyn AudioUnit>> for InputSource {
     fn from(unit: Box<dyn AudioUnit>) -> Self {
-        InputSource::Unit(unit)
+        InputSource::AudioUnit(unit)
     }
 }
 
@@ -121,7 +121,7 @@ impl InputSource {
             InputSource::Generator(generator_fn) => (0..num_inputs)
                 .map(|ch| (0..num_samples).map(|i| generator_fn(i, ch)).collect())
                 .collect(),
-            InputSource::Unit(unit) => {
+            InputSource::AudioUnit(unit) => {
                 // 1. Tick the driving unit with an output frame sized to its own outputs().
                 // 2. Collect its raw outputs.
                 // 3. Map/truncate/pad those outputs to the required num_inputs for the target snapshot.

@@ -48,6 +48,20 @@ fn example_test() {
     // Macro (produces both an SVG and a 16-bit WAV by default)
     assert_audio_unit_snapshot!(sine_hz::<f32>(440.0));
 
+    // Raw data API for custom assertions (no SVG/WAV snapshot assertion required)
+    let raw = snapshot_audio_unit_data_with_input_and_options(
+      pass(),
+      InputSource::Generator(Box::new(|i, _| if i % 2 == 0 { 1.0 } else { -1.0 })),
+      SnapshotConfigBuilder::default().num_samples(64).build().unwrap(),
+    );
+    assert_eq!(raw.output_data[0].len(), 64);
+
+    // Raw-data assertion macro
+    assert_audio_unit_data!(sine_hz::<f32>(220.0), |data| {
+      assert_eq!(data.output_data.len(), 1);
+      assert_eq!(data.output_data[0].len(), data.num_samples);
+    });
+
     // Macro with custom config (single output based on config.output_mode)
     let wav_only_cfg = SnapshotConfigBuilder::default()
         .output_mode(WavOutput::Wav32)
@@ -65,6 +79,7 @@ fn example_test() {
 - Configurable sample count, processing mode, warmup, and abnormal sample handling
 - Separate chart configuration via SvgChartConfigBuilder
 - Built-in input generators (impulse, sine, custom, generator fn, unit passthrough)
+- AudioUnit-driven input via `InputSource::AudioUnit(Box<dyn AudioUnit>)`
 - Tick or batch processing (up to fundsp::MAX_BUFFER_SIZE)
 - Multiple chart layouts & label formatting options
 - Assertion macro (default: both SVG + WAV16 when no custom config)
@@ -146,6 +161,18 @@ Snapshots of all the `fundsp` AudioNodes [anvlkv.github.io/insta-fun](https://an
   - Time FX, dynamics, and noise: cargo run --example time_fx_and_noise
   - Advanced Oscillators (DSF, pulse & PWM): cargo run --example oscillators_advanced
   - Advanced Filters (nonlinear & morph progression): cargo run --example filters_advanced
+
+## Copilot Skill
+
+A GitHub Copilot skill for insta-fun best practices is bundled in this repo at
+[`.github/skills/insta-fun-best-practices/SKILL.md`](.github/skills/insta-fun-best-practices/SKILL.md).
+
+When working in VS Code with GitHub Copilot, the agent will load this skill automatically when you ask about
+writing tests with insta-fun, choosing assertion styles, configuring snapshots, or handling nondeterministic audio units.
+
+---
+
+> **Note:** This crate and its documentation were developed with AI coding tools (GitHub Copilot) and reviewed by the maintainer.
 
 ## The Unlicense
 

@@ -35,13 +35,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_svf_lowpass_1k_q0_707",
         lowpass_hz(1_000.0, 0.707),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_svf_lowpass_1k_q0_707",
         lowpass_hz(1_000.0, 0.707),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -49,13 +49,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_svf_highpass_1k_q0_707",
         highpass_hz(1_000.0, 0.707),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_svf_highpass_1k_q0_707",
         highpass_hz(1_000.0, 0.707),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -63,13 +63,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_svf_bandpass_1k_q1_0",
         bandpass_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_svf_bandpass_1k_q1_0",
         bandpass_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -77,13 +77,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_svf_notch_1k_q1_0",
         notch_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_svf_notch_1k_q1_0",
         notch_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -91,13 +91,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_peak_1k_q1_0",
         peak_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_peak_1k_q1_0",
         peak_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -105,13 +105,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_bell_1k_q0_707_gain1_5",
         bell_hz(1_000.0, 0.707, 1.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_bell_1k_q0_707_gain1_5",
         bell_hz(1_000.0, 0.707, 1.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -119,13 +119,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_lowshelf_500hz_q0_707_gain1_5",
         lowshelf_hz(500.0, 0.707, 1.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_lowshelf_500hz_q0_707_gain1_5",
         lowshelf_hz(500.0, 0.707, 1.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -133,13 +133,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_highshelf_2k_q0_707_gain1_5",
         highshelf_hz(2_000.0, 0.707, 1.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_highshelf_2k_q0_707_gain1_5",
         highshelf_hz(2_000.0, 0.707, 1.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -149,13 +149,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_moog_lowpass_1k_q0_5",
         moog_hz(1_000.0, 0.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_moog_lowpass_1k_q0_5",
         moog_hz(1_000.0, 0.5),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -163,13 +163,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_lowrez_lowpass_1k_q1_0",
         lowrez_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_lowrez_lowpass_1k_q1_0",
         lowrez_hz(1_000.0, 1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -177,13 +177,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_bandrez_bandpass_1k_q3_0",
         bandrez_hz(1_000.0, 3.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_bandrez_bandpass_1k_q3_0",
         bandrez_hz(1_000.0, 3.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -191,13 +191,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_lowpole_800hz",
         lowpole_hz(800.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_lowpole_800hz",
         lowpole_hz(800.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -205,13 +205,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_highpole_300hz",
         highpole_hz(300.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_highpole_300hz",
         highpole_hz(300.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -221,13 +221,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_morph_lowpass_1k_q0_8",
         morph_hz(1_000.0, 0.8, -1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_morph_lowpass_1k_q0_8",
         morph_hz(1_000.0, 0.8, -1.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -237,13 +237,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_dcblock_10hz",
         dcblock_hz(10.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_dcblock_10hz",
         dcblock_hz(10.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -254,13 +254,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_allpass_1k_q0_707",
         allpass_hz(1_000.0, 0.707),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_allpass_1k_q0_707",
         allpass_hz(1_000.0, 0.707),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -268,13 +268,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_butter_lowpass_1k",
         butterpass_hz(1_000.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_butter_lowpass_1k",
         butterpass_hz(1_000.0),
-        InputSource::Unit(input.clone()),
+        InputSource::AudioUnit(input.clone()),
         wav_cfg()
     );
 
@@ -282,13 +282,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_fir3_gain0_50_white",
         fir3(0.50),
-        InputSource::Unit(Box::new(white())),
+        InputSource::AudioUnit(Box::new(white())),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_fir3_gain0_50_white",
         fir3(0.50),
-        InputSource::Unit(Box::new(white())),
+        InputSource::AudioUnit(Box::new(white())),
         wav_cfg()
     );
 
@@ -296,13 +296,13 @@ fn main() {
     assert_audio_unit_snapshot!(
         "filter_pinkpass_white",
         pinkpass::<f32>(),
-        InputSource::Unit(Box::new(white())),
+        InputSource::AudioUnit(Box::new(white())),
         chart_cfg()
     );
     assert_audio_unit_snapshot!(
         "filter_pinkpass_white",
         pinkpass::<f32>(),
-        InputSource::Unit(Box::new(white())),
+        InputSource::AudioUnit(Box::new(white())),
         wav_cfg()
     );
 }
