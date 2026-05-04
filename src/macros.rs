@@ -223,10 +223,11 @@ macro_rules! assert_audio_unit_snapshot {
     }};
 }
 
-/// Assert over raw processed data instead of rendering SVG/WAV snapshots.
+/// Capture audio unit data, compute metadata in a lambda, render a single-page
+/// SVG dashboard, and assert it as a binary snapshot.
 ///
-/// This is useful for nondeterministic units where users want to validate
-/// shape/range/statistical invariants directly on sample buffers.
+/// The closure must return `SnapshotMetadata`, typically created with
+/// `insta_fun_meta!`.
 ///
 /// ## Usage
 ///
@@ -234,34 +235,86 @@ macro_rules! assert_audio_unit_snapshot {
 /// use fundsp::prelude::*;
 /// use insta_fun::prelude::*;
 ///
-/// assert_audio_unit_data!(sine_hz::<f32>(440.0), |data: &AudioUnitSnapshotData| {
-///     assert_eq!(data.output_data.len(), 1);
-///     assert_eq!(data.output_data[0].len(), data.num_samples);
-/// });
+/// assert_audio_unit_meta_data_snapshot!(sine_hz::<f32>(220.0), |data: &AudioUnitSnapshotData| {
+///     let out = &data.output_data[0];
+///     let min = out.iter().fold(f32::INFINITY, |a, &b| a.min(b));
+///     let max = out.iter().fold(f32::NEG_INFINITY, |a, &b| a.max(b));
 ///
-/// assert_audio_unit_data!(
-///     lowpass_hz(1000.0, 0.7),
-///     InputSource::impulse() => |data: &AudioUnitSnapshotData| {
-///         assert_eq!(data.input_data.len(), 1);
+///     insta_fun_meta! {
+///         magnitudes: line(out.iter().map(|v| v.abs())),
+///         output_range: range(min, max),
+///         num_samples: scalar(data.num_samples),
 ///     }
-/// );
+/// });
 /// ```
 #[macro_export]
-macro_rules! assert_audio_unit_data {
-    ($unit:expr, $assertions:expr) => {{
-        let __data = $crate::snapshot::snapshot_audio_unit_data($unit);
-        ($assertions)(&__data);
+macro_rules! assert_audio_unit_meta_data_snapshot {
+    ($unit:expr, $meta_builder:expr) => {{
+        let __config = $crate::config::SnapshotConfig::default();
+        let __data = $crate::snapshot::snapshot_audio_unit_data_with_input_and_options(
+            $unit,
+            $crate::input::InputSource::None,
+            __config.clone(),
+        );
+        let __meta = ($meta_builder)(&__data);
+        let __svg =
+            $crate::snapshot::snapshot_metadata_dashboard_with_snapshot_config(&__meta, &__config);
+
+        let __name = format!(
+            "meta_data_dashboard_{}_{}.svg",
+            module_path!().replace("::", "_"),
+            line!()
+        );
+
+        ::insta::with_settings!({ omit_expression => true }, {
+            ::insta::assert_binary_snapshot!(&__name, __svg);
+        });
     }};
 
-    ($unit:expr, $input:expr => $assertions:expr) => {{
-        let __data = $crate::snapshot::snapshot_audio_unit_data_with_input($unit, $input);
-        ($assertions)(&__data);
-    }};
-
-    ($unit:expr, $input:expr, $config:expr => $assertions:expr) => {{
+    ($unit:expr, $input:expr => $meta_builder:expr) => {{
+        let __config = $crate::config::SnapshotConfig::default();
         let __data =
-            $crate::snapshot::snapshot_audio_unit_data_with_input_and_options($unit, $input, $config);
-        ($assertions)(&__data);
+            $crate::snapshot::snapshot_audio_unit_data_with_input_and_options($unit, $input, __config.clone());
+        let __meta = ($meta_builder)(&__data);
+        let __svg =
+            $crate::snapshot::snapshot_metadata_dashboard_with_snapshot_config(&__meta, &__config);
+
+        let __name = format!(
+            "meta_data_dashboard_{}_{}.svg",
+            module_path!().replace("::", "_"),
+            line!()
+        );
+
+        ::insta::with_settings!({ omit_expression => true }, {
+            ::insta::assert_binary_snapshot!(&__name, __svg);
+        });
+    }};
+
+    ($unit:expr, $input:expr, $config:expr => $meta_builder:expr) => {{
+        let __config = $config;
+        let __data = $crate::snapshot::snapshot_audio_unit_data_with_input_and_options(
+            $unit,
+            $input,
+            __config.clone(),
+        );
+        let __meta = ($meta_builder)(&__data);
+        let __svg =
+            $crate::snapshot::snapshot_metadata_dashboard_with_snapshot_config(&__meta, &__config);
+
+        let __file_name = __config.file_name(None);
+        let __name = if __file_name == ".svg" || __file_name == ".wav" {
+            format!(
+                "meta_data_dashboard_{}_{}.svg",
+                module_path!().replace("::", "_"),
+                line!()
+            )
+        } else {
+            __file_name
+        };
+
+        ::insta::with_settings!({ omit_expression => true }, {
+            ::insta::assert_binary_snapshot!(&__name, __svg);
+        });
     }};
 }
 

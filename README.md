@@ -56,10 +56,17 @@ fn example_test() {
     );
     assert_eq!(raw.output_data[0].len(), 64);
 
-    // Raw-data assertion macro
-    assert_audio_unit_data!(sine_hz::<f32>(220.0), |data| {
-      assert_eq!(data.output_data.len(), 1);
-      assert_eq!(data.output_data[0].len(), data.num_samples);
+    // Metadata dashboard snapshot macro
+    assert_audio_unit_meta_data_snapshot!(sine_hz::<f32>(220.0), |data| {
+      let output = &data.output_data[0];
+      let min = output.iter().copied().fold(f32::INFINITY, f32::min);
+      let max = output.iter().copied().fold(f32::NEG_INFINITY, f32::max);
+
+      insta_fun_meta! {
+        magnitudes: line(output.iter().map(|v| v.abs())),
+        output_range: range(min, max),
+        num_samples: scalar(data.num_samples),
+      }
     });
 
     // Macro with custom config (single output based on config.output_mode)
@@ -83,6 +90,7 @@ fn example_test() {
 - Tick or batch processing (up to fundsp::MAX_BUFFER_SIZE)
 - Multiple chart layouts & label formatting options
 - Assertion macro (default: both SVG + WAV16 when no custom config)
+- Metadata dashboard snapshot macro for strict, user-defined summary fields
 
 ## Optional feature: `dot` (Graphviz Net snapshots)
 
@@ -139,6 +147,8 @@ SvgChartConfig controls purely visual/chart properties (layout, titles, labels, 
 Set WAV output by providing `output_mode(WavOutput::Wav16)` or `output_mode(WavOutput::Wav32)`.
 
 Macro arms without an explicit `SnapshotConfig` produce both an SVG chart (default SvgChartConfig) and a 16-bit WAV file. Arms with a provided `SnapshotConfig` produce exactly one snapshot determined by `output_mode`.
+
+`assert_audio_unit_meta_data_snapshot!` captures raw audio data, expects a metadata payload from the lambda (typically via `insta_fun_meta!`), renders a single-page SVG dashboard, and performs binary snapshot assertion using insta.
 
 ## Processing Modes
 

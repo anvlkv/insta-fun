@@ -1,11 +1,15 @@
 [package]
 name = "insta-fun"
-version = "2.3.0"
+version = "2.4.0"
 edition = "2024"
 description = "Snapshot testing of fundsp units. Visualize output in svg and compare using insta"
 repository = "https://github.com/anvlkv/insta-fun"
 license = "Unlicense"
 keywords = ["fundsp", "insta", "plotters", "testing", "visualization"]
+
+[workspace]
+members = ["insta-fun-meta-macros"]
+resolver = "2"
 
 [[example]]
 name = "filters"
@@ -32,6 +36,7 @@ name = "utility_shaping_rate"
 derive_builder = "0.20.2"
 fundsp = { version = "0.23", default-features = false, features = ["std"] }
 petgraph = { version = "0.8.3", optional = true }
+insta-fun-meta-macros = { path = "insta-fun-meta-macros" }
 plotters = { version = "0.3.7", default-features = false, features = [
   "line_series",
   "point_series",

@@ -1,6 +1,6 @@
 ---
 name: insta-fun-best-practices
-description: 'Best practices for writing snapshot and raw-data tests with the insta-fun crate for FunDSP AudioUnits. Use when writing tests for audio units, choosing between SVG/WAV snapshot assertions and raw data assertions, configuring SnapshotConfig, setting up InputSource, handling nondeterministic audio, or debugging failing snapshot tests.'
+description: 'Best practices for writing snapshot and metadata-dashboard tests with the insta-fun crate for FunDSP AudioUnits. Use when writing tests for audio units, choosing between SVG/WAV snapshot assertions and metadata dashboard assertions, configuring SnapshotConfig, setting up InputSource, handling nondeterministic audio, or debugging failing snapshot tests.'
 argument-hint: 'Describe your audio unit under test and what you want to assert (snapshot regression, raw data invariants, waveform shape, etc.)'
 ---
 
@@ -9,7 +9,7 @@ argument-hint: 'Describe your audio unit under test and what you want to assert 
 ## When to Use
 
 - Writing test coverage for FunDSP `AudioUnit` implementations
-- Choosing whether to use `assert_audio_unit_snapshot!` (SVG/WAV regression) or `assert_audio_unit_data!` (raw sample assertions)
+- Choosing whether to use `assert_audio_unit_snapshot!` (SVG/WAV regression) or `assert_audio_unit_meta_data_snapshot!` (metadata dashboard assertions)
 - Configuring warmup, processing mode, input source, or output format
 - Testing units with nondeterministic output (noise, entropy-driven units, units with random state)
 - Debugging snapshot mismatches or abnormal sample panics
@@ -21,8 +21,8 @@ argument-hint: 'Describe your audio unit under test and what you want to assert 
 | Goal | API to use |
 |------|-----------|
 | Detect rendering regressions visually or audibly | `assert_audio_unit_snapshot!` |
-| Assert structural/statistical invariants without brittle pixel-matching | `assert_audio_unit_data!` |
-| Nondeterministic unit (noise, randomness, time-varying) | `assert_audio_unit_data!` |
+| Assert structural/statistical invariants with stable dashboard snapshots | `assert_audio_unit_meta_data_snapshot!` |
+| Nondeterministic unit (noise, randomness, time-varying) | `assert_audio_unit_meta_data_snapshot!` |
 | Deterministic unit — verify exact waveform shape over time | `assert_audio_unit_snapshot!` |
 | Extract raw buffers for custom assertions outside insta | `snapshot_audio_unit_data_with_input_and_options` |
 
@@ -105,26 +105,30 @@ fn sine_chart_config() {
 }
 ```
 
-#### Nondeterministic unit — raw data assertions
+#### Nondeterministic unit — metadata dashboard assertions
 
-Use `assert_audio_unit_data!` to assert invariants without locking in exact sample values.
+Use `assert_audio_unit_meta_data_snapshot!` to snapshot computed invariants without locking in exact sample values.
 
 ```rust
 #[test]
 fn noise_unit_is_bounded() {
-    assert_audio_unit_data!(
+    assert_audio_unit_meta_data_snapshot!(
         white(),
         InputSource::None,
         SnapshotConfigBuilder::default()
             .num_samples(4096)
             .build()
             .unwrap() => |data: &AudioUnitSnapshotData| {
-            assert_eq!(data.output_data.len(), 1);
-            assert_eq!(data.output_data[0].len(), data.num_samples);
-            let max = data.output_data[0].iter().cloned().fold(f32::NEG_INFINITY, f32::max);
-            let min = data.output_data[0].iter().cloned().fold(f32::INFINITY, f32::min);
-            assert!(max <= 1.0, "max sample exceeded 1.0: {max}");
-            assert!(min >= -1.0, "min sample below -1.0: {min}");
+            let out = &data.output_data[0];
+            let max = out.iter().cloned().fold(f32::NEG_INFINITY, f32::max);
+            let min = out.iter().cloned().fold(f32::INFINITY, f32::min);
+            let energy: Vec<f64> = out.iter().map(|sample| (*sample as f64).powi(2)).collect();
+
+            insta_fun_meta! {
+                output_range: range(min, max),
+                num_samples: scalar(data.num_samples),
+                energy_curve: line(energy),
+            }
         }
     );
 }
@@ -135,11 +139,15 @@ fn noise_unit_is_bounded() {
 ```rust
 #[test]
 fn custom_excitor_output_shape() {
-    assert_audio_unit_data!(
+    assert_audio_unit_meta_data_snapshot!(
         my_excitor_unit,
         InputSource::AudioUnit(Box::new(sine_hz::<f32>(440.0))) => |data: &AudioUnitSnapshotData| {
-            assert_eq!(data.output_data.len(), 2);
-            assert!(data.abnormalities.iter().all(|ch| ch.is_empty()));
+            let channels = data.output_data.len();
+            let abnormal_count: usize = data.abnormalities.iter().map(|ch| ch.len()).sum();
+            insta_fun_meta! {
+                output_channels: scalar(channels),
+                abnormal_samples: scalar(abnormal_count),
+            }
         }
     );
 }
@@ -185,9 +193,12 @@ let config = SnapshotConfigBuilder::default()
 Access them from raw data:
 
 ```rust
-assert_audio_unit_data!(my_unit, InputSource::None, config => |data: &AudioUnitSnapshotData| {
+assert_audio_unit_meta_data_snapshot!(my_unit, InputSource::None, config => |data: &AudioUnitSnapshotData| {
     // data.abnormalities: Vec<Vec<(sample_index, SnapshotAbnormalSample)>>
-    assert!(data.abnormalities[0].is_empty(), "unexpected NaN/Inf");
+    let abnormal = data.abnormalities[0].len();
+    insta_fun_meta! {
+        abnormal_samples: scalar(abnormal),
+    }
 });
 ```
 
@@ -205,7 +216,7 @@ cargo insta accept                  # accept all pending
 
 | Pitfall | Fix |
 |---------|-----|
-| Snapshot changes every run | Unit is nondeterministic — switch to `assert_audio_unit_data!` |
+| Snapshot changes every run | Unit is nondeterministic — switch to `assert_audio_unit_meta_data_snapshot!` |
 | `Input vec size mismatch` panic | `InputSource` channel count must match `unit.inputs()` |
 | `AudioUnit` input unit produces silence | `InputSource::AudioUnit` requires manual `set_sample_rate`/`reset` upfront |
 | Batch processing diverges from Tick | Expected for many DSP units; test both modes if needed |
@@ -233,9 +244,9 @@ assert_audio_unit_snapshot!("name", unit, input)
 assert_audio_unit_snapshot!("name", unit, input, config)
 assert_audio_unit_snapshot!(unit, config)
 
-assert_audio_unit_data!(unit, closure)
-assert_audio_unit_data!(unit, input => closure)
-assert_audio_unit_data!(unit, input, config => closure)
+assert_audio_unit_meta_data_snapshot!(unit, closure)
+assert_audio_unit_meta_data_snapshot!(unit, input => closure)
+assert_audio_unit_meta_data_snapshot!(unit, input, config => closure)
 
 assert_dsp_net_snapshot!("name", net)   // requires feature = "dot"
 ```

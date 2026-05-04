@@ -2,8 +2,10 @@ use fundsp::prelude::*;
 
 use crate::abnormal::AbnormalSample;
 use crate::chart::generate_svg;
-use crate::config::{Processing, SnapshotConfig, SnapshotOutputMode};
+use crate::config::{Processing, SnapshotConfig, SnapshotOutputMode, SvgChartConfig};
 use crate::input::InputSource;
+use crate::meta::SnapshotMetadata;
+use crate::meta_dashboard::generate_meta_dashboard_svg;
 use crate::wav::generate_wav;
 
 /// Describes a non-finite sample value captured during audio unit processing.
@@ -55,7 +57,7 @@ impl From<SnapshotAbnormalSample> for AbnormalSample {
 /// Raw sample buffers and metadata captured from one run of an audio unit.
 ///
 /// Returned by the `snapshot_audio_unit_data*` family of functions and passed to the
-/// closure argument of [`assert_audio_unit_data!`].
+/// closure argument of [`assert_audio_unit_meta_data_snapshot!`].
 ///
 /// All sample buffers are indexed as `[channel][sample]`.
 #[derive(Debug, Clone)]
@@ -267,6 +269,42 @@ where
     N: AudioUnit,
 {
     capture_audio_unit_data(unit, input_source, &config)
+}
+
+/// Render a metadata dashboard as a single-page SVG.
+///
+/// This API is used by `assert_audio_unit_meta_data_snapshot!` after users compute
+/// metadata from `AudioUnitSnapshotData` in their lambda.
+pub fn snapshot_metadata_dashboard(metadata: &SnapshotMetadata) -> Vec<u8> {
+    snapshot_metadata_dashboard_with_chart_options(metadata, SvgChartConfig::default())
+}
+
+/// Render a metadata dashboard as a single-page SVG using chart options.
+pub fn snapshot_metadata_dashboard_with_chart_options(
+    metadata: &SnapshotMetadata,
+    chart_config: SvgChartConfig,
+) -> Vec<u8> {
+    if let Err(err) = metadata.validate() {
+        panic!("invalid metadata dashboard payload: {err}");
+    }
+    generate_meta_dashboard_svg(metadata, &chart_config)
+        .as_bytes()
+        .to_vec()
+}
+
+/// Render a metadata dashboard using styling from `SnapshotConfig`.
+///
+/// The dashboard output is always SVG. If `config.output_mode` is WAV,
+/// this function falls back to default `SvgChartConfig`.
+pub fn snapshot_metadata_dashboard_with_snapshot_config(
+    metadata: &SnapshotMetadata,
+    config: &SnapshotConfig,
+) -> Vec<u8> {
+    let chart_config = match &config.output_mode {
+        SnapshotOutputMode::SvgChart(chart) => chart.clone(),
+        SnapshotOutputMode::Wav(_) => SvgChartConfig::default(),
+    };
+    snapshot_metadata_dashboard_with_chart_options(metadata, chart_config)
 }
 
 fn capture_audio_unit_data<N>(

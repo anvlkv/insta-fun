@@ -1,7 +1,7 @@
 use fundsp::prelude::*;
 use std::{cell::RefCell, rc::Rc};
 
-use crate::{assert_audio_unit_data, assert_audio_unit_snapshot};
+use crate::{assert_audio_unit_meta_data_snapshot, assert_audio_unit_snapshot};
 use crate::config::{
     SvgChartConfigBuilder, SvgPreserveAspectRatio, SvgPreserveAspectRatioAlignment,
     SvgPreserveAspectRatioBuilder, SvgPreserveAspectRatioKwd, WavOutput,
@@ -278,17 +278,29 @@ fn test_raw_snapshot_data_reports_abnormalities() {
 }
 
 #[test]
-fn test_macro_assert_audio_unit_data() {
-    assert_audio_unit_data!(
+fn test_macro_assert_audio_unit_meta_data_snapshot() {
+    assert_audio_unit_meta_data_snapshot!(
         sine_hz::<f32>(220.0),
         InputSource::None,
         SnapshotConfigBuilder::default()
             .num_samples(64)
+            .output_mode(
+                SvgChartConfigBuilder::default()
+                    .chart_title("meta_dashboard")
+                    .build()
+                    .unwrap()
+            )
             .build()
             .unwrap() => |data: &AudioUnitSnapshotData| {
-            assert_eq!(data.output_data.len(), 1);
-            assert_eq!(data.output_data[0].len(), 64);
-            assert!(data.output_data[0].iter().any(|sample| sample.abs() > 0.01));
+            let output = &data.output_data[0];
+            let min = output.iter().copied().fold(f32::INFINITY, f32::min);
+            let max = output.iter().copied().fold(f32::NEG_INFINITY, f32::max);
+
+            insta_fun_meta! {
+                magnitudes: line(output.iter().map(|sample| sample.abs())),
+                min_max: range(min, max),
+                num_samples: scalar(data.num_samples),
+            }
         }
     );
 }
