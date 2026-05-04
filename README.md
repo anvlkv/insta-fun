@@ -59,13 +59,21 @@ fn example_test() {
     // Metadata dashboard snapshot macro
     assert_audio_unit_meta_data_snapshot!(sine_hz::<f32>(220.0), |data| {
       let output = &data.output_data[0];
-      let min = output.iter().copied().fold(f32::INFINITY, f32::min);
-      let max = output.iter().copied().fold(f32::NEG_INFINITY, f32::max);
+      let samples: Vec<f64> = output.iter().map(|s| *s as f64).collect();
 
+      // Metadata types: scalar, range, line, histogram, statistics, frequency_response, table
       insta_fun_meta! {
         magnitudes: line(output.iter().map(|v| v.abs())),
-        output_range: range(min, max),
+        output_range: range(*samples.iter().fold(&f64::INFINITY, |a, b| if a < b { a } else { b }), 
+                            *samples.iter().fold(&f64::NEG_INFINITY, |a, b| if a > b { a } else { b })),
         num_samples: scalar(data.num_samples),
+        amplitude_distribution: histogram(samples.clone()),
+        stats: statistics_from_data(samples.clone()),
+        spectrum: frequency_response(vec![-6.0, -12.0, -18.0]),
+        unit_info: table(vec![
+          ("type".to_string(), "sine".to_string()),
+          ("freq_hz".to_string(), "220".to_string()),
+        ]),
       }
     });
 
@@ -90,7 +98,14 @@ fn example_test() {
 - Tick or batch processing (up to fundsp::MAX_BUFFER_SIZE)
 - Multiple chart layouts & label formatting options
 - Assertion macro (default: both SVG + WAV16 when no custom config)
-- Metadata dashboard snapshot macro for strict, user-defined summary fields
+- Metadata dashboard snapshot macro with 7 chart types:
+  - **Scalar**: single numeric values
+  - **Range**: min/max bounds visualization
+  - **Line**: time-series/waveform traces
+  - **Histogram**: distribution binning
+  - **Statistics**: min/mean/max with optional percentiles (box-plot style)
+  - **FrequencyResponse**: magnitude spectrum (+ optional phase)
+  - **Table**: key-value metadata pairs
 
 ## Optional feature: `dot` (Graphviz Net snapshots)
 

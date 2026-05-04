@@ -38,6 +38,7 @@ fundsp = { version = "0.23", default-features = false, features = ["std"] }
 petgraph = { version = "0.8.3", optional = true }
 insta-fun-meta-macros = { path = "insta-fun-meta-macros" }
 plotters = { version = "0.3.7", default-features = false, features = [
+  "area_series",
   "line_series",
   "point_series",
   "svg_backend"

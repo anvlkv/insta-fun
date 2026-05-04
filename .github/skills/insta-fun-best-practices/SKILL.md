@@ -107,7 +107,7 @@ fn sine_chart_config() {
 
 #### Nondeterministic unit — metadata dashboard assertions
 
-Use `assert_audio_unit_meta_data_snapshot!` to snapshot computed invariants without locking in exact sample values.
+Use `assert_audio_unit_meta_data_snapshot!` to snapshot computed invariants without locking in exact sample values. The `insta_fun_meta!` macro supports multiple metadata types for rich assertions:
 
 ```rust
 #[test]
@@ -120,19 +120,55 @@ fn noise_unit_is_bounded() {
             .build()
             .unwrap() => |data: &AudioUnitSnapshotData| {
             let out = &data.output_data[0];
-            let max = out.iter().cloned().fold(f32::NEG_INFINITY, f32::max);
-            let min = out.iter().cloned().fold(f32::INFINITY, f32::min);
-            let energy: Vec<f64> = out.iter().map(|sample| (*sample as f64).powi(2)).collect();
+            let samples: Vec<f64> = out.iter().map(|s| *s as f64).collect();
+            let energy: Vec<f64> = samples.iter().map(|s| s.powi(2)).collect();
 
             insta_fun_meta! {
-                output_range: range(min, max),
-                num_samples: scalar(data.num_samples),
+                // Scalar: single numeric value
+                sample_count: scalar(out.len()),
+                
+                // Range: min/max bounds (e.g., DC offset detection)
+                output_range: range(*samples.iter().fold(&f64::INFINITY, |a, b| if a < b { a } else { b }), 
+                                     *samples.iter().fold(&f64::NEG_INFINITY, |a, b| if a > b { a } else { b })),
+                
+                // Line: time-series data (waveform shape, LFO, trajectory)
                 energy_curve: line(energy),
+                
+                // Histogram: distribution of values (useful for noise characterization)
+                sample_distribution: histogram(samples.clone()),
+                
+                // Statistics: auto-computed from raw data with min/mean/max + percentiles
+                // Simplest way: just pass raw data, percentiles computed automatically
+                statistics: statistics_from_data(samples.clone()),
+                // Or without percentiles: statistics_from_data_simple(samples.clone())
+                
+                // FrequencyResponse: magnitude (+ optional phase) for filter/tone analysis
+                // magnitude in dB: 20 * log10(|FFT|)
+                spectrum: frequency_response(vec![]),  // populated with FFT analysis
+                
+                // Table: key-value pairs for metadata (count, duration, etc.)
+                info: table(vec![
+                    ("num_samples", data.num_samples.to_string()),
+                    ("channels", data.output_data.len().to_string()),
+                ]),
             }
         }
     );
 }
 ```
+
+**Metadata Type Reference & Constructors:**
+- `scalar(value)`: Single number
+- `range(min, max)`: Interval bounds
+- `line(Vec<f64>)`: Time-series or waveform
+- `histogram(Vec<f64>)`: Distribution of values
+- `statistics_from_data(data)`: Auto-compute min/mean/max + percentiles from raw data ⭐ Recommended
+- `statistics_from_data_simple(data)`: Auto-compute min/mean/max from raw data (no percentiles)
+- `statistics(min, mean, max)`: Manual summary statistics
+- `statistics_with_percentiles(min, p25, p50, mean, p75, max)`: Manual stats with percentiles
+- `frequency_response(magnitude)`: Frequency-domain magnitude
+- `frequency_response_with_phase(magnitude, phase)`: + phase in degrees
+- `table(Vec<(key, value)>)`: Key-value pairs
 
 #### Nondeterministic unit — macro (input-only form)
 

@@ -922,3 +922,69 @@ fn test_dsp_net_snapshot_complex() {
 
     assert_dsp_net_snapshot!("complex_net_graph", net);
 }
+
+#[test]
+fn test_meta_enriched_types_statistics_frequency_table() {
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(1024)
+        .build()
+        .unwrap();
+
+    assert_audio_unit_meta_data_snapshot!(
+        sine_hz::<f32>(440.0),
+        InputSource::None,
+        config => |data: &AudioUnitSnapshotData| {
+            let output = &data.output_data[0];
+            let samples_f64: Vec<f64> = output.iter().map(|s| *s as f64).collect();
+            
+            // Simulate frequency response (FFT magnitudes in dB)
+            let freq_mag: Vec<f64> = (0..64)
+                .map(|i| {
+                    let normalized = (i as f64 / 64.0 * std::f64::consts::PI).sin();
+                    20.0 * normalized.log10().max(-80.0)
+                })
+                .collect();
+            
+            // Create histogram for distribution
+            let hist_data: Vec<f64> = (0..10)
+                .map(|bin| {
+                    samples_f64
+                        .iter()
+                        .filter(|&&s| {
+                            let bin_min = -1.0 + (bin as f64 * 0.2);
+                            let bin_max = bin_min + 0.2;
+                            s >= bin_min && s < bin_max
+                        })
+                        .count() as f64
+                })
+                .collect();
+            
+            insta_fun_meta! {
+                // Scalar: single value
+                sample_count: scalar(output.len()),
+                
+                // Range: min/max bounds
+                amplitude_range: range(*samples_f64.iter().fold(&f64::INFINITY, |a, b| if a < b { a } else { b }), *samples_f64.iter().fold(&f64::NEG_INFINITY, |a, b| if a > b { a } else { b })),
+                
+                // Line: time-series waveform
+                waveform: line(output.iter().take(100).map(|s| *s as f64).collect::<Vec<_>>()),
+                
+                // Histogram: distribution
+                amplitude_histogram: histogram(hist_data),
+                
+                // Statistics: auto-computed from raw data with percentiles
+                statistics: statistics_from_data(samples_f64.clone()),
+                
+                // FrequencyResponse: magnitude spectrum
+                magnitude_spectrum: frequency_response(freq_mag),
+                
+                // Table: metadata info
+                unit_info: table(vec![
+                    ("frequency_hz".to_string(), "440".to_string()),
+                    ("sample_rate".to_string(), "44100".to_string()),
+                    ("duration_samples".to_string(), output.len().to_string()),
+                ])
+            }
+        }
+    );
+}

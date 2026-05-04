@@ -78,6 +78,20 @@ fn draw_meta_field(
         MetaValue::Histogram(values) => {
             draw_histogram_chart(field, values, area, line_color, config, text_color)
         }
+        MetaValue::Statistics {
+            min,
+            p25,
+            mean,
+            p50,
+            p75,
+            max,
+        } => draw_statistics_chart(
+            field, *min, *p25, *mean, *p50, *p75, *max, area, line_color, config, text_color,
+        ),
+        MetaValue::FrequencyResponse { magnitude, phase } => {
+            draw_frequency_response_chart(field, magnitude, phase.as_deref(), area, line_color, config, text_color)
+        }
+        MetaValue::Table(pairs) => draw_table_chart(field, pairs, area, text_color, config),
     }
 }
 
@@ -235,6 +249,192 @@ fn draw_histogram_chart(
             )
         }))
         .unwrap();
+}
+
+fn draw_statistics_chart(
+    field: &crate::meta::MetaField,
+    min: f64,
+    p25: Option<f64>,
+    mean: f64,
+    p50: Option<f64>,
+    p75: Option<f64>,
+    max: f64,
+    area: DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
+    line_color: RGBColor,
+    config: &SvgChartConfig,
+    text_color: RGBColor,
+) {
+    let span = (max - min).max(MIN_RANGE_SPAN);
+    let y_min = min - span * 0.1;
+    let y_max = max + span * 0.1;
+
+    let mut chart = ChartBuilder::on(&area)
+        .margin(5)
+        .x_label_area_size(35)
+        .y_label_area_size(50)
+        .caption(
+            format!("{} [min={:.3}, mean={:.3}, max={:.3}]", field.name, min, mean, max),
+            TextStyle::from(("sans-serif", 14)).color(&text_color),
+        )
+        .build_cartesian_2d(0f64..1f64, y_min..y_max)
+        .unwrap();
+
+    configure_mesh(&mut chart, config, text_color);
+
+    // Draw IQR box (p25 to p75) if percentiles are available
+    if let (Some(q1), Some(q3)) = (p25, p75) {
+        chart
+            .draw_series(std::iter::once(Rectangle::new(
+                [(0.25, q1), (0.75, q3)],
+                line_color.mix(0.3).filled(),
+            )))
+            .unwrap();
+    }
+
+    // Draw median line (p50) if available
+    if let Some(median) = p50 {
+        chart
+            .draw_series(std::iter::once(PathElement::new(
+                vec![(0.2, median), (0.8, median)],
+                ShapeStyle {
+                    color: line_color.to_rgba(),
+                    filled: false,
+                    stroke_width: 2,
+                },
+            )))
+            .unwrap();
+    }
+
+    // Draw min-max whiskers
+    chart
+        .draw_series(std::iter::once(PathElement::new(
+            vec![(0.5, min), (0.5, max)],
+            ShapeStyle {
+                color: line_color.to_rgba(),
+                filled: false,
+                stroke_width: 1,
+            },
+        )))
+        .unwrap();
+
+    // Draw mean marker
+    chart
+        .draw_series(std::iter::once(Circle::new(
+            (0.5, mean),
+            5,
+            line_color.filled(),
+        )))
+        .unwrap();
+
+    // Draw min/max circles
+    chart
+        .draw_series(vec![
+            Circle::new((0.5, min), 3, line_color.stroke_width(1)),
+            Circle::new((0.5, max), 3, line_color.stroke_width(1)),
+        ])
+        .unwrap();
+}
+
+fn draw_frequency_response_chart(
+    field: &crate::meta::MetaField,
+    magnitude: &[f64],
+    phase: Option<&[f64]>,
+    area: DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
+    line_color: RGBColor,
+    config: &SvgChartConfig,
+    text_color: RGBColor,
+) {
+    let (y_min, y_max) = padded_range(magnitude);
+
+    let mut chart = ChartBuilder::on(&area)
+        .margin(5)
+        .x_label_area_size(35)
+        .y_label_area_size(50)
+        .caption(
+            format!("{} (magnitude)", field.name),
+            TextStyle::from(("sans-serif", 14)).color(&text_color),
+        )
+        .build_cartesian_2d(0f64..magnitude.len() as f64, y_min..y_max)
+        .unwrap();
+
+    configure_mesh(&mut chart, config, text_color);
+
+    // Draw magnitude response as line
+    chart
+        .draw_series(std::iter::once(PathElement::new(
+            magnitude
+                .iter()
+                .enumerate()
+                .map(|(i, v)| (i as f64, *v))
+                .collect::<Vec<_>>(),
+            ShapeStyle {
+                color: line_color.to_rgba(),
+                filled: false,
+                stroke_width: config.line_width as u32,
+            },
+        )))
+        .unwrap();
+
+    // Draw phase response as points if available
+    if let Some(phase_vals) = phase {
+        if phase_vals.len() == magnitude.len() {
+            chart
+                .draw_series(
+                    phase_vals
+                        .iter()
+                        .enumerate()
+                        .map(|(i, _)| Circle::new((i as f64, magnitude[i]), 2, line_color.mix(0.5))),
+                )
+                .unwrap();
+        }
+    }
+}
+
+fn draw_table_chart(
+    field: &crate::meta::MetaField,
+    pairs: &[(String, String)],
+    area: DrawingArea<SVGBackend<'_>, plotters::coord::Shift>,
+    text_color: RGBColor,
+    config: &SvgChartConfig,
+) {
+    // For tables, we render as a simple text list in the area
+    let bg = parse_hex_color(&config.background_color);
+    area.fill(&bg).unwrap();
+
+    let mut y_pos = 20;
+    let x_pos = 15;
+
+    // Title
+    area.draw_text(
+        &field.name,
+        &TextStyle::from(("sans-serif", 14)).color(&text_color),
+        (x_pos, y_pos),
+    )
+    .unwrap();
+
+    y_pos += 25;
+
+    // Render each row with small margins
+    let row_height = 15;
+    for (key, value) in pairs.iter().take(10) {
+        // Limit to 10 rows to fit in chart area
+        area.draw_text(
+            &format!("{}: {}", key, value),
+            &TextStyle::from(("sans-serif", 10)).color(&text_color),
+            (x_pos + 10, y_pos),
+        )
+        .unwrap();
+        y_pos += row_height;
+    }
+
+    if pairs.len() > 10 {
+        area.draw_text(
+            &format!("... and {} more rows", pairs.len() - 10),
+            &TextStyle::from(("sans-serif", 9)).color(&text_color.mix(0.6)),
+            (x_pos + 10, y_pos),
+        )
+        .unwrap();
+    }
 }
 
 fn configure_mesh(
