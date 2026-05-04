@@ -101,36 +101,32 @@ impl SnapshotMetadata {
                             field: field.name.clone(),
                         });
                     }
-                    if let Some(p) = p25 {
-                        if !p.is_finite() || *p < *min || *p > *max {
+                    if let Some(p) = p25
+                        && (!p.is_finite() || *p < *min || *p > *max) {
                             return Err(MetadataValidationError::InvalidStatistics {
                                 field: field.name.clone(),
                             });
                         }
-                    }
-                    if let Some(p) = p50 {
-                        if !p.is_finite() || *p < *min || *p > *max {
+                    if let Some(p) = p50
+                        && (!p.is_finite() || *p < *min || *p > *max) {
                             return Err(MetadataValidationError::InvalidStatistics {
                                 field: field.name.clone(),
                             });
                         }
-                    }
-                    if let Some(p) = p75 {
-                        if !p.is_finite() || *p < *min || *p > *max {
+                    if let Some(p) = p75
+                        && (!p.is_finite() || *p < *min || *p > *max) {
                             return Err(MetadataValidationError::InvalidStatistics {
                                 field: field.name.clone(),
                             });
                         }
-                    }
                 }
                 MetaValue::FrequencyResponse { magnitude: _, phase } => {
-                    if let Some(phases) = phase {
-                        if phases.iter().any(|v| !v.is_finite()) {
+                    if let Some(phases) = phase
+                        && phases.iter().any(|v| !v.is_finite()) {
                             return Err(MetadataValidationError::NonFiniteValue {
                                 field: field.name.clone(),
                             });
                         }
-                    }
                 }
                 MetaValue::Table(pairs) => {
                     if pairs.is_empty() {

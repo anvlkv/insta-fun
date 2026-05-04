@@ -14,7 +14,7 @@ Generate visual snapshots of audio processing units to catch regressions and ver
 use insta_fun::prelude::*;
 use fundsp::prelude::*;
 
-#[test]
+/* #[test] */ // add your test attribute as always
 fn example_test() {
     // Simple SVG snapshot (default output_mode = SvgChart)
     let unit = sine_hz::<f32>(440.0);
@@ -57,13 +57,13 @@ fn example_test() {
     assert_eq!(raw.output_data[0].len(), 64);
 
     // Metadata dashboard snapshot macro
-    assert_audio_unit_meta_data_snapshot!(sine_hz::<f32>(220.0), |data| {
+    assert_audio_unit_meta_data_snapshot!(sine_hz::<f32>(220.0), |data: &AudioUnitSnapshotData| {
       let output = &data.output_data[0];
       let samples: Vec<f64> = output.iter().map(|s| *s as f64).collect();
 
       // Metadata types: scalar, range, line, histogram, statistics, frequency_response, table
       insta_fun_meta! {
-        magnitudes: line(output.iter().map(|v| v.abs())),
+        magnitudes: line(output.iter().map(|v: &f32| v.abs())),
         output_range: range(*samples.iter().fold(&f64::INFINITY, |a, b| if a < b { a } else { b }), 
                             *samples.iter().fold(&f64::NEG_INFINITY, |a, b| if a > b { a } else { b })),
         num_samples: scalar(data.num_samples),
@@ -123,7 +123,7 @@ Generate Graphviz DOT snapshots of `fundsp::net::Net` wiring for debugging and d
   ```
 
 - Usage:
-  ```rust
+  ```rust,no_run
   use fundsp::prelude::*;
   use insta_fun::prelude::*;
 

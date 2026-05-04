@@ -251,6 +251,7 @@ fn draw_histogram_chart(
         .unwrap();
 }
 
+#[allow(clippy::too_many_arguments)]
 fn draw_statistics_chart(
     field: &crate::meta::MetaField,
     min: f64,
@@ -376,8 +377,8 @@ fn draw_frequency_response_chart(
         .unwrap();
 
     // Draw phase response as points if available
-    if let Some(phase_vals) = phase {
-        if phase_vals.len() == magnitude.len() {
+    if let Some(phase_vals) = phase
+        && phase_vals.len() == magnitude.len() {
             chart
                 .draw_series(
                     phase_vals
@@ -387,7 +388,6 @@ fn draw_frequency_response_chart(
                 )
                 .unwrap();
         }
-    }
 }
 
 fn draw_table_chart(
