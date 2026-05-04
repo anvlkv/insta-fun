@@ -1,6 +1,6 @@
 [package]
 name = "insta-fun-meta-macros"
-version = "0.1.0"
+version = { workspace = true }
 edition = "2024"
 description = "Proc macros for insta-fun metadata dashboard snapshots"
 license = "Unlicense"

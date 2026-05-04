@@ -32,5 +32,11 @@ jobs:
       - name: Run tests
         run: cargo test --lib
 
-      - name: Publish to crates.io
+      - name: Publish insta-fun-meta-macros to crates.io
+        run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }} --manifest-path insta-fun-meta-macros/Cargo.toml
+
+      - name: Wait for crates.io to index
+        run: sleep 30
+
+      - name: Publish insta-fun to crates.io
         run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }}
