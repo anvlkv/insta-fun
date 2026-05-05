@@ -2,7 +2,7 @@ use fundsp::prelude::*;
 
 use crate::abnormal::AbnormalSample;
 use crate::chart::generate_svg;
-use crate::config::{Processing, SnapshotConfig, SnapshotOutputMode, SvgChartConfig};
+use crate::config::{OutputAssertion, Processing, SnapshotConfig, SnapshotOutputMode, SvgChartConfig};
 use crate::input::InputSource;
 use crate::meta::SnapshotMetadata;
 use crate::meta_dashboard::generate_meta_dashboard_svg;
@@ -405,6 +405,30 @@ where
                             .iter()
                             .enumerate()
                             .map(|(i, &value)| checked_sample(value, ch, i + chunk[0])),
+                    );
+                }
+            }
+        }
+    }
+
+    if !output_data.is_empty() {
+        match config.output_assertion {
+            OutputAssertion::NonZero => {
+                let all_zero = output_data.iter().all(|ch| ch.iter().all(|&s| s == 0.0));
+                if all_zero {
+                    panic!(
+                        "All output samples are 0.0. \
+                        If this is expected, set `output_assertion` to `OutputAssertion::Skip`."
+                    );
+                }
+            }
+            OutputAssertion::Skip => {}
+            OutputAssertion::VariesFrom(baseline) => {
+                let all_baseline = output_data.iter().all(|ch| ch.iter().all(|&s| s == baseline));
+                if all_baseline {
+                    panic!(
+                        "All output samples equal the baseline value {baseline}. \
+                        If this is expected, set `output_assertion` to `OutputAssertion::Skip`."
                     );
                 }
             }

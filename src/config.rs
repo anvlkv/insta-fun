@@ -54,6 +54,15 @@ pub struct SnapshotConfig {
         setter(into)
     )]
     pub output_mode: SnapshotOutputMode,
+
+    /// Assertion applied to the output samples after processing.
+    ///
+    /// Default - [`OutputAssertion::NonZero`]: panics when all output samples are `0.0`.
+    ///
+    /// Use [`OutputAssertion::Skip`] to opt out, or [`OutputAssertion::VariesFrom`] to
+    /// check that the output differs from an arbitrary baseline value.
+    #[builder(default = "OutputAssertion::NonZero")]
+    pub output_assertion: OutputAssertion,
 }
 
 #[derive(Debug, Clone, Copy, Default)]
@@ -313,6 +322,27 @@ pub enum SnapshotOutputMode {
     Wav(WavOutput),
 }
 
+/// Controls the assertion applied to output samples after processing.
+///
+/// By default, `NonZero` asserts that at least one output sample across all channels
+/// is not `0.0`. Use `Skip` to opt out, or `VariesFrom` to check against an
+/// arbitrary baseline value.
+#[derive(Debug, Clone, Copy, Default)]
+pub enum OutputAssertion {
+    /// Assert that at least one output sample (across all channels) is not `0.0`.
+    ///
+    /// Panics if all output samples are `0.0`.
+    #[default]
+    NonZero,
+    /// Skip the output assertion entirely.
+    Skip,
+    /// Assert that at least one output sample (across all channels) differs from
+    /// the given `baseline` value.
+    ///
+    /// Panics if all output samples equal `baseline`.
+    VariesFrom(f32),
+}
+
 /// Processing mode for snapshotting an audio unit.
 #[derive(Debug, Clone, Copy, Default)]
 pub enum Processing {
@@ -355,6 +385,7 @@ impl Default for SnapshotConfig {
             warm_up: WarmUp::default(),
             allow_abnormal_samples: false,
             output_mode: SnapshotOutputMode::SvgChart(SvgChartConfig::default()),
+            output_assertion: OutputAssertion::NonZero,
         }
     }
 }
