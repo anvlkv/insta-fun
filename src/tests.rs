@@ -221,6 +221,7 @@ fn test_macro_variant_unit_and_config() {
     let unit = lowpass_hz(1000.0, 1.0);
     let config = SnapshotConfigBuilder::default()
         .num_samples(256)
+        .output_assertion(OutputAssertion::Skip)
         .build()
         .unwrap();
     assert_audio_unit_snapshot!(unit, config);
@@ -726,6 +727,7 @@ fn test_chart_layout_combined_per_type_no_inputs() {
         .unwrap();
     let config = SnapshotConfigBuilder::default()
         .output_mode(chart)
+        .output_assertion(OutputAssertion::Skip)
         .build()
         .unwrap();
     let unit = lowpass_hz(800.0, 0.7) | highpass_hz(300.0, 0.7);
@@ -832,6 +834,69 @@ fn test_wav16_with_warmup() {
     let unit = lowpass_hz(1000.0, 0.8);
     let data = snapshot_audio_unit_with_input_and_options(unit, InputSource::impulse(), config);
     insta::assert_binary_snapshot!("wav16_warmup.wav", data);
+}
+
+/* OutputAssertion tests */
+
+#[test]
+fn test_output_assertion_non_zero_passes_for_oscillator() {
+    // Default NonZero assertion should pass for a sine oscillator
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(64)
+        .build()
+        .unwrap();
+    snapshot_audio_unit_data_with_input_and_options(sine_hz::<f32>(440.0), InputSource::None, config);
+}
+
+#[test]
+#[should_panic(expected = "All output samples are 0.0")]
+fn test_output_assertion_non_zero_panics_for_silent_unit() {
+    // A filter with no input produces all-zero output — NonZero assertion must panic
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(64)
+        .build()
+        .unwrap();
+    snapshot_audio_unit_data_with_input_and_options(lowpass_hz(1000.0, 0.7), InputSource::None, config);
+}
+
+#[test]
+fn test_output_assertion_skip_allows_silent_unit() {
+    // Skip should suppress the assertion entirely
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(64)
+        .output_assertion(OutputAssertion::Skip)
+        .build()
+        .unwrap();
+    let data =
+        snapshot_audio_unit_data_with_input_and_options(lowpass_hz(1000.0, 0.7), InputSource::None, config);
+    assert!(data.output_data[0].iter().all(|&s| s == 0.0));
+}
+
+#[test]
+fn test_output_assertion_varies_from_passes_when_output_differs() {
+    // Sine output varies from 0.5, so assertion must pass
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(64)
+        .output_assertion(OutputAssertion::VariesFrom(0.5))
+        .build()
+        .unwrap();
+    snapshot_audio_unit_data_with_input_and_options(sine_hz::<f32>(440.0), InputSource::None, config);
+}
+
+#[test]
+#[should_panic(expected = "All output samples equal the baseline value")]
+fn test_output_assertion_varies_from_panics_when_all_samples_match_baseline() {
+    // pass() with a flat constant input — VariesFrom that constant must panic
+    let config = SnapshotConfigBuilder::default()
+        .num_samples(64)
+        .output_assertion(OutputAssertion::VariesFrom(1.0))
+        .build()
+        .unwrap();
+    snapshot_audio_unit_data_with_input_and_options(
+        pass(),
+        InputSource::Flat(vec![1.0]),
+        config,
+    );
 }
 
 #[cfg(feature = "dot")]
